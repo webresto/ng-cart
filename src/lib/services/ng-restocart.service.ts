@@ -7,7 +7,7 @@ import {
   EventMessage
 } from '@sails-resto/ng-core';
 
-import { Order } from './order';
+import { Order } from '../interfaces/order';
 /*  TODO: В етом класе еще надо реализовать логику проверки доступности разных типов зхранилищь, но пока нету фикса нужного нам модуля ето
  затруднательно прийдется ждать.  */
 
@@ -19,13 +19,20 @@ export class NgRestoCartService {
   cart:BehaviorSubject<any>;
   modifires:BehaviorSubject<any>;
 
+  modifiresMessage:BehaviorSubject<any>;
+  messages:EventMessage[];
+
   constructor(
     private net:NetService,
     private eventer:EventerService
   ) {
     this.cart = new BehaviorSubject({});
     this.modifires = new BehaviorSubject([]);
+    this.modifiresMessage = new BehaviorSubject([]);
+
     this.initialStorage();
+
+    this.modifiresMessage.subscribe(messages => this.messages = messages);
   }
 
   initialStorage() {
@@ -57,6 +64,14 @@ export class NgRestoCartService {
   }
 
   addDishToCart(data) {
+
+    if(this.messages.length) {
+      this.messages.forEach(message => {
+        this.eventer.emitMessageEvent(message);
+      });
+      return;
+    }
+
     this.net.put('/cart/add', data).subscribe(
       res=> {
 
@@ -149,7 +164,7 @@ export class NgRestoCartService {
 
   orderCart(data):void {
     this.net.post('/order', data).subscribe(
-      res=> {
+      res => {
 
         this.setcartIDFromStorage(res.cart.cartId);
         this.cart.next(res.cart);
@@ -168,6 +183,37 @@ export class NgRestoCartService {
 
   }
 
+  checkStreet(data):void{
+
+    this.net.post('/check', data).subscribe(
+      res => {
+        this.setcartIDFromStorage(res.cart.cartId);
+        this.cart.next(res.cart);
+        this.cartID =res.cart.cartId;
+        if(res.message){
+
+          this.eventer.emitMessageEvent(
+            new EventMessage(res.message.type, res.message.title, res.message.body)
+          );
+
+        }
+
+      }, error =>{
+        if(error.error) {
+          if(error.error.cart) {
+            this.setcartIDFromStorage(error.error.cart.cartId);
+            this.cart.next(error.error.cart);
+            this.cartID =error.error.cart.cartId;
+          }
+
+          this.eventer.emitMessageEvent(
+            new EventMessage(error.error.message.type, error.error.message.title, error.error.message.body)
+          );
+        }
+      });
+
+  }
+
   setcartIDFromStorage(cartID) {
     localStorage.setItem('cartID', cartID);
 
@@ -177,9 +223,9 @@ export class NgRestoCartService {
     return this.cart;
   }
 
-  setModifires(modifires):void {
+  setModifires(modifires, messages?: EventMessage[]):void {
     this.modifires.next(modifires);
-
+    if(messages) this.modifiresMessage.next(messages);
   }
 
   getModifires():Observable<any> {

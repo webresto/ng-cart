@@ -1,10 +1,9 @@
-export class Order {
-    
-        cartId: string;
-        comment?: string;
+export interface Order {
+        cartId: string,
+        comment?: string,
         delivery?: {
           type: string
-        };
+        },
         address?: {
           city?: string,
           streetId?: string,
@@ -14,12 +13,10 @@ export class Order {
           entrance?: string,
           floor?: string,
           apartment?: string
-        };
+        },
         customer: {
           phone: string,
           mail?: string,       
           name: string
         }
-      
-      
 }

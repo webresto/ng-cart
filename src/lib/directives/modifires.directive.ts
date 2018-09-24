@@ -1,8 +1,8 @@
 import { Directive, Renderer2, ElementRef, Input } from '@angular/core';
-import {NgRestoCartService} from '../services/ng-restocart.service';
+import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
-  selector: '[Modifires]'
+  selector: '[modifires]'
 })
 
 export class ModifiresDirective {
@@ -10,7 +10,11 @@ export class ModifiresDirective {
   amountModifires:any={};
   stateModifires:any={};
 
-  constructor(private renderer: Renderer2, private el: ElementRef, private ngRestoCart:NgRestoCartService) { 
+  constructor(
+    private renderer: Renderer2,
+    private el: ElementRef,
+    private cartService:NgRestoCartService
+  ) {
 
    
     setTimeout(() => {
@@ -170,7 +174,7 @@ export class ModifiresDirective {
     }
     console.log("модифікатори після циклу",modifires)
 
-    this.ngRestoCart.setModifires(modifires);
+    this.cartService.setModifires(modifires);
     
   }
 

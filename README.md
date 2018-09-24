@@ -46,6 +46,15 @@ import { NgRestoCartService } from 'ng-restocart';
 ~~~
 где:dishForCart - объект блюда которое надо удалить из корзины, amountDish - количество "порций" этого блюда для удаления
 
+### [setDishAmount] - изменяет количество порций блюда
+Пример использования в компоненте:
+
+~~~ html
+<a SetDishAmount [dish]="dish" [action]="'-'" class="main-item__quantity-button">&#8722;</a>
+<a SetDishAmount [dish]="dish" [action]="'+'" class="main-item__quantity-button">&#x2b;</a>
+~~~
+где:dish - объект блюда из корзины action - действие: "+" - добавить порцию, "-" - удалить порцию
+
 ### [amountCart]  - добавляет текущее количество блюд в корзине
 Пример использования в компоненте:
 
@@ -54,20 +63,96 @@ import { NgRestoCartService } from 'ng-restocart';
 ~~~
 Директива добавит внутрь контейнера строку с текущим количеством блюд в корзине
 
-## Сервисы
-###Eventer - генерирует события в процессе работы с модулем Ng-RestoCart
-Прммер использования:
+### [orderCart] - принимает даные из формы и отправляет заказ на офрмление
+Пример использования в компоненте:
 
-
-~~~ javascript
-import {EventerService} from 'ng-restocart';
-.......
-  constructor( private eventerService : EventerService) { }
-  ngOnInit() {
-     this.eventerService.getMessageEmitter().subscribe( message => {console.log(message)});
-  }
+~~~ html
+<form #myForm="ngForm" >
+          <input [(ngModel)]="order.name" name="name" type="text" placeholder="Имя *">
+          <input  [(ngModel)]="order.housing" name="housing"  type="text" placeholder="Корпус">
+          <input  [(ngModel)]="order.apartment" name="apartment"  type="text" placeholder="Квартира">
+          <input  [(ngModel)]="order.entrance" name="entrance" type="text" placeholder="Подъезд">
+          <input  [(ngModel)]="order.doorphone" name="doorphone" type="text" placeholder="Код Домофона">
+          <input  [(ngModel)]="order.floor" name="floor" type="text" placeholder="Этаж">
+          <button class="btn" [disabled]="myForm.invalid" [orderCart]="myForm" >оформить заказ</button>
+         
+    </form>
 ~~~
- getMessageEmitter() -  метод который позволяет подписаться на получение сообщений от модуля.
+где [orderCart]="myForm" получает поля форму myForm, (Не забудьте импортировать FormModule в app.module.ts).
+Ваша форма должна содержать обязательные поля: 
+~~~
+"name" :"string",
+"phone",:"string, обязательно начинается с 7 и содержит 11 цифр"
+"street": "объект улицы полученый с бекенда",
+"house": "string, цифры".
+~~~
+Отправка срабатывает при клике на елемент в котором использовалась директива, в даном случае это button.
+Будьте внимательны, вы самостоятельно должны реализовать валидацию ввода, обязательных полей.
+
+
+### [modifires]  - реализует логику работы с модификаторами блюд, генерирует дом модификаторов
+Пример использования в компоненте:
+
+~~~ html
+<div [Modifires]="dish.modifiers"></div>
+~~~
+Директива использует следующие классы: h5, group-modifires, additional-item, item-name, item-quantity__button, item-quantity__counter, weight-price
+~~~ css
+   .additional-item,
+    .main-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+
+      .item-name {
+        flex-grow: 1;
+      }
+
+      .item-quantity {
+        padding: 0 20px;
+        min-width: 70px;
+        text-align: center;
+
+        &__button {
+          padding: 0 6px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .main-item {
+      font-size: 22px;
+      margin-bottom: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba($color: $light, $alpha: 0.7);
+    }
+    .group-modifires{
+      border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+      border-top: 1px solid rgba(255, 255, 255, 0.7);
+      margin-top: 10px;
+    }
+
+    .additional-item {
+      font-size: 18px;
+      padding: 10px 0;
+    }
+
+    [type="checkbox"]:checked + label:before,
+    [type="checkbox"]:not(:checked) + label:before {
+      border: 1px solid $light;
+    }
+
+    [type="checkbox"]:checked + label:after,
+    [type="checkbox"]:not(:checked) + label:after {
+      background: $light;
+    }
+
+    .weight-price {
+      min-width: 150px;
+    }
+~~~
+
 
 
 

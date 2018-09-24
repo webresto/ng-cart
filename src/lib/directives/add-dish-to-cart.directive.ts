@@ -1,4 +1,4 @@
-import { Directive , HostListener,Input} from '@angular/core';
+import { Directive , HostListener, Input} from '@angular/core';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 
@@ -10,18 +10,16 @@ export class AddDishToCartDirective {
   cart;
   modifires;
 
-  constructor(private ngRestoCart:NgRestoCartService) {
+  constructor(private cartService:NgRestoCartService) {
 
-    this.ngRestoCart.userCart().subscribe(
-      res=> {
-        this.cart = res;
-      }
-    );
-    this.ngRestoCart.getModifires().subscribe(
-      res=> {
-        this.modifires = res;
-      }
-    );
+    this.cartService
+      .userCart()
+      .subscribe(res => this.cart = res);
+
+    this.cartService
+      .getModifires()
+      .subscribe(res => this.modifires = res);
+
   }
 
 
@@ -47,7 +45,7 @@ export class AddDishToCartDirective {
     console.log("другие даные", data)
 
     if (this.cart.cartId) data.cartId = this.cart.cartId;
-    this.ngRestoCart.addDishToCart(data);
+    this.cartService.addDishToCart(data);
   }
 
 
