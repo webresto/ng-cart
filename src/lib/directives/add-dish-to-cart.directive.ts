@@ -40,7 +40,7 @@ export class AddDishToCartDirective {
       "dishId": dishID,
       "amount": amount,
       "cartId": undefined,
-      "modifires": this.modifires
+      "modifiers": this.modifires
     };
     console.log("другие даные", data)
 

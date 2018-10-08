@@ -6,7 +6,7 @@ import { NgRestoCartService } from '../services/ng-restocart.service';
 })
 
 export class ModifiresDirective {
-  @Input() Modifires: any;
+  @Input() modifires: any;
   amountModifires:any={};
   stateModifires:any={};
 
@@ -19,7 +19,7 @@ export class ModifiresDirective {
    
     setTimeout(() => {
   
-      this.render(this.Modifires)
+      this.render(this.modifires)
     
     }, 100);
 
