@@ -7,6 +7,7 @@ import { OrderCartUserDirective } from './directives/order-cart-user.directive';
 //import { ModifiresDirective } from './directives/modifires.directive';
 import { SetAmountDirective } from './directives/set-amount.directive';
 import { DishCalcDirective } from './directives/dish-calc.directive';
+import { CheckoutDirective } from "./directives/checkout.directive";
 
 const DIRECTIVES = [
   AddDishToCartDirective,
@@ -15,7 +16,8 @@ const DIRECTIVES = [
   OrderCartUserDirective,
   //ModifiresDirective,
   DishCalcDirective,
-  SetAmountDirective
+  SetAmountDirective,
+  CheckoutDirective
 ];
 
 const MODULES = [

@@ -131,7 +131,7 @@ export class OrderCartUserDirective {
         },
         "personsCount": dataToSend.personsCount
       };
-      this.cartService.orderCart(data);
+      this.cartService.orderCart(data).subscribe();
     } else {
 
     }
@@ -140,6 +140,7 @@ export class OrderCartUserDirective {
   }
 
   checkStreet(dataToSend) {
+    console.info(this.cart);
     if (this.checkForFields(this.orderCart._directives, this.requiredFields)) {
       let data = {
         "cartId": this.cart.cartId,

@@ -12,14 +12,15 @@ export class DishCalcDirective implements OnDestroy {
 
   @Input()  dish:any;
   @Input()  amount:any;
+  @Input()  selectedModifiers:any;
   @Output()  validate:EventEmitter<any> = new EventEmitter();
   @Output()  amountDishToAdd:EventEmitter<any> = new EventEmitter();
-  selectedModifires:any;
+
   weightTotal;
   amountDish;
   price;
   amountModifires:any = {};
-  stateModifires:any = {};
+  stateModifiers:any = {};
   testcountCall;
 
   constructor(private renderer:Renderer2,
@@ -160,8 +161,8 @@ export class DishCalcDirective implements OnDestroy {
 
   generatePrice(priceDish, amount?, modifiresPrice?) {
     let selected = [];
-    if (this.selectedModifires)
-      this.selectedModifires.forEach(element => {
+    if (this.selectedModifiers)
+      this.selectedModifiers.forEach(element => {
 
         this.dish.modifiers.forEach(groups => {
           let mod = groups.childModifiers.filter(x=>x.modifierId === element.id);
@@ -185,8 +186,8 @@ export class DishCalcDirective implements OnDestroy {
 
   generateTotalWeight() {
     let selected = [];
-    if (this.selectedModifires)
-      this.selectedModifires.forEach(element => {
+    if (this.selectedModifiers)
+      this.selectedModifiers.forEach(element => {
 
         this.dish.modifiers.forEach(groups => {
           let mod = groups.childModifiers.filter(x=>x.modifierId === element.id);
@@ -242,7 +243,7 @@ export class DishCalcDirective implements OnDestroy {
     }
 
     modifires.forEach(elementGroup => {
-      this.stateModifires[elementGroup.modifierId] = {};
+      this.stateModifiers[elementGroup.modifierId] = {};
       this.amountModifires[elementGroup.modifierId] = {};
 
       let groupDiv = this.groupDiv(
@@ -251,15 +252,14 @@ export class DishCalcDirective implements OnDestroy {
       this.renderer.appendChild(this.el.nativeElement, groupDiv);
 
       let modArr = elementGroup.childModifiers;
-      ;
 
       modArr.forEach(element => {
         let modifireDiv = this.modifireDiv(element, elementGroup.modifierId);
         this.renderer.appendChild(groupDiv, modifireDiv);
         if (element.defaultAmount < 1) {
-          this.stateModifires[elementGroup.modifierId][element.modifierId] = false;
+          this.stateModifiers[elementGroup.modifierId][element.modifierId] = false;
         } else {
-          this.stateModifires[elementGroup.modifierId][element.modifierId] = true;
+          this.stateModifiers[elementGroup.modifierId][element.modifierId] = true;
         }
 
       });
@@ -294,6 +294,9 @@ export class DishCalcDirective implements OnDestroy {
   }
 
   renderOneModifire(element, modifireDiv, groupId) {
+
+    console.info('renderOneModifire', element);
+    console.info('renderOneModifire selectedModifiers', this.selectedModifiers);
     // Рендер Названия модификатора
     let itemNameDiv = this.renderer.createElement("div");
     this.renderer.addClass(itemNameDiv, "item-name");
@@ -344,6 +347,8 @@ export class DishCalcDirective implements OnDestroy {
     let min = element.minAmount;
     let max = element.maxAmount;
     let def = element.defaultAmount;
+
+    console.info('min max def', min, max, def);
 
     switch (true) {
       case min === 0 && max === 0 && def === 0: // 0,0,[0] - только выключеный чекбокс
@@ -443,12 +448,12 @@ export class DishCalcDirective implements OnDestroy {
     if (isActive) {
       this.renderer.setProperty(input, 'checked', true);
       element.checked = true;
-      this.stateModifires[groupId][element.modifierId] = true;
+      this.stateModifiers[groupId][element.modifierId] = true;
       this.amountModifires[groupId][element.modifierId] = 1;
 
     } else {
       element.checked = false;
-      this.stateModifires[groupId][element.modifierId] = false;
+      this.stateModifiers[groupId][element.modifierId] = false;
       this.amountModifires[groupId][element.modifierId] = 0;
 
     }
@@ -457,9 +462,9 @@ export class DishCalcDirective implements OnDestroy {
 
     this.renderer.listen(input, "change", e => {
       if (this.idRadioBox(groupId)) {
-        for (const key in this.stateModifires[groupId]) {
-          if (this.stateModifires[groupId].hasOwnProperty(key)) {
-            this.stateModifires[groupId][key] = false;
+        for (const key in this.stateModifiers[groupId]) {
+          if (this.stateModifiers[groupId].hasOwnProperty(key)) {
+            this.stateModifiers[groupId][key] = false;
 
             // this.renderer.setProperty(input, 'checked',   true);
           }
@@ -473,7 +478,7 @@ export class DishCalcDirective implements OnDestroy {
           if (element.id != e.target.id) element.checked = false;
         });
       }
-      this.stateModifires[groupId][e.target.id] = e.target.checked;
+      this.stateModifiers[groupId][e.target.id] = e.target.checked;
       if (e.target.checked) {
         this.amountModifires[groupId][e.target.id] = 1;
 
@@ -501,7 +506,7 @@ export class DishCalcDirective implements OnDestroy {
     }
     if (startAmount > 0) {
 
-      this.stateModifires[groupId][element.modifierId] = true;
+      this.stateModifiers[groupId][element.modifierId] = true;
     }
 
 
@@ -524,7 +529,7 @@ export class DishCalcDirective implements OnDestroy {
       );
 
       if (this.amountModifires[groupId][element.modifierId] === 0) {
-        this.stateModifires[groupId][element.modifierId] = false;
+        this.stateModifiers[groupId][element.modifierId] = false;
       }
       this.setModifires();
       this.innerTotalWeight(this.weightTotal);
@@ -561,7 +566,7 @@ export class DishCalcDirective implements OnDestroy {
         this.amountModifires[groupId][element.modifierId]
       );
       if (this.amountModifires[groupId][element.modifierId] > 0) {
-        this.stateModifires[groupId][element.modifierId] = true;
+        this.stateModifiers[groupId][element.modifierId] = true;
       }
       this.setModifires();
       this.innerTotalWeight(this.weightTotal);
@@ -571,11 +576,21 @@ export class DishCalcDirective implements OnDestroy {
   }
 
   setModifires() {
+    let modifiersToSelect = [];
+
+    /*if(this.selectedModifiers.length && !(Object.values(this.stateModifiers)).length) {
+      modifiersToSelect = this.selectedModifiers;
+    }*/
+
     let modifires = [];
 
-    for (let groupId in this.stateModifires) {
-      for (let modifireId in this.stateModifires[groupId]) {
-        if (this.stateModifires[groupId][modifireId]) {
+    console.info('setModifires modifiersToSelect', modifiersToSelect);
+    console.info('setModifires stateModifiers before', this.stateModifiers);
+    console.info('setModifires selectedModifiers before', this.selectedModifiers);
+
+    for (let groupId in this.stateModifiers) {
+      for (let modifireId in this.stateModifiers[groupId]) {
+        if (this.stateModifiers[groupId][modifireId] || modifiersToSelect.find(item => item.modifierId == modifireId)) {
           modifires.push({
             id: modifireId,
             amount: this.amountModifires[groupId][modifireId],
@@ -584,16 +599,16 @@ export class DishCalcDirective implements OnDestroy {
         }
       }
     }
-    this.selectedModifires = modifires;
+    this.selectedModifiers = modifires;
 
     if (this.dish.modifiers.length > 0) {
       let message = [];
 
       this.dish.modifiers.forEach(group => {
         if (group.required) {
-          if (this.stateModifires[group.modifierId]) {
+          if (this.stateModifiers[group.modifierId]) {
             let selectedModif = [];
-            let localModif = this.stateModifires[group.modifierId]; //.filter(element=>element);
+            let localModif = this.stateModifiers[group.modifierId]; //.filter(element=>element);
             for (const mod in localModif) {
               if (localModif.hasOwnProperty(mod)) {
                 if (localModif[mod]) {
@@ -633,6 +648,9 @@ export class DishCalcDirective implements OnDestroy {
       this.validate.emit(true);
       this.cartService.setModifires(modifires, []);
     }
+
+    console.info('setModifires stateModifiers after', this.stateModifiers);
+    console.info('setModifires selectedModifiers after', this.selectedModifiers);
   }
 
   /* проверяет соотвествет ли максимальное количество модификаторовб если 1 то реализует поведение радиокнопки,

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import {
   NetService,
@@ -60,7 +61,6 @@ export class NgRestoCartService {
 
   getcartIDFromStorage():string {
     return localStorage.getItem('cartID');
-
   }
 
   addDishToCart(data) {
@@ -158,30 +158,59 @@ export class NgRestoCartService {
         mail: data.email || undefined
       }
     };
-    this.orderCart(order);
+    return this.orderCart(order);
 
   }
 
-  orderCart(data):void {
-    this.net.post('/order', data).subscribe(
-      res => {
-
-        this.setcartIDFromStorage(res.cart.cartId);
-        this.cart.next(res.cart);
-        this.cartID = res.cart.cartId;
-
-        this.eventer.emitMessageEvent(
-          new EventMessage('success', 'Успех', 'Заказ упешно оформлен')
-        );
-        console.log(res)
-
-      }, error => {
-        this.eventer.emitMessageEvent(
-          new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
+  orderCart(data) {
+    return this.net.post('/order', data)
+      .pipe(
+        tap(
+          result => {
+            this.setcartIDFromStorage(result.cart.cartId);
+            this.cart.next(result.cart);
+            this.cartID = result.cart.cartId;
+            this.eventer.emitMessageEvent(
+              new EventMessage('success', 'Успех', 'Заказ упешно оформлен')
+            );
+          },
+          error => {
+            console.error(error);
+            this.eventer.emitMessageEvent(
+              new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
+            )
+          }
         )
-      });
-
+      );
   }
+
+  /*checkStreet(data):void {
+    return this.net.post('/check', data)
+      .pipe(
+        tap(
+          result => {
+            this.setcartIDFromStorage(result.cart.cartId);
+            this.cart.next(result.cart);
+            this.cartID = result.cart.cartId;
+            if (result.message) {
+              this.eventer.emitMessageEvent(
+                new EventMessage(
+                  result.message.type,
+                  result.message.title,
+                  result.message.body
+                )
+              );
+            }
+          },
+          error => {
+            console.error(error);
+            this.eventer.emitMessageEvent(
+              new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
+            )
+          }
+        )
+      );
+  }*/
 
   checkStreet(data):void{
 

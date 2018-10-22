@@ -6,14 +6,14 @@ export declare class DishCalcDirective implements OnDestroy {
     private cartService;
     dish: any;
     amount: any;
+    selectedModifiers: any;
     validate: EventEmitter<any>;
     amountDishToAdd: EventEmitter<any>;
-    selectedModifires: any;
     weightTotal: any;
     amountDish: any;
     price: any;
     amountModifires: any;
-    stateModifires: any;
+    stateModifiers: any;
     testcountCall: any;
     constructor(renderer: Renderer2, el: ElementRef, cartService: NgRestoCartService);
     renderDish(dish: any): void;
