@@ -20,4 +20,5 @@ export declare class CheckoutDirective {
     cart: any;
     constructor(cartService: NgRestoCartService);
     onClick(): void;
+    preparePhone(phone: any): any;
 }

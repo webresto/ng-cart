@@ -51,7 +51,7 @@ export class CheckoutDirective {
       "cartId": this.cart.cartId,
       "comment": comment,
       "customer": {
-        "phone": this.phone,
+        "phone": this.preparePhone(this.phone),
         "mail": this.email,
         "name": this.name
       },
@@ -80,4 +80,9 @@ export class CheckoutDirective {
       );
   }
 
+
+  preparePhone(phone) {
+    phone = '+' + phone.replace(/[^0-9]/gim,'');
+    return phone.replace('+8', '');
+  }
 }
