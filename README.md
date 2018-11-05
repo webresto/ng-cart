@@ -166,7 +166,9 @@ import { NgRestoCartService } from 'ng-restocart';
                 [entrance]="entrance.value"
                 [doorphone]="doorphone.value"
                 [floor]="floor.value"
+                [personsCount]="personsCount.value"
 
+                [paymentMethod]="paymentMethod.value"
                 [comment]="comment.value"
                 [disabled]="loading || addressForm.invalid"
 

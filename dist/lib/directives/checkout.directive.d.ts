@@ -13,6 +13,7 @@ export declare class CheckoutDirective {
     entrance: string;
     doorphone: string;
     floor: string;
+    paymentMethod: string;
     personsCount: number;
     comment: string;
     success: EventEmitter<boolean>;

@@ -90,6 +90,98 @@ import { NgRestoCartService } from 'ng-restocart';
 Будьте внимательны, вы самостоятельно должны реализовать валидацию ввода, обязательных полей.
 
 
+
+### [checkout] - оформление заказа с учетом сохраненного адреса
+Пример использования в компоненте.
+
+Селект выбора адреса:
+
+~~~ html
+        <div class="form-item">
+          <label for="">Выберите адрес</label>
+          <select [(ngModel)]="selectedAddress">
+            <ng-container *ngFor="let address of addresses">
+              <option value="{{address.id}}">{{address.name}} ({{address | addressFormated}})</option>
+            </ng-container>
+            <option value="other">Указать другой адрес</option>
+          </select>
+        </div>
+~~~
+
+Далее если пользователь выбрал свой адрес будет видну следующий button:
+
+~~~ html
+        <button checkout *ngIf="selectedAddress != 'other'"
+              [name]="name.value"
+              [email]="email.value"
+              [phone]="phone.value"
+
+              [locationId]="selectedAddress"
+
+              [comment]="comment.value"
+              [disabled]="loading || orderForm.invalid || !selectedAddress"
+
+              (error)="loading = false"
+              (success)="loading = false; checkoutSuccess = true"
+              (click)="loading = true"
+              class="btn-yellow-hollow">Оформить</button>
+              
+~~~
+
+Если же пользователь не авторизирован или захотел другой адрес то сработает это
+
+
+~~~ html
+<ng-container *ngIf="!isLoggedIn || selectedAddress == 'other'">
+      <h2 class="align-left" [style.margin]="'50px 0'">Укажите адрес</h2>
+
+      <form [formGroup]="addressForm" novalidate>
+        <div class="row">
+          <div class="form-item">
+            <select #street    formControlName="street">
+              <option value="0">Укажите улицу</option>
+              <ng-container *ngFor="let street of streets">
+                <option value="{{street.id}}">{{street.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="form-item"><input #home      formControlName="home"  type="text" placeholder="Дом"></div>
+        </div>
+        <div class="row">
+          <div class="form-item"><input #housing   formControlName="housing"  type="text" placeholder="Корпус"></div>
+          <div class="form-item"><input #apartment formControlName="apartment"  type="text" placeholder="Квартира"></div>
+          <div class="form-item"><input #entrance  formControlName="entrance" type="text" placeholder="Подъезд"></div>
+          <div class="form-item"><input #doorphone formControlName="doorphone" type="text" placeholder="Код Домофона"></div>
+          <div class="form-item"><input #floor     formControlName="floor" type="text" placeholder="Этаж"></div>
+        </div>
+
+        <button checkout class="btn-yellow-hollow"
+                [name]="name.value"
+                [email]="email.value"
+                [phone]="phone.value"
+                [streetId]="street.value"
+                [home]="home.value"
+                [housing]="housing.value"
+                [apartment]="apartment.value"
+                [entrance]="entrance.value"
+                [doorphone]="doorphone.value"
+                [floor]="floor.value"
+                [personsCount]="personsCount.value"
+
+                [paymentMethod]="paymentMethod.value"
+                [comment]="comment.value"
+                [disabled]="loading || addressForm.invalid"
+
+                (error)="loading = false"
+                (success)="loading = false; checkoutSuccess = true"
+                (click)="loading = true"
+                class="btn-yellow-hollow">Оформить</button>
+      </form>
+    </ng-container>
+    
+~~~
+
+
 ### [modifires]  - реализует логику работы с модификаторами блюд, генерирует дом модификаторов
 Пример использования в компоненте:
 

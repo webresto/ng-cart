@@ -21,6 +21,7 @@ export class CheckoutDirective {
   @Input() doorphone:string;
   @Input() floor:string;
 
+  @Input() paymentMethod:string
   @Input() personsCount:number;
   @Input() comment:string;
   
@@ -46,10 +47,11 @@ export class CheckoutDirective {
     }
 
     let comment = this.comment || "Не указан";
+    let paymentMethod = this.paymentMethod || "Не указано";
 
     let data = {
       "cartId": this.cart.cartId,
-      "comment": comment,
+      "comment": `${comment}\r\nОплата: ${paymentMethod}`,
       "customer": {
         "phone": this.preparePhone(this.phone),
         "mail": this.email,
