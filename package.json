@@ -1,6 +1,6 @@
 {
   "name": "@sails-resto/ng-cart",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "peerDependencies": {
     "ngx-store": "^2.0.0",
     "@sails-resto/ng-core": "git+http://git.42team.ru/webresto/ng-core.git#add_build",

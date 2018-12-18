@@ -174,7 +174,8 @@ export class NgRestoCartService {
               new EventMessage('success', 'Успех', 'Заказ упешно оформлен')
             );
           },
-          error => {         
+          error => {   
+            console.log("Ошибка оформления!",error)      
             if(error.error && error.error.cart) {
               this.setcartIDFromStorage(error.error.cart.cartId);
               this.cart.next(error.error.cart);
