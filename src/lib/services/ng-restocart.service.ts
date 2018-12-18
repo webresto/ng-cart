@@ -175,20 +175,20 @@ export class NgRestoCartService {
             );
           },
           error => {         
-            if(error.error) {
-              if(error.error.cart) {
-                this.setcartIDFromStorage(error.error.cart.cartId);
-                this.cart.next(error.error.cart);
-                this.cartID =error.error.cart.cartId;
-              }    
-              this.eventer.emitMessageEvent(
-                new EventMessage(error.message.type, error.message.title, error.message.body)
-              );
-            }else{
-              this.eventer.emitMessageEvent(
-                new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
-              )
-            }
+            if(error.error && error.error.cart) {
+              this.setcartIDFromStorage(error.error.cart.cartId);
+              this.cart.next(error.error.cart);
+              this.cartID =error.error.cart.cartId;
+          }
+          if(error.message){
+            this.eventer.emitMessageEvent(
+              new EventMessage(error.message.type, error.message.title, error.message.body)
+            );
+          }else{
+            this.eventer.emitMessageEvent(
+              new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
+            );
+          }
           }
         )
       );
