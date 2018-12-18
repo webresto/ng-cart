@@ -182,7 +182,7 @@ export class NgRestoCartService {
                 this.cartID =error.error.cart.cartId;
               }    
               this.eventer.emitMessageEvent(
-                new EventMessage(error.error.message.type, error.error.message.title, error.error.message.body)
+                new EventMessage(error.message.type, error.message.title, error.message.body)
               );
             }else{
               this.eventer.emitMessageEvent(
