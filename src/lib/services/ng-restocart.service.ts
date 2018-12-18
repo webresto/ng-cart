@@ -174,11 +174,21 @@ export class NgRestoCartService {
               new EventMessage('success', 'Успех', 'Заказ упешно оформлен')
             );
           },
-          error => {
-            console.error(error);
-            this.eventer.emitMessageEvent(
-              new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
-            )
+          error => {         
+            if(error.error) {
+              if(error.error.cart) {
+                this.setcartIDFromStorage(error.error.cart.cartId);
+                this.cart.next(error.error.cart);
+                this.cartID =error.error.cart.cartId;
+              }    
+              this.eventer.emitMessageEvent(
+                new EventMessage(error.error.message.type, error.error.message.title, error.error.message.body)
+              );
+            }else{
+              this.eventer.emitMessageEvent(
+                new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
+              )
+            }
           }
         )
       );
