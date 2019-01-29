@@ -29,9 +29,7 @@
   "typings": "dist/sails-resto-ng-cart.d.ts",
   "metadata": "dist/sails-resto-ng-cart.metadata.json",
   "sideEffects": false,
-  "dependencies": {
-   
-  },
+  "dependencies": {},
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.6",
     "@angular-devkit/build-ng-packagr": "~0.6.6",
