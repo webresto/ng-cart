@@ -10,7 +10,7 @@ export class CheckoutDirective {
   @Input() name:string;
   @Input() email:string;
   @Input() phone:string;
-
+  @Input() delivery:boolean;
   @Input() locationId:string;
 
   @Input() streetId: string;
@@ -52,6 +52,7 @@ export class CheckoutDirective {
     let data = {
       "cartId": this.cart.cartId,
       "comment": `${comment}\r\nОплата: ${paymentMethod}`,
+      "delivery": {self:this.delivery},
       "customer": {
         "phone": this.preparePhone(this.phone),
         "mail": this.email,

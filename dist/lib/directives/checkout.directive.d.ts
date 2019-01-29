@@ -5,6 +5,7 @@ export declare class CheckoutDirective {
     name: string;
     email: string;
     phone: string;
+    delivery: boolean;
     locationId: string;
     streetId: string;
     home: string;
