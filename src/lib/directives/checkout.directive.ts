@@ -52,7 +52,7 @@ export class CheckoutDirective {
     let data = {
       "cartId": this.cart.cartId,
       "comment": `${comment}\r\nОплата: ${paymentMethod}`,
-      "delivery": {self:this.delivery},
+      "delivery": {"self":this.delivery},
       "customer": {
         "phone": this.preparePhone(this.phone),
         "mail": this.email,
