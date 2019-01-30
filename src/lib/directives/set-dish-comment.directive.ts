@@ -2,7 +2,7 @@ import { Directive, Input, Output, EventEmitter, HostListener } from '@angular/c
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
-  selector: '[appSetDishComment]'
+  selector: '[setDishComment]'
 })
 export class SetDishCommentDirective {
   @Input() comment:any;
