@@ -17,9 +17,10 @@ const DIRECTIVES = [
   OrderCartUserDirective,
   //ModifiresDirective,
   DishCalcDirective,
+  SetDishCommentDirective,
   SetAmountDirective,
   CheckoutDirective,
-  SetDishCommentDirective
+  
 ];
 
 const MODULES = [
