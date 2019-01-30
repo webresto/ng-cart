@@ -18,7 +18,8 @@ const DIRECTIVES = [
   //ModifiresDirective,
   DishCalcDirective,
   SetAmountDirective,
-  CheckoutDirective
+  CheckoutDirective,
+  SetDishCommentDirective
 ];
 
 const MODULES = [
@@ -27,7 +28,7 @@ const MODULES = [
 @NgModule({
   imports: [...MODULES],
   providers: [],
-  declarations: [...DIRECTIVES, SetDishCommentDirective],
+  declarations: [...DIRECTIVES],
   exports: [...DIRECTIVES]
 })
 export class NgRestoCartModule { }
