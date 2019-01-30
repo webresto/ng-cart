@@ -25,7 +25,7 @@ export class AddDishToCartDirective {
 
   @Input() dish:any;
   @Input() amountDish:any;
-  @Input() comment:any;
+  @Input() comment:string;
 
 
   @HostListener('click')
