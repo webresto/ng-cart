@@ -6,6 +6,7 @@ export declare class AddDishToCartDirective {
     constructor(cartService: NgRestoCartService);
     dish: any;
     amountDish: any;
+    comment: any;
     onClick(): void;
     private addDishToCart;
 }

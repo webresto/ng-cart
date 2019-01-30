@@ -25,6 +25,7 @@ export class AddDishToCartDirective {
 
   @Input() dish:any;
   @Input() amountDish:any;
+  @Input() comment:any;
 
 
   @HostListener('click')
@@ -40,7 +41,8 @@ export class AddDishToCartDirective {
       "dishId": dishID,
       "amount": amount,
       "cartId": undefined,
-      "modifiers": this.modifires
+      "modifiers": this.modifires,
+      "comment":this.comment
     };
     console.log("другие даные", data)
 
