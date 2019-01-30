@@ -9,3 +9,4 @@ export { DeleteFromCartDirective as ɵc } from './lib/directives/delete-from-car
 export { DishCalcDirective as ɵe } from './lib/directives/dish-calc.directive';
 export { OrderCartUserDirective as ɵd } from './lib/directives/order-cart-user.directive';
 export { SetAmountDirective as ɵf } from './lib/directives/set-amount.directive';
+export { SetDishCommentDirective as ɵh } from './lib/directives/set-dish-comment.directive';

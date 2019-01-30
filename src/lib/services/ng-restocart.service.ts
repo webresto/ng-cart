@@ -115,6 +115,28 @@ export class NgRestoCartService {
       });
   }
 
+  setDishComment (dishId, comment) {
+    return this.net.post('/cart/setcomment', {
+        "dishId": dishId,
+        "cartId": this.cartID,
+        "comment": comment
+    }).pipe(tap(
+      res=> {
+
+        this.setcartIDFromStorage(res.cart.cartId);
+        this.cart.next(res.cart);
+        this.cartID = res.cart.cartId;
+
+      }, error => {
+        this.eventer.emitMessageEvent(
+          new EventMessage('error', 'Ошибка', 'Не удалось изменить коментарий')
+        )
+      }
+
+    ))
+    
+  }
+
   removeDishFromCart(dishId, amount) {
     this.net.put('/cart/remove', {
       "dishId": dishId,

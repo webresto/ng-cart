@@ -8,6 +8,7 @@ import { OrderCartUserDirective } from './directives/order-cart-user.directive';
 import { SetAmountDirective } from './directives/set-amount.directive';
 import { DishCalcDirective } from './directives/dish-calc.directive';
 import { CheckoutDirective } from "./directives/checkout.directive";
+import { SetDishCommentDirective } from './directives/set-dish-comment.directive';
 
 const DIRECTIVES = [
   AddDishToCartDirective,
@@ -26,7 +27,7 @@ const MODULES = [
 @NgModule({
   imports: [...MODULES],
   providers: [],
-  declarations: [...DIRECTIVES],
+  declarations: [...DIRECTIVES, SetDishCommentDirective],
   exports: [...DIRECTIVES]
 })
 export class NgRestoCartModule { }
