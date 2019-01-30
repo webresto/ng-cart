@@ -26,9 +26,9 @@ const MODULES = [
 ];
 
 @NgModule({
-  imports: [...MODULES],
+  imports: [MODULES],
   providers: [],
-  declarations: [...DIRECTIVES],
-  exports: [...DIRECTIVES]
+  declarations: [DIRECTIVES],
+  exports: [DIRECTIVES]
 })
 export class NgRestoCartModule { }
