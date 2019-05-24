@@ -1,4 +1,4 @@
-import { Directive, Input, Output, HostListener, EventEmitter } from '@angular/core';
+import { Directive, Input, Output, HostListener, EventEmitter, SimpleChanges } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
@@ -27,6 +27,7 @@ export class CheckoutDirective {
   
   @Output() success = new EventEmitter<boolean>();
   @Output() error = new EventEmitter<string>();
+
 
   cart: any;
 
@@ -82,9 +83,61 @@ export class CheckoutDirective {
       );
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+
+    if(!changes.locationId && !changes.streetId && !changes.home) return;
+
+    this.checkStreet();
+  }
+
+  checkStreet() {
+    if(!this.locationId && !(this.streetId && this.home)) {
+      return;
+    }
+
+    if(this.streetId == '0') return;
+
+    let comment = this.comment || "Не указан";
+    let paymentMethod = this.paymentMethod || "Не указано";
+
+    let data = {
+      "cartId": this.cart.cartId,
+      "comment": `${comment}\r\nОплата: ${paymentMethod}`,
+      "customer": {
+        "phone": '+78888888888',
+        "mail": this.email,
+        "name": this.name
+      },
+      "personsCount": this.personsCount
+    };
+
+    if(this.locationId) {
+      data["locationId"] = this.locationId;
+    } else {
+      data["address"] = {
+        "streetId": this.streetId,
+        "home": +this.home,
+        "housing": this.housing,
+        "doorphone": this.doorphone || '',
+        "entrance": this.entrance || '',
+        "floor": this.floor || '',
+        "apartment": this.apartment || ''
+      }
+    }
+
+    this.cartService
+      .checkStreetV2(data)
+      .subscribe(
+        //() => this.success.emit(true),
+        //error => this.error.emit(error)
+        result => console.info('Check street result', result),
+        error => console.info('Check street error', error)
+      );
+  }
+
 
   preparePhone(phone) {
     phone = '+' + phone.replace(/[^0-9]/gim,'');
-    return phone.replace('+8', '');
+    return phone.replace('+8', '+7');
   }
 }

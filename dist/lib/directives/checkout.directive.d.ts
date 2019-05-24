@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, SimpleChanges } from '@angular/core';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 export declare class CheckoutDirective {
     private cartService;
@@ -21,5 +21,7 @@ export declare class CheckoutDirective {
     cart: any;
     constructor(cartService: NgRestoCartService);
     onClick(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    checkStreet(): void;
     preparePhone(phone: any): any;
 }

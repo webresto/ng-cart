@@ -79,15 +79,14 @@ export class NgRestoCartService {
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
 
-        this.eventer.emitMessageEvent(
+        /*this.eventer.emitMessageEvent(
           new EventMessage('success', 'Успех', 'Блюдо добавлено в корзину')
-        );
-        console.log(res)
+        );*/
 
       }, error => {
-        this.eventer.emitMessageEvent(
+        /*this.eventer.emitMessageEvent(
           new EventMessage('error', 'Ошибка', 'Не удалось добавить блюдо')
-        )
+        )*/
       });
   }
 
@@ -106,12 +105,12 @@ export class NgRestoCartService {
         /*this.eventer.emitMessageEvent(
           new EventMessage('success', 'Успех', 'Изменено количество')
         );*/
-        console.log(res)
+
 
       }, error => {
-        this.eventer.emitMessageEvent(
+        /*this.eventer.emitMessageEvent(
           new EventMessage('error', 'Ошибка', 'Не удалось изменить количество')
-        )
+        )*/
       });
   }
 
@@ -126,15 +125,14 @@ export class NgRestoCartService {
         this.setcartIDFromStorage(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
-        this.eventer.emitMessageEvent(
+        /*this.eventer.emitMessageEvent(
           new EventMessage('success', 'Успех', 'Блюдо успешно удалено')
-        );
-        console.log(res)
+        );*/
 
       }, error => {
-        this.eventer.emitMessageEvent(
+        /*this.eventer.emitMessageEvent(
           new EventMessage('error', 'Ошибка', 'Не удалось удалить блюдо')
-        )
+        )*/
       });
 
   }
@@ -170,21 +168,22 @@ export class NgRestoCartService {
             this.setcartIDFromStorage(result.cart.cartId);
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
-            this.eventer.emitMessageEvent(
+            /*this.eventer.emitMessageEvent(
               new EventMessage('success', 'Успех', 'Заказ упешно оформлен')
-            );
+            );*/
           },
           error => {
-            console.error(error);
-            this.eventer.emitMessageEvent(
-              new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
-            )
+            /*console.error(error);*/
+            /*this.eventer.emitMessageEvent(
+              //new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
+              new EventMessage('error', error.error.message.title, error.error.message.body)
+            )*/
           }
         )
       );
   }
 
-  /*checkStreet(data):void {
+  checkStreetV2(data):Observable<any> {
     return this.net.post('/check', data)
       .pipe(
         tap(
@@ -192,7 +191,7 @@ export class NgRestoCartService {
             this.setcartIDFromStorage(result.cart.cartId);
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
-            if (result.message) {
+            /*if (result.message) {
               this.eventer.emitMessageEvent(
                 new EventMessage(
                   result.message.type,
@@ -200,17 +199,17 @@ export class NgRestoCartService {
                   result.message.body
                 )
               );
-            }
+            }*/
           },
           error => {
             console.error(error);
-            this.eventer.emitMessageEvent(
-              new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
-            )
+            //this.eventer.emitMessageEvent(
+              //new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
+            //)
           }
         )
       );
-  }*/
+  }
 
   checkStreet(data):void{
 
@@ -220,13 +219,10 @@ export class NgRestoCartService {
         this.cart.next(res.cart);
         this.cartID =res.cart.cartId;
         if(res.message){
-
           this.eventer.emitMessageEvent(
             new EventMessage(res.message.type, res.message.title, res.message.body)
           );
-
         }
-
       }, error =>{
         if(error.error) {
           if(error.error.cart) {
@@ -234,10 +230,9 @@ export class NgRestoCartService {
             this.cart.next(error.error.cart);
             this.cartID =error.error.cart.cartId;
           }
-
-          this.eventer.emitMessageEvent(
+          /*this.eventer.emitMessageEvent(
             new EventMessage(error.error.message.type, error.error.message.title, error.error.message.body)
-          );
+          );*/
         }
       });
 

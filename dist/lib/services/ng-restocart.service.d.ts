@@ -16,6 +16,7 @@ export declare class NgRestoCartService {
     removeDishFromCart(dishId: any, amount: any): void;
     checkoutCart(data: any): Observable<any>;
     orderCart(data: any): Observable<any>;
+    checkStreetV2(data: any): Observable<any>;
     checkStreet(data: any): void;
     setcartIDFromStorage(cartID: any): void;
     userCart(): Observable<any>;

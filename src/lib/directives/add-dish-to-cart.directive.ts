@@ -42,7 +42,7 @@ export class AddDishToCartDirective {
       "cartId": undefined,
       "modifiers": this.modifires
     };
-    console.log("другие даные", data)
+    //console.log("другие даные", data)
 
     if (this.cart.cartId) data.cartId = this.cart.cartId;
     this.cartService.addDishToCart(data);
