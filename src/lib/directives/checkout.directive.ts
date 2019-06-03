@@ -10,7 +10,7 @@ export class CheckoutDirective {
   @Input() name:string;
   @Input() email:string;
   @Input() phone:string;
-
+  @Input() delivery:any;
   @Input() locationId:string;
 
   @Input() streetId: string;
@@ -60,6 +60,9 @@ export class CheckoutDirective {
       },
       "personsCount": this.personsCount
     };
+     if(this.delivery){
+       data["delivery"] = { "type": "self"}
+     }
 
     if(this.locationId) {
       data["locationId"] = this.locationId;
