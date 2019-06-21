@@ -2,6 +2,7 @@ import { EventEmitter, SimpleChanges } from '@angular/core';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 export declare class CheckoutDirective {
     private cartService;
+    cartTotal: any;
     name: string;
     email: string;
     phone: string;

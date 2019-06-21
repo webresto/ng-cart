@@ -7,6 +7,8 @@ import { NgRestoCartService } from '../services/ng-restocart.service';
 })
 export class CheckoutDirective {
 
+  @Input() cartTotal:any;
+
   @Input() name:string;
   @Input() email:string;
   @Input() phone:string;
@@ -21,7 +23,7 @@ export class CheckoutDirective {
   @Input() doorphone:string;
   @Input() floor:string;
 
-  @Input() paymentMethod:string
+  @Input() paymentMethod:string;
   @Input() personsCount:number;
   @Input() comment:string;
   
@@ -87,18 +89,13 @@ export class CheckoutDirective {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-
-    if(!changes.locationId && !changes.streetId && !changes.home) return;
-
+    //if(!changes.locationId && !changes.streetId && !changes.home) return;
     this.checkStreet();
   }
 
   checkStreet() {
-    if(!this.locationId && !(this.streetId && this.home)) {
-      return;
-    }
 
-    if(this.streetId == '0') return;
+    //if(this.streetId == '0') return;
 
     let comment = this.comment || "Не указан";
     let paymentMethod = this.paymentMethod || "Не указано";
@@ -113,6 +110,11 @@ export class CheckoutDirective {
       },
       "personsCount": this.personsCount
     };
+
+
+    if(this.delivery){
+      data["delivery"] = { "type": "self"}
+    }
 
     if(this.locationId) {
       data["locationId"] = this.locationId;
