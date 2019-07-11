@@ -1,4 +1,5 @@
-import { EventEmitter, SimpleChanges } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 export declare class CheckoutDirective {
     private cartService;
@@ -18,12 +19,12 @@ export declare class CheckoutDirective {
     paymentMethod: string;
     personsCount: number;
     comment: string;
+    formIsChanged: Observable<any>;
     success: EventEmitter<boolean>;
     error: EventEmitter<string>;
     cart: any;
     constructor(cartService: NgRestoCartService);
     onClick(): void;
-    ngOnChanges(changes: SimpleChanges): void;
     checkStreet(): void;
     preparePhone(phone: any): any;
 }

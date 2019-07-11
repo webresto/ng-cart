@@ -6,6 +6,7 @@ export declare class NgRestoCartService {
     cartID: string;
     cart: BehaviorSubject<any>;
     modifires: BehaviorSubject<any>;
+    OrderFormChange: BehaviorSubject<any>;
     modifiresMessage: BehaviorSubject<any>;
     messages: EventMessage[];
     constructor(net: NetService, eventer: EventerService);

@@ -1,5 +1,5 @@
 import { Directive, Input, Output, HostListener, EventEmitter, SimpleChanges } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
@@ -26,6 +26,7 @@ export class CheckoutDirective {
   @Input() paymentMethod:string;
   @Input() personsCount:number;
   @Input() comment:string;
+  @Input() formIsChanged: Observable<any>;
   
   @Output() success = new EventEmitter<boolean>();
   @Output() error = new EventEmitter<string>();
@@ -38,7 +39,11 @@ export class CheckoutDirective {
   ) {
     this.cartService
       .userCart()
-      .subscribe(cart => this.cart = cart)
+      .subscribe(cart => this.cart = cart);
+    this.cartService.OrderFormChange.subscribe(res=>{
+      if(res)
+        this.checkStreet();
+    })
   }
 
   @HostListener('click')
@@ -88,10 +93,11 @@ export class CheckoutDirective {
       );
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+/*  ngOnChanges(changes: SimpleChanges) {
     //if(!changes.locationId && !changes.streetId && !changes.home) return;
-    this.checkStreet();
-  }
+    // this.checkStreet();
+    console.log('CHANGES', changes);
+  }*/
 
   checkStreet() {
 
