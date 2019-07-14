@@ -67,9 +67,12 @@ export class CheckoutDirective {
       },
       "personsCount": this.personsCount
     };
-     if(this.delivery){
-       data["delivery"] = { "type": "self"}
-     }
+
+    // console.log('FFFFFFFFFFFFFFFF', this.delivery);
+
+    data["selfDelivery"] = this.delivery;
+
+
 
     if(this.locationId) {
       data["locationId"] = this.locationId;
@@ -118,9 +121,11 @@ export class CheckoutDirective {
     };
 
 
-    if(this.delivery){
-      data["delivery"] = { "type": "self"}
-    }
+    // console.log('EEEEEEEEEEEE', this.delivery);
+
+    data["selfDelivery"] = this.delivery;
+
+
 
     if(this.locationId) {
       data["locationId"] = this.locationId;
