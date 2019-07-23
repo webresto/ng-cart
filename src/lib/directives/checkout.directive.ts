@@ -113,7 +113,7 @@ export class CheckoutDirective {
       "cartId": this.cart.cartId,
       "comment": `${comment}\r\nОплата: ${paymentMethod}`,
       "customer": {
-        "phone": '+78888888888',
+        "phone": this.preparePhone(this.phone),
         "mail": this.email,
         "name": this.name
       },
