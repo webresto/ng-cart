@@ -5,7 +5,7 @@
 Добавите следующие в ваш app.module.ts
 
 ~~~ javascript
-import { NgRestoCartModule } from '@sails-resto/ng-cart';
+import { NgRestoCartModule } from '@webresto/ng-cart';
 ~~~
 ~~~ javascript
 imports: [

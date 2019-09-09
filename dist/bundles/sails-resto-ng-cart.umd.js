@@ -1,7 +1,7 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@sails-resto/ng-core')) :
-    typeof define === 'function' && define.amd ? define('@sails-resto/ng-cart', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@sails-resto/ng-core'], factory) :
-    (factory((global['sails-resto'] = global['sails-resto'] || {}, global['sails-resto']['ng-cart'] = {}),global.ng.core,global.rxjs,global.rxjs.operators,null));
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@webresto/ng-core')) :
+    typeof define === 'function' && define.amd ? define('@webresto/ng-cart', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@webresto/ng-core'], factory) :
+    (factory((global['webresto'] = global['webresto'] || {}, global['webresto']['ng-cart'] = {}),global.ng.core,global.rxjs,global.rxjs.operators,null));
 }(this, (function (exports,i0,rxjs,operators,i1) { 'use strict';
 
     /**

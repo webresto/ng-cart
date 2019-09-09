@@ -5,9 +5,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { NetService, EventerService, EventMessage } from '@sails-resto/ng-core';
+import { NetService, EventerService, EventMessage } from '@webresto/ng-core';
 import * as i0 from "@angular/core";
-import * as i1 from "@sails-resto/ng-core";
+import * as i1 from "@webresto/ng-core";
 /*  TODO: В етом класе еще надо реализовать логику проверки доступности разных типов зхранилищь, но пока нету фикса нужного нам модуля ето
  затруднательно прийдется ждать.  */
 var NgRestoCartService = /** @class */ (function () {

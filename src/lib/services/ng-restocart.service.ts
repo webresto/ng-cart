@@ -6,7 +6,7 @@ import {
   NetService,
   EventerService,
   EventMessage
-} from '@sails-resto/ng-core';
+} from '@webresto/ng-core';
 
 import { Order } from '../interfaces/order';
 /*  TODO: В етом класе еще надо реализовать логику проверки доступности разных типов зхранилищь, но пока нету фикса нужного нам модуля ето
