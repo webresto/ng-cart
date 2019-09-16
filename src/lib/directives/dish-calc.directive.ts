@@ -81,7 +81,7 @@ export class DishCalcDirective implements OnDestroy {
     this.renderer.setProperty(
       weightDishValue,
       "innerHTML",
-      this.dish.weight * 1000 + " г."
+      (this.dish.weight * 1000).toFixed(0) + " г."
     );
     if (this.dish.weight === 0 || !this.dish.weight) {
       this.renderer.addClass(weightDishValue, "zero");
@@ -208,7 +208,7 @@ export class DishCalcDirective implements OnDestroy {
     console.log(this.dish.weight, this.amountDish)
     let weight = (this.dish.weight * 1000 * this.amountDish) + modSum;
 
-    return weight + " г. <div class='separator'></div>";
+    return (weight).toFixed(0) + " г. <div class='separator'></div>";
   }
 
   innerTotalWeight(totalWeigthDiv) {
@@ -315,7 +315,7 @@ export class DishCalcDirective implements OnDestroy {
     if (element.dish.weight === 0 || element.dish.weight < 0) {
       this.renderer.addClass(weightModifireLeft, 'zero');
     }
-    this.renderer.setProperty(weightModifireLeft, 'innerHTML', element.dish.weight * 1000 + " г." + '');
+    this.renderer.setProperty(weightModifireLeft, 'innerHTML', (element.dish.weight * 1000).toFixed(0) + " г." + '');
 
     this.renderer.appendChild(weigthModifireWraper, weightModifireLeft);
     this.renderer.appendChild(modifireDiv, weigthModifireWraper);
@@ -415,7 +415,7 @@ export class DishCalcDirective implements OnDestroy {
     if (element.dish.weight === 0 || element.dish.weight < 0) {
       this.renderer.addClass(weightModifireRight, 'zero');
     }
-    this.renderer.setProperty(weightModifireRight, 'innerHTML', element.dish.weight * 1000 + " г." + '<div class="separator"></div>');
+    this.renderer.setProperty(weightModifireRight, 'innerHTML', (element.dish.weight * 1000).toFixed(0) + " г." + '<div class="separator"></div>');
 
     this.renderer.appendChild(rightweigthModifireWraper, weightModifireRight);
     this.renderer.appendChild(modifireDiv, rightweigthModifireWraper);
