@@ -1,7 +1,7 @@
 import { Injectable, Directive, HostListener, Input, Renderer2, ElementRef, Output, EventEmitter, NgModule, defineInjectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { NetService, EventerService, EventMessage } from '@sails-resto/ng-core';
+import { NetService, EventerService, EventMessage } from '@webresto/ng-core';
 
 /**
  * @fileoverview added by tsickle

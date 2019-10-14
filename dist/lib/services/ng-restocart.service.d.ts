@@ -1,5 +1,5 @@
 import { Observable, BehaviorSubject } from 'rxjs';
-import { NetService, EventerService, EventMessage } from '@sails-resto/ng-core';
+import { NetService, EventerService, EventMessage } from '@webresto/ng-core';
 export declare class NgRestoCartService {
     private net;
     private eventer;
