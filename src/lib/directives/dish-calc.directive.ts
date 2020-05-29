@@ -26,8 +26,15 @@ export class DishCalcDirective implements OnDestroy {
   constructor(private renderer:Renderer2,
               private el:ElementRef,
               private cartService:NgRestoCartService) {
+
+  }
+
+  ngOnInit() {
     this.renderer.addClass(this.el.nativeElement, "dish-calculator");
-    this.amountDish = 1;
+
+
+    this.amountDish = this.amount;
+
     this.amountDishToAdd.emit(this.amountDish);
     this.price = this.renderer.createElement("div");
     this.renderer.addClass(this.price, "dish-price");
@@ -242,27 +249,33 @@ export class DishCalcDirective implements OnDestroy {
       // this.renderer.appendChild(this.el.nativeElement, h);
     }
 
+
+
     modifires.forEach(elementGroup => {
       this.stateModifiers[elementGroup.modifierId] = {};
       this.amountModifires[elementGroup.modifierId] = {};
 
-      let groupDiv = this.groupDiv(
-        elementGroup.group ? elementGroup.group.name : "Ошибка"
-      );
-      this.renderer.appendChild(this.el.nativeElement, groupDiv);
-
-      let modArr = elementGroup.childModifiers;
-
-      modArr.forEach(element => {
-        let modifireDiv = this.modifireDiv(element, elementGroup.modifierId);
-        this.renderer.appendChild(groupDiv, modifireDiv);
-        if (element.defaultAmount < 1) {
-          this.stateModifiers[elementGroup.modifierId][element.modifierId] = false;
-        } else {
-          this.stateModifiers[elementGroup.modifierId][element.modifierId] = true;
-        }
-
-      });
+      if (elementGroup.dish) {
+        let groupDiv = this.groupDiv("Одночные модификаторы не поддерживаются, Используйте групповые модификаторы");
+        this.renderer.appendChild(this.el.nativeElement, groupDiv);
+        console.log("elementGroup",elementGroup);
+        //TODO: add single modificator logic
+      } else if (elementGroup.childModifiers) {
+        let groupDiv = this.groupDiv(
+          elementGroup.group ? elementGroup.group.name : "Ошибка"
+        );
+        this.renderer.appendChild(this.el.nativeElement, groupDiv);
+        let modArr = elementGroup.childModifiers;
+        modArr.forEach(element => {
+          let modifireDiv = this.modifireDiv(element, elementGroup.modifierId);
+          this.renderer.appendChild(groupDiv, modifireDiv);
+          if (element.defaultAmount < 1) {
+            this.stateModifiers[elementGroup.modifierId][element.modifierId] = false;
+          } else {
+            this.stateModifiers[elementGroup.modifierId][element.modifierId] = true;
+          }
+        });
+      }
     });
 
     if (modifires.length > 0) {
@@ -302,6 +315,7 @@ export class DishCalcDirective implements OnDestroy {
     this.renderer.addClass(itemNameDiv, "item-name");
 
     let label = this.renderer.createElement("label");
+    
     this.renderer.setAttribute(label, "for", element.modifierId);
     this.renderer.appendChild(itemNameDiv, label);
     this.renderer.setProperty(label, "innerHTML", element.dish.name);
