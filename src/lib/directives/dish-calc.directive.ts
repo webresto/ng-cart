@@ -256,7 +256,7 @@ export class DishCalcDirective implements OnDestroy {
       this.amountModifires[elementGroup.modifierId] = {};
 
       if (elementGroup.dish) {
-        let groupDiv = this.groupDiv("Одночные модификаторы не поддерживаются, Используйте групповые модификаторы");
+        let groupDiv = this.groupDiv("Одночные модификаторы не поддерживаются");
         this.renderer.appendChild(this.el.nativeElement, groupDiv);
         console.log("elementGroup",elementGroup);
         //TODO: add single modificator logic

@@ -16,6 +16,7 @@ export declare class DishCalcDirective implements OnDestroy {
     stateModifiers: any;
     testcountCall: any;
     constructor(renderer: Renderer2, el: ElementRef, cartService: NgRestoCartService);
+    ngOnInit(): void;
     renderDish(dish: any): void;
     generatePrice(priceDish: any, amount?: any, modifiresPrice?: any): string;
     generateTotalWeight(): string;

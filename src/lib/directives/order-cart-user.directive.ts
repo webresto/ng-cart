@@ -109,6 +109,7 @@ export class OrderCartUserDirective {
       console.log(dataToSend);
       let data = {
         "cartId": this.cart.cartId,
+        // TODO: тип оплаты надо вынести в отдельный модуль.
         "comment": "\n Тип оплаты:" + payment + "\nКоментарий:" + comment,
         // "delivery": {
         //   "type": "string (self or nothing)"
@@ -116,7 +117,7 @@ export class OrderCartUserDirective {
         "address": {
           // "city": "string",
           "streetId": dataToSend.street.id,
-          "home": this.stringToNumber(dataToSend.house),
+          "home": dataToSend.house,
           "housing": dataToSend.housing,
           // "index": "string",
           "doorphone": dataToSend.doorphone,
@@ -140,7 +141,7 @@ export class OrderCartUserDirective {
   }
 
   checkStreet(dataToSend) {
-    console.info(this.cart);
+    console.log(">>>>",dataToSend);
     if (this.checkForFields(this.orderCart._directives, this.requiredFields)) {
       let data = {
         "cartId": this.cart.cartId,
@@ -151,7 +152,7 @@ export class OrderCartUserDirective {
         "address": {
           // "city": "string",
           "streetId": dataToSend.street.id,
-          "home": this.stringToNumber(dataToSend.house),
+          "home": dataToSend.house,
           "housing": dataToSend.housing,
           // "index": "string",
           "doorphone": dataToSend.doorphone,
