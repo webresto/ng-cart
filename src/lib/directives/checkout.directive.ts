@@ -114,7 +114,7 @@ export class CheckoutDirective {
       data["locationId"] = this.locationId;
     } else {
       data["address"] = {
-        "streetId": this.streetId,
+        "street": this.streetId,
         "home": this.home,
         "housing": this.housing,
         "doorphone": this.doorphone || '',
@@ -167,7 +167,7 @@ export class CheckoutDirective {
       data["locationId"] = this.locationId;
     } else {
       data["address"] = {
-        "streetId": this.streetId,
+        "street": this.streetId,
         "home": this.home,
         "housing": this.housing,
         "doorphone": this.doorphone || '',
