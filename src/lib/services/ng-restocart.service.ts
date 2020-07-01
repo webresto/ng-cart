@@ -40,7 +40,7 @@ export class NgRestoCartService {
     this.cartID = this.getcartIDFromStorage();
 
     if (this.cartID) {
-      this.net.get('cart?cartId=' + this.cartID).subscribe(cart=> {
+      this.net.get('/cart?cartId=' + this.cartID).subscribe(cart=> {
         this.cart.next(cart.cart);
       });
     }
