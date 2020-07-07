@@ -29,7 +29,7 @@ export class CheckoutDirective {
   @Input() paymentMethod: string;
   @Input() personsCount: number;
   @Input() comment: string;
-  
+
   @Output() success = new EventEmitter<boolean>();
   @Output() error = new EventEmitter<string>();
   @Output() isChecking = new EventEmitter<boolean>();
@@ -114,7 +114,7 @@ export class CheckoutDirective {
       data["locationId"] = this.locationId;
     } else {
       data["address"] = {
-        "street": this.streetId,
+        "streetId": this.streetId,
         "home": this.home,
         "housing": this.housing,
         "doorphone": this.doorphone || '',
@@ -167,7 +167,7 @@ export class CheckoutDirective {
       data["locationId"] = this.locationId;
     } else {
       data["address"] = {
-        "street": this.streetId,
+        "streetId": this.streetId,
         "home": this.home,
         "housing": this.housing,
         "doorphone": this.doorphone || '',
