@@ -19,6 +19,7 @@ export class CheckoutDirective {
   @Input() locationId: string;
 
   @Input() streetId: string;
+  @Input() street: any;
   @Input() home: string;
   @Input() housing: string;
   @Input() apartment: string;
@@ -115,6 +116,7 @@ export class CheckoutDirective {
     } else {
       data["address"] = {
         "streetId": this.streetId,
+        "street": this.street,
         "home": this.home,
         "housing": this.housing,
         "doorphone": this.doorphone || '',
@@ -168,6 +170,7 @@ export class CheckoutDirective {
     } else {
       data["address"] = {
         "streetId": this.streetId,
+        "street": this.street,
         "home": this.home,
         "housing": this.housing,
         "doorphone": this.doorphone || '',
