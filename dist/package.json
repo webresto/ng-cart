@@ -1,6 +1,6 @@
 {
   "name": "@webresto/ng-cart",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "peerDependencies": {
     "ngx-store": "^2.0.0",
     "@webresto/ng-core": "git+http://git.42team.ru/webresto/ng-core.git#add_build",

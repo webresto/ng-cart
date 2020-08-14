@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 import {
   NetService,
@@ -36,29 +36,18 @@ export class NgRestoCartService {
   }
 
   initialStorage() {
-
-    this.cartID = this.getcartIDFromStorage();
-
+    this.cartID = this.getCartId();
     if (this.cartID) {
-      this.net.get('cart?cartId=' + this.cartID).subscribe(cart=> {
-        this.cart.next(cart.cart);
-      });
+      this.net
+        .get('/cart?cartId=' + this.cartID)
+        .subscribe(
+          cart => this.cart.next(cart.cart),
+          error => this.removeCartId()
+        );
     }
-
-    /*     this.restoStorageService.sub('localStorageService','cartID').subscribe(res=>{
-
-     if(res.changeKey){
-     console.log("event",res)
-     this.net.get('cart?cartId='+this.cartID).subscribe(cart=>{
-     this.cart.next(cart);
-     });}
-
-     });; */
-
-
   }
 
-  getcartIDFromStorage():string {
+  getCartId():string {
     return localStorage.getItem('cartID');
   }
 
@@ -74,7 +63,7 @@ export class NgRestoCartService {
     this.net.put('/cart/add', data).subscribe(
       res=> {
 
-        this.setcartIDFromStorage(res.cart.cartId);
+        this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
 
@@ -97,7 +86,7 @@ export class NgRestoCartService {
     }).subscribe(
       res=> {
 
-        this.setcartIDFromStorage(res.cart.cartId);
+        this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
 
@@ -121,7 +110,7 @@ export class NgRestoCartService {
     }).pipe(tap(
       res=> {
 
-        this.setcartIDFromStorage(res.cart.cartId);
+        this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
 
@@ -142,7 +131,7 @@ export class NgRestoCartService {
     }).subscribe(
       res=> {
 
-        this.setcartIDFromStorage(res.cart.cartId);
+        this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
         /*this.eventer.emitMessageEvent(
@@ -185,7 +174,7 @@ export class NgRestoCartService {
       .pipe(
         tap(
           result => {
-            this.setcartIDFromStorage(result.cart.cartId);
+            this.setCartId(result.cart.cartId);
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
             /*this.eventer.emitMessageEvent(
@@ -195,7 +184,7 @@ export class NgRestoCartService {
           error => {
             console.log("Ошибка оформления!", error);
             if (error.error && error.error.cart) {
-              this.setcartIDFromStorage(error.error.cart.cartId);
+              this.setCartId(error.error.cart.cartId);
               this.cart.next(error.error.cart);
               this.cartID = error.error.cart.cartId;
             }
@@ -218,7 +207,7 @@ export class NgRestoCartService {
       .pipe(
         tap(
           result => {
-            this.setcartIDFromStorage(result.cart.cartId);
+            this.setCartId(result.cart.cartId);
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
             /*if (result.message) {
@@ -245,7 +234,7 @@ export class NgRestoCartService {
 
     this.net.post('/check', data).subscribe(
       res => {
-        this.setcartIDFromStorage(res.cart.cartId);
+        this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
         if (res.message) {
@@ -256,7 +245,7 @@ export class NgRestoCartService {
       }, error => {
         if (error.error) {
           if (error.error.cart) {
-            this.setcartIDFromStorage(error.error.cart.cartId);
+            this.setCartId(error.error.cart.cartId);
             this.cart.next(error.error.cart);
             this.cartID = error.error.cart.cartId;
           }
@@ -268,9 +257,11 @@ export class NgRestoCartService {
 
   }
 
-  setcartIDFromStorage(cartID) {
+  setCartId(cartID) {
     localStorage.setItem('cartID', cartID);
-
+  }
+  removeCartId() {
+    localStorage.removeItem('cartID');
   }
 
   userCart():Observable<any> {

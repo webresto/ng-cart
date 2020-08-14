@@ -17,6 +17,7 @@ export declare class CheckoutDirective {
     doorphone: string;
     floor: string;
     paymentMethod: string;
+    paymentMethodId: string;
     personsCount: number;
     comment: string;
     success: EventEmitter<boolean>;

@@ -11,7 +11,7 @@ export declare class NgRestoCartService {
     messages: EventMessage[];
     constructor(net: NetService, eventer: EventerService);
     initialStorage(): void;
-    getcartIDFromStorage(): string;
+    getCartId(): string;
     addDishToCart(data: any): void;
     setDishCountToCart(dishId: any, amount: any): void;
     setDishComment(dishId: any, comment: any): Observable<any>;
@@ -20,7 +20,8 @@ export declare class NgRestoCartService {
     orderCart(data: any): Observable<any>;
     checkStreetV2(data: any): Observable<any>;
     checkStreet(data: any): void;
-    setcartIDFromStorage(cartID: any): void;
+    setCartId(cartID: any): void;
+    removeCartId(): void;
     userCart(): Observable<any>;
     setModifires(modifires: any, messages?: EventMessage[]): void;
     getModifires(): Observable<any>;

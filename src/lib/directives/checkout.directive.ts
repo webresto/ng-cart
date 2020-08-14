@@ -27,6 +27,7 @@ export class CheckoutDirective {
   @Input() floor: string;
 
   @Input() paymentMethod: string;
+  @Input() paymentMethodId: string;
   @Input() personsCount: number;
   @Input() comment: string;
   
@@ -41,10 +42,10 @@ export class CheckoutDirective {
   constructor(
     private cartService: NgRestoCartService
   ) {
+
     this.cartService
       .userCart()
       .subscribe(cart => this.cart = cart);
-
 
     this.cartService.OrderFormChange
       .pipe(
@@ -95,7 +96,9 @@ export class CheckoutDirective {
       "personsCount": this.personsCount
     };
 
-    // console.log('FFFFFFFFFFFFFFFF', this.delivery);
+    if(this.paymentMethodId) {
+      data["paymentMethodId"] = this.paymentMethodId;
+    }
 
     data["selfDelivery"] = this.delivery;
 
@@ -114,7 +117,7 @@ export class CheckoutDirective {
       data["locationId"] = this.locationId;
     } else {
       data["address"] = {
-        "street": this.streetId,
+        "streetId": this.streetId,
         "home": this.home,
         "housing": this.housing,
         "doorphone": this.doorphone || '',
@@ -126,6 +129,13 @@ export class CheckoutDirective {
 
     this.cartService
       .orderCart(data)
+      .pipe(
+        tap(result => {
+          if(result.action && result.action.paymentRedirect) {
+            window.location.href = result.action.paymentRedirect;
+          }
+        })
+      )
       .subscribe(
         () => this.success.emit(true),
         error => this.error.emit(error)
@@ -161,13 +171,15 @@ export class CheckoutDirective {
 
     data["selfDelivery"] = this.delivery;
 
-
+    if(this.paymentMethodId) {
+      data["paymentMethodId"] = this.paymentMethodId;
+    }
 
     if(this.locationId) {
       data["locationId"] = this.locationId;
     } else {
       data["address"] = {
-        "street": this.streetId,
+        "streetId": this.streetId,
         "home": this.home,
         "housing": this.housing,
         "doorphone": this.doorphone || '',
