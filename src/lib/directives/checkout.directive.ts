@@ -18,6 +18,7 @@ export class CheckoutDirective {
   @Input() delivery: any;
   @Input() locationId: string;
 
+  @Input() street: string;
   @Input() streetId: string;
   @Input() home: string;
   @Input() housing: string;
@@ -51,7 +52,7 @@ export class CheckoutDirective {
       .pipe(
         filter(() => {
           //if((this.locationId || this.streetId) && this.home && this.phone && this.preparePhone(this.phone).length > 11) {
-          if(this.locationId || this.streetId && this.home || this.delivery) {
+          if(this.locationId || (this.streetId || this.street) && this.home || this.delivery) {
             return true;
           }
         }),
@@ -59,10 +60,11 @@ export class CheckoutDirective {
           const formChangeKey = JSON.stringify({
             1: this.locationId,
             2: this.streetId,
-            3: this.home,
-            4: this.cartTotal,
-            5: this.bonuses,
-            6: this.delivery
+            3: this.street,
+            4: this.home,
+            5: this.cartTotal,
+            6: this.bonuses,
+            7: this.delivery
           });
 
           if(formChangeKey !== this.lastFormChangeKey) {
@@ -77,7 +79,7 @@ export class CheckoutDirective {
 
   @HostListener('click')
   onClick() {
-    if(!this.locationId && !(this.streetId && this.home) && !this.delivery) {
+    if(!this.locationId && !((this.streetId || this.street) && this.home) && !this.delivery) {
       this.error.emit('Нужно указать адрес');
       return;
     }
@@ -118,6 +120,7 @@ export class CheckoutDirective {
     } else {
       data["address"] = {
         "streetId": this.streetId,
+        "street": this.street,
         "home": this.home,
         "housing": this.housing,
         "doorphone": this.doorphone || '',
@@ -180,6 +183,7 @@ export class CheckoutDirective {
     } else {
       data["address"] = {
         "streetId": this.streetId,
+        "street": this.street,
         "home": this.home,
         "housing": this.housing,
         "doorphone": this.doorphone || '',

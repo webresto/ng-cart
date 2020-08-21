@@ -9,6 +9,7 @@ export declare class CheckoutDirective {
     phone: string;
     delivery: any;
     locationId: string;
+    street: string;
     streetId: string;
     home: string;
     housing: string;
