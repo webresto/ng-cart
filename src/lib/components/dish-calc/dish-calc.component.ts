@@ -76,7 +76,8 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
           console.info('Custom Fixed modifier:', modifier);
         } else if(modifier.group
           && modifier.childModifiers
-          && modifier.childModifiers.length) {
+          && modifier.childModifiers.length
+          && modifier.childModifiers.find(m => m.dish)) {
           // This is Base modifier
           modifierType = 'group';
           this.modifiers.baseList.push(modifier);
