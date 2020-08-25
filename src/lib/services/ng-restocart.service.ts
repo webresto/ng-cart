@@ -123,6 +123,20 @@ export class NgRestoCartService {
 
   }
 
+  removeDishFromCart$(dishId, amount) {
+    return this.net.put('/cart/remove', {
+      "dishId": dishId,
+      "cartId": this.cartID,
+      "amount": amount
+    })
+      .pipe(tap(res => {
+        this.setCartId(res.cart.cartId);
+        this.cart.next(res.cart);
+        this.cartID = res.cart.cartId;
+      }));
+
+  }
+
   removeDishFromCart(dishId, amount) {
     this.net.put('/cart/remove', {
       "dishId": dishId,

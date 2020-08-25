@@ -15,6 +15,7 @@ export declare class NgRestoCartService {
     addDishToCart(data: any): void;
     setDishCountToCart(dishId: any, amount: any): void;
     setDishComment(dishId: any, comment: any): Observable<any>;
+    removeDishFromCart$(dishId: any, amount: any): Observable<any>;
     removeDishFromCart(dishId: any, amount: any): void;
     checkoutCart(data: any): Observable<any>;
     orderCart(data: any): Observable<any>;
