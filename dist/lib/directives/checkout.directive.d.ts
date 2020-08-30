@@ -21,6 +21,8 @@ export declare class CheckoutDirective {
     paymentMethodId: string;
     personsCount: number;
     comment: string;
+    orderDate: string;
+    notifyMethodId: string;
     success: EventEmitter<boolean>;
     error: EventEmitter<string>;
     isChecking: EventEmitter<boolean>;

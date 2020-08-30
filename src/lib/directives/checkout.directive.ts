@@ -31,6 +31,9 @@ export class CheckoutDirective {
   @Input() paymentMethodId: string;
   @Input() personsCount: number;
   @Input() comment: string;
+
+  @Input() orderDate: string;
+  @Input() notifyMethodId: string;
   
   @Output() success = new EventEmitter<boolean>();
   @Output() error = new EventEmitter<string>();
@@ -102,6 +105,14 @@ export class CheckoutDirective {
       data["paymentMethodId"] = this.paymentMethodId;
     }
 
+    if(this.orderDate) {
+      data["orderDate"] = this.orderDate;
+    }
+
+    if(this.notifyMethodId) {
+      data["notifyMethodId"] = this.notifyMethodId;
+    }
+
     data["selfDelivery"] = this.delivery;
 
 
@@ -164,7 +175,7 @@ export class CheckoutDirective {
         //"name": this.name
         "phone": '+79999999999',
         "mail": this.email,
-        "name": 'Васа'
+        "name": this.name || 'Пользователь'
       },
       "personsCount": this.personsCount
     };
@@ -176,6 +187,14 @@ export class CheckoutDirective {
 
     if(this.paymentMethodId) {
       data["paymentMethodId"] = this.paymentMethodId;
+    }
+
+    if(this.orderDate) {
+      data["orderDate"] = this.orderDate;
+    }
+
+    if(this.notifyMethodId) {
+      data["notifyMethodId"] = this.notifyMethodId;
     }
 
     if(this.locationId) {
