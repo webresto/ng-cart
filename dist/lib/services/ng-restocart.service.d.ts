@@ -13,6 +13,7 @@ export declare class NgRestoCartService {
     initialStorage(): void;
     getCartId(): string;
     addDishToCart(data: any): void;
+    addDishToCart$(data: any): Observable<any>;
     setDishCountToCart(dishId: any, amount: any): void;
     setDishComment(dishId: any, comment: any): Observable<any>;
     removeDishFromCart$(dishId: any, amount: any): Observable<any>;

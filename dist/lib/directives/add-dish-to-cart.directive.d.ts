@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 export declare class AddDishToCartDirective {
     private cartService;
@@ -7,6 +8,9 @@ export declare class AddDishToCartDirective {
     dish: any;
     amountDish: any;
     comment: string;
+    loading: EventEmitter<boolean>;
+    success: EventEmitter<boolean>;
+    error: EventEmitter<any>;
     onClick(): void;
     private addDishToCart;
 }

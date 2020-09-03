@@ -1,4 +1,4 @@
-import { Directive , HostListener, Input} from '@angular/core';
+import { Directive , HostListener, Input, Output, EventEmitter} from '@angular/core';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 
@@ -27,12 +27,13 @@ export class AddDishToCartDirective {
   @Input() amountDish:any;
   @Input() comment:string;
 
+  @Output() loading = new EventEmitter<boolean>();
+  @Output() success = new EventEmitter<boolean>();
+  @Output() error = new EventEmitter<any>();
 
   @HostListener('click')
   onClick() {
-
     this.addDishToCart(this.dish.id, this.amountDish)
-
   }
 
   private addDishToCart(dishID, amount) {
@@ -44,10 +45,20 @@ export class AddDishToCartDirective {
       "modifiers": this.modifires,
       "comment":this.comment
     };
-    //console.log("другие даные", data)
 
     if (this.cart.cartId) data.cartId = this.cart.cartId;
-    this.cartService.addDishToCart(data);
+
+    this.loading.emit(true);
+
+    this.cartService
+      .addDishToCart$(data)
+      .subscribe(
+        _ => this.success.emit(true),
+        e => this.error.emit(e),
+        () => {
+          this.loading.emit(false)
+        }
+      );
   }
 
 

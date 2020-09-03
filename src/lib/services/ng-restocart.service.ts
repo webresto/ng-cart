@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 import {
@@ -76,6 +76,25 @@ export class NgRestoCartService {
          new EventMessage('error', 'Ошибка', 'Не удалось добавить блюдо')
          )*/
       });
+  }
+
+  addDishToCart$(data) {
+
+    if (this.messages.length) {
+      this.messages.forEach(message => {
+        this.eventer.emitMessageEvent(message);
+      });
+      return of(null);
+    }
+
+    return this.net.put('/cart/add', data)
+      .pipe(
+        tap(res=> {
+          this.setCartId(res.cart.cartId);
+          this.cart.next(res.cart);
+          this.cartID = res.cart.cartId;
+        })
+      );
   }
 
   setDishCountToCart(dishId, amount) {
