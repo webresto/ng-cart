@@ -59,7 +59,7 @@ export class CheckoutDirective {
             return true;
           }
         }),
-        filter(() => {
+        /*filter(() => {
           const formChangeKey = JSON.stringify({
             1: this.locationId,
             2: this.streetId,
@@ -67,14 +67,15 @@ export class CheckoutDirective {
             4: this.home,
             5: this.cartTotal,
             6: this.bonuses,
-            7: this.delivery
+            7: this.delivery,
+            8: this.paymentMethodId
           });
 
           if(formChangeKey !== this.lastFormChangeKey) {
             this.lastFormChangeKey = formChangeKey;
             return true;
           }
-        }),
+        }),*/
         debounceTime(1000)
       )
       .subscribe(() => this.checkStreet());
