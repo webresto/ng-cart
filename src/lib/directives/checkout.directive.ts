@@ -93,13 +93,13 @@ export class CheckoutDirective {
 
     let data = {
       "cartId": this.cart.cartId,
-      "comment": `${comment}\r\nОплата: ${paymentMethod}`,
+      "comment": comment,
       "customer": {
         "phone": this.preparePhone(this.phone),
         "mail": this.email,
         "name": this.name
       },
-      "personsCount": this.personsCount
+      "personsCount": +this.personsCount
     };
 
     if(this.paymentMethodId) {
@@ -170,7 +170,7 @@ export class CheckoutDirective {
 
     let data = {
       "cartId": this.cart.cartId,
-      "comment": `${comment}\r\nОплата: ${paymentMethod}`,
+      "comment": comment,
       "customer": {
         //"phone": this.preparePhone(this.phone),
         //"name": this.name
@@ -178,7 +178,7 @@ export class CheckoutDirective {
         "mail": this.email,
         "name": this.name || 'Пользователь'
       },
-      "personsCount": this.personsCount
+      "personsCount": +this.personsCount
     };
 
 
