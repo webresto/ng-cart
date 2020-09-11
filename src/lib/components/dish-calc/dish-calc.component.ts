@@ -40,7 +40,7 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    this.validate.emit(true);
+    this.checkValid();
   }
 
   ngOnDestroy() {
@@ -250,8 +250,35 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     if(modifiersToSet.length) {
-      this.validate.emit(true);
+      this.checkValid();
       this.cartService.setModifires(modifiersToSet, []);
     }
+  }
+
+  checkValid() {
+
+    let isValid = true;
+
+    for(let groupId in this.modifiersValueTree) {
+
+      const groupModifier = this.modifiers.indexById[groupId];
+      if(groupModifier.required) {
+        const totalAmountInGroup = this.calculateTotalAmountInGroup(groupId);
+        if(totalAmountInGroup < groupModifier.minAmount) {
+          isValid = false;
+          console.warn(`Modifier ${groupId} min amount: ${groupModifier.minAmount}`);
+        }
+        if(totalAmountInGroup > groupModifier.maxAmount) {
+          isValid = false;
+          console.warn(`Modifier ${groupId} max amount: ${groupModifier.maxAmount}`);
+        }
+      }
+
+      //for(let modifierId in this.modifiersValueTree[groupId]) {
+      //
+      //}
+    }
+
+    this.validate.emit(isValid);
   }
 }

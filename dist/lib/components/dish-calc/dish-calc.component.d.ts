@@ -31,4 +31,5 @@ export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     };
     changeModifierAmount(modifier: any, amount: number, operation: string): void;
     setModifiers(): void;
+    checkValid(): void;
 }
