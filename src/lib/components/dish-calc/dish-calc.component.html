@@ -41,11 +41,13 @@
             <div class="modifier-group">
                 <div class="modifier-header" *ngIf="modifier.group as group">
                     <div class="modifier-name" *ngIf="group.name">{{ group.name }}</div>
-                    <div class="modifier-description" *ngIf="group.description">>{{ group.description }}</div>
+                    <div class="modifier-description" *ngIf="group.description">{{ group.description }}</div>
                 </div>
-                <div class="modifier-box" *ngIf="modifier.dish">
-                    <!-- Single modifier -->
-                    <ng-container *ngTemplateOutlet="modifierTemplate; context: {
+
+                <ng-container *ngIf="modifier.dish">
+                    <div class="modifier-box" [ngClass]="{'without-images': !modifier.childImagesIsset}">
+                        <!-- Single modifier -->
+                        <ng-container *ngTemplateOutlet="modifierTemplate; context: {
                             modifier: modifier,
                             groupId: 'single',
                             amount: modifiersValueTree['single'][modifier.modifierId],
@@ -53,11 +55,14 @@
                             groupMinAmount: modifier.minAmount || 0,
                             groupMaxAmount: modifier.maxAmount || 100
                         }"></ng-container>
-                </div>
-                <div class="modifier-children" *ngIf="modifier.childModifiers?.length">
-                    <ng-container *ngFor="let childModifier of modifier.childModifiers">
-                        <!-- Group modifier -->
-                        <ng-container *ngTemplateOutlet="modifierTemplate; context: {
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="modifier.childModifiers?.length">
+                    <div class="modifier-children" [ngClass]="{'without-images': !modifier.imagesIsset}">
+                        <ng-container *ngFor="let childModifier of modifier.childModifiers">
+                            <!-- Group modifier -->
+                            <ng-container *ngTemplateOutlet="modifierTemplate; context: {
                             modifier: childModifier,
                             groupId: modifier.modifierId,
                             amount: modifiersValueTree[modifier.modifierId][childModifier.modifierId],
@@ -66,8 +71,10 @@
                             groupMaxAmount: modifier.maxAmount || 100
                         }"></ng-container>
 
-                    </ng-container>
-                </div>
+                        </ng-container>
+                    </div>
+                </ng-container>
+
             </div>
         </ng-container>
     </div>

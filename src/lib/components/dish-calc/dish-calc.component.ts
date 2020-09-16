@@ -117,6 +117,9 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
             this.modifiersValueTree['single'][modifier.modifierId] = modifier.defaultAmount;
         }
 
+        // Find images and set flags (imagesIsset, childImagesIsset)
+        this.checkImagesInModifier(modifier.modifierId);
+
       }
       this.calculateTotalPrice();
     }
@@ -128,6 +131,15 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
       .values(this.modifiersValueTree[groupId])
       .reduce((a: number, b: number) => a + b);
     return this.modifiers.indexById[groupId].totalAmount;
+  }
+
+  checkImagesInModifier(modifierId) {
+    const m: any = this.modifiers.indexById[modifierId];
+    this.modifiers.indexById[modifierId].imagesIsset = m.dish && m.dish.images && m.dish.images.length;
+
+    this.modifiers.indexById[modifierId].childImagesIsset = !!Object
+      .values(this.modifiersValueTree[modifierId])
+      .find((m: any) => m && m.dish && m.dish.images && m.dish.images.length);
   }
 
   calculateTotalPrice() {

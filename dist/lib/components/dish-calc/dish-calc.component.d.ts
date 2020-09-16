@@ -24,6 +24,7 @@ export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     ngOnDestroy(): void;
     ngOnChanges(): void;
     calculateTotalAmountInGroup(groupId: any): any;
+    checkImagesInModifier(modifierId: any): void;
     calculateTotalPrice(): void;
     getModifiersIds(modifier: any): {
         groupId: any;

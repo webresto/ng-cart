@@ -1,3 +1,4 @@
+
 .dish {
   display: flex;
   align-items: flex-start;
@@ -266,5 +267,14 @@
   }
   .plus {
     right: 0;
+  }
+}
+
+.without-images {
+  .modifier-dish-image-box {
+    display: none;
+  }
+  .modifier-dish {
+    height: 75px;
   }
 }

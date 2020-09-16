@@ -144,15 +144,14 @@ export class CheckoutDirective {
 
     this.cartService
       .orderCart(data)
-      .pipe(
-        tap(result => {
+      .subscribe(
+        result => {
           if(result.action && result.action.paymentRedirect) {
             window.location.href = result.action.paymentRedirect;
+          } else {
+            this.success.emit(true)
           }
-        })
-      )
-      .subscribe(
-        () => this.success.emit(true),
+        },
         error => this.error.emit(error)
       );
   }
@@ -172,17 +171,12 @@ export class CheckoutDirective {
       "cartId": this.cart.cartId,
       "comment": comment,
       "customer": {
-        //"phone": this.preparePhone(this.phone),
-        //"name": this.name
-        "phone": '+79999999999',
+        "phone": this.phone ? this.preparePhone(this.phone) : null,
         "mail": this.email,
-        "name": this.name || 'Пользователь'
+        "name": this.name || null
       },
       "personsCount": +this.personsCount
     };
-
-
-    // console.log('EEEEEEEEEEEE', this.delivery);
 
     data["selfDelivery"] = this.delivery;
 
