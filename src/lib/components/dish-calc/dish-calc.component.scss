@@ -272,9 +272,9 @@
 
 .without-images {
   .modifier-dish-image-box {
-    display: none;
+    height: 70px !important;
   }
   .modifier-dish {
-    height: 75px;
+    height: 70px;
   }
 }
