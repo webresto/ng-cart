@@ -142,6 +142,7 @@ export class CheckoutDirective {
       }
     }
 
+    const cartId = this.cart.id;
     this.cartService
       .orderCart(data)
       .subscribe(
@@ -149,7 +150,7 @@ export class CheckoutDirective {
           if(result.action && result.action.paymentRedirect) {
             window.location.href = result.action.paymentRedirect;
           } else {
-            this.success.emit(true)
+            this.success.emit(cartId)
           }
         },
         error => this.error.emit(error)
