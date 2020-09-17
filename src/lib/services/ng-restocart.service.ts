@@ -38,6 +38,13 @@ export class NgRestoCartService {
     if (this.cartID) {
       this.net
         .get('/cart?cartId=' + this.cartID)
+        .pipe(
+          tap(cart => {
+            if(cart.state == 'ORDER') {
+              throwError(new Error('Cart in order state'))
+            }
+          })
+        )
         .subscribe(
           cart => this.cart.next(cart.cart),
           error => this.removeCartId()
