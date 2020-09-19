@@ -32,7 +32,7 @@ export class CheckoutDirective {
   @Input() personsCount: number;
   @Input() comment: string;
 
-  @Input() orderDate: string;
+  @Input() date: string;
   @Input() notifyMethodId: string;
   
   @Output() success = new EventEmitter<boolean>();
@@ -106,8 +106,8 @@ export class CheckoutDirective {
       data["paymentMethodId"] = this.paymentMethodId;
     }
 
-    if(this.orderDate) {
-      data["orderDate"] = this.orderDate;
+    if(this.date) {
+      data["date"] = this.date;
     }
 
     if(this.notifyMethodId) {
@@ -185,8 +185,8 @@ export class CheckoutDirective {
       data["paymentMethodId"] = this.paymentMethodId;
     }
 
-    if(this.orderDate) {
-      data["orderDate"] = this.orderDate;
+    if(this.date) {
+      data["date"] = this.date;
     }
 
     if(this.notifyMethodId) {
