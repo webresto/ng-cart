@@ -16,6 +16,7 @@ export class CheckoutDirective {
   @Input() email: string;
   @Input() phone: string;
   @Input() delivery: any;
+  @Input() selfService: any;
   @Input() locationId: string;
 
   @Input() street: string;
@@ -55,7 +56,7 @@ export class CheckoutDirective {
       .pipe(
         filter(() => {
           //if((this.locationId || this.streetId) && this.home && this.phone && this.preparePhone(this.phone).length > 11) {
-          if(this.locationId || (this.streetId || this.street) && this.home || this.delivery) {
+          if(this.locationId || (this.streetId || this.street) && this.home || this.selfService) {
             return true;
           }
         }),
@@ -83,7 +84,7 @@ export class CheckoutDirective {
 
   @HostListener('click')
   onClick() {
-    if(!this.locationId && !((this.streetId || this.street) && this.home) && !this.delivery) {
+    if(!this.locationId && !((this.streetId || this.street) && this.home) && !this.selfService) {
       this.error.emit('Нужно указать адрес');
       return;
     }
@@ -114,7 +115,7 @@ export class CheckoutDirective {
       data["notifyMethodId"] = this.notifyMethodId;
     }
 
-    data["selfDelivery"] = this.delivery;
+    data["selfService"] = this.selfService;
 
 
     if(this.bonuses) {
@@ -179,7 +180,7 @@ export class CheckoutDirective {
       "personsCount": +this.personsCount
     };
 
-    data["selfDelivery"] = this.delivery;
+    data["selfService"] = this.selfService;
 
     if(this.paymentMethodId) {
       data["paymentMethodId"] = this.paymentMethodId;

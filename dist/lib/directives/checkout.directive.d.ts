@@ -8,6 +8,7 @@ export declare class CheckoutDirective {
     email: string;
     phone: string;
     delivery: any;
+    selfService: any;
     locationId: string;
     street: string;
     streetId: string;
