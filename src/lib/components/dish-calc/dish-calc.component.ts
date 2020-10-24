@@ -129,7 +129,7 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     if(groupId == 'single') return;
     this.modifiers.indexById[groupId].totalAmount = Object
       .values(this.modifiersValueTree[groupId])
-      .reduce((a: number, b: number) => a + b);
+      .reduce((a: any, b: any) => a + b);
     return this.modifiers.indexById[groupId].totalAmount;
   }
 

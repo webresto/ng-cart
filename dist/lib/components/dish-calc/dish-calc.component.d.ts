@@ -1,6 +1,7 @@
 import { OnInit, OnChanges, OnDestroy, EventEmitter } from '@angular/core';
 import { NgRestoCartService } from "../../services/ng-restocart.service";
 import { EventerService } from '@webresto/ng-core';
+import * as i0 from "@angular/core";
 export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     private cartService;
     private eventer;
@@ -33,4 +34,6 @@ export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     changeModifierAmount(modifier: any, amount: number, operation: string): void;
     setModifiers(): void;
     checkValid(): void;
+    static ɵfac: i0.ɵɵFactoryDef<DishCalcComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<DishCalcComponent, "dish-calc", never, { "dish": "dish"; "amount": "amount"; "selectedModifiers": "selectedModifiers"; }, { "validate": "validate"; "amountDishToAdd": "amountDishToAdd"; }, never, never>;
 }

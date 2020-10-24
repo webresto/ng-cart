@@ -1,5 +1,6 @@
 import { EventEmitter, SimpleChanges } from '@angular/core';
 import { NgRestoCartService } from '../services/ng-restocart.service';
+import * as i0 from "@angular/core";
 export declare class CheckoutDirective {
     private cartService;
     cartTotal: any;
@@ -34,4 +35,6 @@ export declare class CheckoutDirective {
     ngOnChanges(changes: SimpleChanges): void;
     checkStreet(): void;
     preparePhone(phone: any): any;
+    static ɵfac: i0.ɵɵFactoryDef<CheckoutDirective, never>;
+    static ɵdir: i0.ɵɵDirectiveDefWithMeta<CheckoutDirective, "[checkout]", never, { "cartTotal": "cartTotal"; "bonuses": "bonuses"; "name": "name"; "email": "email"; "phone": "phone"; "delivery": "delivery"; "selfService": "selfService"; "locationId": "locationId"; "street": "street"; "streetId": "streetId"; "home": "home"; "housing": "housing"; "apartment": "apartment"; "entrance": "entrance"; "doorphone": "doorphone"; "floor": "floor"; "paymentMethod": "paymentMethod"; "paymentMethodId": "paymentMethodId"; "personsCount": "personsCount"; "comment": "comment"; "date": "date"; "notifyMethodId": "notifyMethodId"; }, { "success": "success"; "error": "error"; "isChecking": "isChecking"; }, never>;
 }

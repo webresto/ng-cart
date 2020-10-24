@@ -1,5 +1,6 @@
 import { Observable, BehaviorSubject } from 'rxjs';
 import { NetService, EventerService, EventMessage } from '@webresto/ng-core';
+import * as i0 from "@angular/core";
 export declare class NgRestoCartService {
     private net;
     private eventer;
@@ -27,4 +28,6 @@ export declare class NgRestoCartService {
     userCart(): Observable<any>;
     setModifires(modifires: any, messages?: EventMessage[]): void;
     getModifires(): Observable<any>;
+    static ɵfac: i0.ɵɵFactoryDef<NgRestoCartService, never>;
+    static ɵprov: i0.ɵɵInjectableDef<NgRestoCartService>;
 }
