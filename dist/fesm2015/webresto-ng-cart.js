@@ -328,6 +328,225 @@ AmountCartDirective.ɵdir = ɵɵdefineDirective({ type: AmountCartDirective, sel
             }]
     }], function () { return [{ type: NgRestoCartService }, { type: Renderer2 }, { type: ElementRef }]; }, null); })();
 
+class CheckoutDirective {
+    constructor(cartService) {
+        this.cartService = cartService;
+        this.success = new EventEmitter();
+        this.error = new EventEmitter();
+        this.isChecking = new EventEmitter();
+        this.cartService
+            .userCart()
+            .subscribe(cart => this.cart = cart);
+        this.cartService.OrderFormChange
+            .pipe(filter(() => {
+            //if((this.locationId || this.streetId) && this.home && this.phone && this.preparePhone(this.phone).length > 11) {
+            if (this.locationId || (this.streetId || this.street) && this.home || this.selfService) {
+                return true;
+            }
+        }), 
+        /*filter(() => {
+          const formChangeKey = JSON.stringify({
+            1: this.locationId,
+            2: this.streetId,
+            3: this.street,
+            4: this.home,
+            5: this.cartTotal,
+            6: this.bonuses,
+            7: this.delivery,
+            8: this.paymentMethodId
+          });
+
+          if(formChangeKey !== this.lastFormChangeKey) {
+            this.lastFormChangeKey = formChangeKey;
+            return true;
+          }
+        }),*/
+        debounceTime(1000))
+            .subscribe(() => this.checkStreet());
+    }
+    onClick() {
+        if (!this.locationId && !((this.streetId || this.street) && this.home) && !this.selfService) {
+            this.error.emit('Нужно указать адрес');
+            return;
+        }
+        let comment = this.comment || "Не указан";
+        let paymentMethod = this.paymentMethod || "Не указано";
+        let data = {
+            "cartId": this.cart.cartId,
+            "comment": comment,
+            "customer": {
+                "phone": this.preparePhone(this.phone),
+                "mail": this.email,
+                "name": this.name
+            },
+            "personsCount": +this.personsCount
+        };
+        if (this.paymentMethodId) {
+            data["paymentMethodId"] = this.paymentMethodId;
+        }
+        if (this.date) {
+            data["date"] = this.date;
+        }
+        if (this.notifyMethodId) {
+            data["notifyMethodId"] = this.notifyMethodId;
+        }
+        data["selfService"] = this.selfService;
+        if (this.bonuses) {
+            data['bonuses'] = this.bonuses.map(b => {
+                return {
+                    name: b.name,
+                    amount: b.amount
+                };
+            });
+        }
+        if (this.locationId) {
+            data["locationId"] = this.locationId;
+        }
+        else {
+            data["address"] = {
+                "streetId": this.streetId,
+                "street": this.street,
+                "home": this.home,
+                "housing": this.housing,
+                "doorphone": this.doorphone || '',
+                "entrance": this.entrance || '',
+                "floor": this.floor || '',
+                "apartment": this.apartment || ''
+            };
+        }
+        const cartId = this.cart.id;
+        this.cartService
+            .orderCart(data)
+            .subscribe(result => {
+            if (result.action && result.action.paymentRedirect) {
+                window.location.href = result.action.paymentRedirect;
+            }
+            else {
+                this.success.emit(cartId);
+            }
+        }, error => this.error.emit(error));
+    }
+    ngOnChanges(changes) {
+        this.cartService.OrderFormChange.next(changes);
+    }
+    checkStreet() {
+        //if(this.streetId == '0') return;
+        let comment = this.comment || "Не указан";
+        let paymentMethod = this.paymentMethod || "Не указано";
+        let data = {
+            "cartId": this.cart.cartId,
+            "comment": comment,
+            "customer": {
+                "phone": this.phone ? this.preparePhone(this.phone) : null,
+                "mail": this.email,
+                "name": this.name || null
+            },
+            "personsCount": +this.personsCount
+        };
+        data["selfService"] = this.selfService;
+        if (this.paymentMethodId) {
+            data["paymentMethodId"] = this.paymentMethodId;
+        }
+        if (this.date) {
+            data["date"] = this.date;
+        }
+        if (this.notifyMethodId) {
+            data["notifyMethodId"] = this.notifyMethodId;
+        }
+        if (this.locationId) {
+            data["locationId"] = this.locationId;
+        }
+        else {
+            data["address"] = {
+                "streetId": this.streetId,
+                "street": this.street,
+                "home": this.home,
+                "housing": this.housing,
+                "doorphone": this.doorphone || '',
+                "entrance": this.entrance || '',
+                "floor": this.floor || '',
+                "apartment": this.apartment || ''
+            };
+        }
+        this.isChecking.emit(true);
+        this.cartService
+            .checkStreetV2(data)
+            .subscribe(
+        //() => this.success.emit(true),
+        //error => this.error.emit(error)
+        result => this.isChecking.emit(false), error => this.isChecking.emit(false));
+    }
+    preparePhone(phone) {
+        if (!phone)
+            return '';
+        phone = '+' + phone.replace(/[^0-9]/gim, '');
+        return phone.replace('+8', '+7');
+    }
+}
+CheckoutDirective.ɵfac = function CheckoutDirective_Factory(t) { return new (t || CheckoutDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
+CheckoutDirective.ɵdir = ɵɵdefineDirective({ type: CheckoutDirective, selectors: [["", "checkout", ""]], hostBindings: function CheckoutDirective_HostBindings(rf, ctx) { if (rf & 1) {
+        ɵɵlistener("click", function CheckoutDirective_click_HostBindingHandler() { return ctx.onClick(); });
+    } }, inputs: { cartTotal: "cartTotal", bonuses: "bonuses", name: "name", email: "email", phone: "phone", delivery: "delivery", selfService: "selfService", locationId: "locationId", street: "street", streetId: "streetId", home: "home", housing: "housing", apartment: "apartment", entrance: "entrance", doorphone: "doorphone", floor: "floor", paymentMethod: "paymentMethod", paymentMethodId: "paymentMethodId", personsCount: "personsCount", comment: "comment", date: "date", notifyMethodId: "notifyMethodId" }, outputs: { success: "success", error: "error", isChecking: "isChecking" }, features: [ɵɵNgOnChangesFeature] });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(CheckoutDirective, [{
+        type: Directive,
+        args: [{
+                selector: '[checkout]'
+            }]
+    }], function () { return [{ type: NgRestoCartService }]; }, { cartTotal: [{
+            type: Input
+        }], bonuses: [{
+            type: Input
+        }], name: [{
+            type: Input
+        }], email: [{
+            type: Input
+        }], phone: [{
+            type: Input
+        }], delivery: [{
+            type: Input
+        }], selfService: [{
+            type: Input
+        }], locationId: [{
+            type: Input
+        }], street: [{
+            type: Input
+        }], streetId: [{
+            type: Input
+        }], home: [{
+            type: Input
+        }], housing: [{
+            type: Input
+        }], apartment: [{
+            type: Input
+        }], entrance: [{
+            type: Input
+        }], doorphone: [{
+            type: Input
+        }], floor: [{
+            type: Input
+        }], paymentMethod: [{
+            type: Input
+        }], paymentMethodId: [{
+            type: Input
+        }], personsCount: [{
+            type: Input
+        }], comment: [{
+            type: Input
+        }], date: [{
+            type: Input
+        }], notifyMethodId: [{
+            type: Input
+        }], success: [{
+            type: Output
+        }], error: [{
+            type: Output
+        }], isChecking: [{
+            type: Output
+        }], onClick: [{
+            type: HostListener,
+            args: ['click']
+        }] }); })();
+
 class DeleteFromCartDirective {
     constructor(cartService) {
         this.cartService = cartService;
@@ -351,221 +570,6 @@ DeleteFromCartDirective.ɵdir = ɵɵdefineDirective({ type: DeleteFromCartDirect
     }], function () { return [{ type: NgRestoCartService }]; }, { dish: [{
             type: Input
         }], amountDish: [{
-            type: Input
-        }], onClick: [{
-            type: HostListener,
-            args: ['click']
-        }] }); })();
-
-class OrderCartUserDirective {
-    constructor(cartService) {
-        this.cartService = cartService;
-        this.requiredFields = ["name", "phone", "street", "house"];
-        this.checkerFields = new BehaviorSubject(undefined);
-    }
-    onClick() {
-        this.order(this.orderCart.value);
-        console.log(this.orderCart.value);
-    }
-    ngAfterViewInit() {
-        setTimeout(() => {
-            this.cartService
-                .userCart()
-                .subscribe(cart => {
-                if (this.cart && this.orderCart.valid && this.cart.cartTotal != cart.cartTotal && cart.cartTotal > 0) {
-                    this.checkStreet(this.orderCart.value);
-                }
-                this.cart = cart;
-            });
-        }, 100);
-        setTimeout(() => {
-            this.checkerFields.next(this.checkForFields(this.orderCart._directives, this.requiredFields));
-        }, 100);
-        this.checkerFields.subscribe(state => {
-            if (state) {
-                this.orderCart.controls['street'].valueChanges.subscribe(val => {
-                    if (typeof val === 'object') {
-                        setTimeout(() => {
-                            if (this.orderCart.controls['house'].valid) {
-                                this.orderCart.value.name = this.orderCart.value.name || "Неуказано";
-                                this.orderCart.value.phone = this.orderCart.value.phone || "78888888888";
-                                this.checkStreet(this.orderCart.value);
-                            }
-                        }, 100);
-                    }
-                });
-                this.orderCart.controls['house'].valueChanges.subscribe(val => {
-                    setTimeout(() => {
-                        if (this.orderCart.controls['street'].valid) {
-                            this.orderCart.value.name = this.orderCart.value.name || "Неуказано";
-                            this.orderCart.value.phone = this.orderCart.value.phone || "78888888888";
-                            this.checkStreet(this.orderCart.value);
-                        }
-                    }, 100);
-                });
-            }
-        });
-    }
-    checkForFields(formDirectives, requiredFields) {
-        let fieldsAreAvailable = {};
-        let noFields = [];
-        formDirectives.forEach(element => {
-            fieldsAreAvailable[element.name] = true;
-        });
-        requiredFields.forEach(element => {
-            if (!fieldsAreAvailable.hasOwnProperty(element)) {
-                noFields.push(element);
-            }
-        });
-        if (noFields.length <= 0) {
-            return true;
-        }
-        else {
-            console.error("У формы отсутсвуют следующие обязательные для корректной работы модуля поля:", noFields);
-            return false;
-        }
-    }
-    order(dataToSend) {
-        if (this.checkForFields(this.orderCart._directives, this.requiredFields)) {
-            let payment;
-            let comment = dataToSend.comment || "Не указан";
-            if (dataToSend.cash) {
-                payment = "Наличными курьеру";
-            }
-            else if (dataToSend.bankcard) {
-                payment = "Банковской картой курьеру";
-            }
-            else {
-                payment = "Не указан";
-            }
-            console.log(dataToSend);
-            let data = {
-                "cartId": this.cart.cartId,
-                // TODO: тип оплаты надо вынести в отдельный модуль.
-                "comment": "\n Тип оплаты:" + payment + "\nКоментарий:" + comment,
-                // "delivery": {
-                //   "type": "string (self or nothing)"
-                // },
-                "address": {
-                    // "city": "string",
-                    "streetId": dataToSend.street.id,
-                    "home": dataToSend.house,
-                    "housing": dataToSend.housing,
-                    // "index": "string",
-                    "doorphone": dataToSend.doorphone,
-                    "entrance": dataToSend.entrance,
-                    "floor": dataToSend.floor,
-                    "apartment": dataToSend.apartment
-                },
-                "customer": {
-                    "phone": '+' + dataToSend.phone,
-                    "mail": dataToSend.email,
-                    "name": dataToSend.name
-                },
-                "personsCount": dataToSend.personsCount
-            };
-            this.cartService.orderCart(data).subscribe();
-        }
-        else {
-        }
-    }
-    checkStreet(dataToSend) {
-        console.log(">>>>", dataToSend);
-        if (this.checkForFields(this.orderCart._directives, this.requiredFields)) {
-            let data = {
-                "cartId": this.cart.cartId,
-                "comment": dataToSend.comment,
-                // "delivery": {
-                //   "type": "string (self or nothing)"
-                // },
-                "address": {
-                    // "city": "string",
-                    "streetId": dataToSend.street.id,
-                    "home": dataToSend.house,
-                    "housing": dataToSend.housing,
-                    // "index": "string",
-                    "doorphone": dataToSend.doorphone,
-                    "entrance": dataToSend.entrance,
-                    "floor": dataToSend.floor,
-                    "apartment": dataToSend.apartment
-                },
-                "customer": {
-                    "phone": '+' + dataToSend.phone,
-                    "mail": dataToSend.email,
-                    "name": dataToSend.name
-                },
-                "personsCount": dataToSend.personsCount
-            };
-            this.cartService.checkStreet(data);
-        }
-        else {
-        }
-    }
-    stringToNumber(str) {
-        console.log(typeof str);
-        if (typeof str === 'string') {
-            return +str;
-        }
-        else if (typeof str === "number") {
-            return str;
-        }
-        else {
-            console.error("Параметр home должен быть или string или number");
-        }
-    }
-}
-OrderCartUserDirective.ɵfac = function OrderCartUserDirective_Factory(t) { return new (t || OrderCartUserDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
-OrderCartUserDirective.ɵdir = ɵɵdefineDirective({ type: OrderCartUserDirective, selectors: [["", "orderCart", ""]], hostBindings: function OrderCartUserDirective_HostBindings(rf, ctx) { if (rf & 1) {
-        ɵɵlistener("click", function OrderCartUserDirective_click_HostBindingHandler() { return ctx.onClick(); });
-    } }, inputs: { orderCart: "orderCart" } });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(OrderCartUserDirective, [{
-        type: Directive,
-        args: [{
-                selector: '[orderCart]'
-            }]
-    }], function () { return [{ type: NgRestoCartService }]; }, { orderCart: [{
-            type: Input
-        }], onClick: [{
-            type: HostListener,
-            args: ['click']
-        }] }); })();
-
-class SetAmountDirective {
-    constructor(cartService) {
-        this.cartService = cartService;
-        this.cartService
-            .userCart()
-            .subscribe(res => this.cart = res);
-    }
-    onClick() {
-        this.changeAmount(this.action);
-    }
-    changeAmount(action) {
-        switch (action) {
-            case '+':
-                this.cartService.setDishCountToCart(this.dish.id, this.dish.amount + 1);
-                break;
-            case '-':
-                this.cartService.setDishCountToCart(this.dish.id, this.dish.amount - 1);
-                break;
-            default:
-                console.log("Директива SetDishAmount получила ложное значение action");
-                break;
-        }
-    }
-}
-SetAmountDirective.ɵfac = function SetAmountDirective_Factory(t) { return new (t || SetAmountDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
-SetAmountDirective.ɵdir = ɵɵdefineDirective({ type: SetAmountDirective, selectors: [["", "setDishAmount", ""]], hostBindings: function SetAmountDirective_HostBindings(rf, ctx) { if (rf & 1) {
-        ɵɵlistener("click", function SetAmountDirective_click_HostBindingHandler() { return ctx.onClick(); });
-    } }, inputs: { action: "action", dish: "dish" } });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(SetAmountDirective, [{
-        type: Directive,
-        args: [{
-                selector: '[setDishAmount]'
-            }]
-    }], function () { return [{ type: NgRestoCartService }]; }, { action: [{
-            type: Input
-        }], dish: [{
             type: Input
         }], onClick: [{
             type: HostListener,
@@ -1107,220 +1111,347 @@ DishCalcDirective.ɵdir = ɵɵdefineDirective({ type: DishCalcDirective, selecto
             type: Output
         }] }); })();
 
-class CheckoutDirective {
-    constructor(cartService) {
+class ModifiresDirective {
+    constructor(renderer, el, cartService) {
+        this.renderer = renderer;
+        this.el = el;
         this.cartService = cartService;
-        this.success = new EventEmitter();
-        this.error = new EventEmitter();
-        this.isChecking = new EventEmitter();
-        this.cartService
-            .userCart()
-            .subscribe(cart => this.cart = cart);
-        this.cartService.OrderFormChange
-            .pipe(filter(() => {
-            //if((this.locationId || this.streetId) && this.home && this.phone && this.preparePhone(this.phone).length > 11) {
-            if (this.locationId || (this.streetId || this.street) && this.home || this.selfService) {
-                return true;
-            }
-        }), 
-        /*filter(() => {
-          const formChangeKey = JSON.stringify({
-            1: this.locationId,
-            2: this.streetId,
-            3: this.street,
-            4: this.home,
-            5: this.cartTotal,
-            6: this.bonuses,
-            7: this.delivery,
-            8: this.paymentMethodId
-          });
-
-          if(formChangeKey !== this.lastFormChangeKey) {
-            this.lastFormChangeKey = formChangeKey;
-            return true;
-          }
-        }),*/
-        debounceTime(1000))
-            .subscribe(() => this.checkStreet());
+        this.amountModifires = {};
+        this.stateModifires = {};
+        setTimeout(() => {
+            this.render(this.modifires);
+        }, 100);
     }
-    onClick() {
-        if (!this.locationId && !((this.streetId || this.street) && this.home) && !this.selfService) {
-            this.error.emit('Нужно указать адрес');
-            return;
+    render(modifires) {
+        if (modifires.length > 0) {
+            let h = this.renderer.createElement('h5');
+            this.renderer.setProperty(h, 'innerHTML', 'К этому блюду можно добавить:');
+            this.renderer.appendChild(this.el.nativeElement, h);
         }
-        let comment = this.comment || "Не указан";
-        let paymentMethod = this.paymentMethod || "Не указано";
-        let data = {
-            "cartId": this.cart.cartId,
-            "comment": comment,
-            "customer": {
-                "phone": this.preparePhone(this.phone),
-                "mail": this.email,
-                "name": this.name
-            },
-            "personsCount": +this.personsCount
-        };
-        if (this.paymentMethodId) {
-            data["paymentMethodId"] = this.paymentMethodId;
-        }
-        if (this.date) {
-            data["date"] = this.date;
-        }
-        if (this.notifyMethodId) {
-            data["notifyMethodId"] = this.notifyMethodId;
-        }
-        data["selfService"] = this.selfService;
-        if (this.bonuses) {
-            data['bonuses'] = this.bonuses.map(b => {
-                return {
-                    name: b.name,
-                    amount: b.amount
-                };
-            });
-        }
-        if (this.locationId) {
-            data["locationId"] = this.locationId;
-        }
-        else {
-            data["address"] = {
-                "streetId": this.streetId,
-                "street": this.street,
-                "home": this.home,
-                "housing": this.housing,
-                "doorphone": this.doorphone || '',
-                "entrance": this.entrance || '',
-                "floor": this.floor || '',
-                "apartment": this.apartment || ''
-            };
-        }
-        const cartId = this.cart.id;
-        this.cartService
-            .orderCart(data)
-            .subscribe(result => {
-            if (result.action && result.action.paymentRedirect) {
-                window.location.href = result.action.paymentRedirect;
+        modifires.forEach(elementGroup => {
+            this.stateModifires[elementGroup.modifierId] = {};
+            this.amountModifires[elementGroup.modifierId] = {};
+            let groupDiv = this.groupDiv(elementGroup.name);
+            this.renderer.appendChild(this.el.nativeElement, groupDiv);
+            let modArr;
+            if (elementGroup.childModifiers.length > 5) {
+                modArr = elementGroup.childModifiers.slice(0, 5);
             }
             else {
-                this.success.emit(cartId);
+                modArr = elementGroup.childModifiers;
             }
-        }, error => this.error.emit(error));
+            modArr.forEach(element => {
+                let modifireDiv = this.modifireDiv(element, elementGroup.modifierId);
+                this.renderer.appendChild(groupDiv, modifireDiv);
+                this.stateModifires[elementGroup.modifierId][element.modifierId] = false;
+            });
+        });
     }
-    ngOnChanges(changes) {
-        this.cartService.OrderFormChange.next(changes);
+    groupDiv(nameGorup) {
+        let div = this.renderer.createElement('div');
+        this.renderer.addClass(div, 'group-modifires');
+        this.renderer.appendChild(div, this.renderer.createText('Название категории модификаторов: ' + nameGorup));
+        return div;
     }
-    checkStreet() {
-        //if(this.streetId == '0') return;
-        let comment = this.comment || "Не указан";
-        let paymentMethod = this.paymentMethod || "Не указано";
-        let data = {
-            "cartId": this.cart.cartId,
-            "comment": comment,
-            "customer": {
-                "phone": this.phone ? this.preparePhone(this.phone) : null,
-                "mail": this.email,
-                "name": this.name || null
-            },
-            "personsCount": +this.personsCount
-        };
-        data["selfService"] = this.selfService;
-        if (this.paymentMethodId) {
-            data["paymentMethodId"] = this.paymentMethodId;
-        }
-        if (this.date) {
-            data["date"] = this.date;
-        }
-        if (this.notifyMethodId) {
-            data["notifyMethodId"] = this.notifyMethodId;
-        }
-        if (this.locationId) {
-            data["locationId"] = this.locationId;
-        }
-        else {
-            data["address"] = {
-                "streetId": this.streetId,
-                "street": this.street,
-                "home": this.home,
-                "housing": this.housing,
-                "doorphone": this.doorphone || '',
-                "entrance": this.entrance || '',
-                "floor": this.floor || '',
-                "apartment": this.apartment || ''
-            };
-        }
-        this.isChecking.emit(true);
-        this.cartService
-            .checkStreetV2(data)
-            .subscribe(
-        //() => this.success.emit(true),
-        //error => this.error.emit(error)
-        result => this.isChecking.emit(false), error => this.isChecking.emit(false));
+    modifireDiv(element, groupId) {
+        let div = this.renderer.createElement('div');
+        this.renderer.addClass(div, 'additional-item');
+        this.renderOneModifire(element, div, groupId);
+        return div;
     }
-    preparePhone(phone) {
-        if (!phone)
-            return '';
-        phone = '+' + phone.replace(/[^0-9]/gim, '');
-        return phone.replace('+8', '+7');
+    renderOneModifire(element, modifireDiv, groupId) {
+        // Рендер Названия модификатора
+        let itemNameDiv = this.renderer.createElement('div');
+        this.renderer.addClass(itemNameDiv, 'item-name');
+        let input = this.renderer.createElement('input');
+        this.renderer.setAttribute(input, 'type', 'checkbox');
+        this.renderer.setAttribute(input, 'id', element.modifierId);
+        this.renderer.appendChild(itemNameDiv, input);
+        this.renderer.listen(input, 'change', e => {
+            this.stateModifires[groupId][e.target.id] = e.target.checked;
+            this.setModifires();
+        });
+        let label = this.renderer.createElement('label');
+        this.renderer.setAttribute(label, 'for', element.modifierId);
+        this.renderer.appendChild(itemNameDiv, label);
+        this.renderer.setProperty(label, 'innerHTML', element.dish.name);
+        this.renderer.appendChild(modifireDiv, itemNameDiv);
+        // Рендер блока изминения количества модификатора
+        let itemQuantity = this.renderer.createElement('div');
+        let aMinusDiv = this.renderer.createElement('a');
+        this.renderer.addClass(aMinusDiv, 'item-quantity__button');
+        this.renderer.setProperty(aMinusDiv, 'innerHTML', '&#8722;');
+        this.renderer.appendChild(itemQuantity, aMinusDiv);
+        this.renderer.listen(aMinusDiv, 'click', e => {
+            let value = +this.amountModifires[groupId][element.modifierId];
+            this.amountModifires[groupId][element.modifierId] = value - 1;
+            if (this.amountModifires[groupId][element.modifierId] < element.minAmount)
+                this.amountModifires[groupId][element.modifierId] = element.minAmount;
+            this.renderer.setProperty(span, 'innerHTML', this.amountModifires[groupId][element.modifierId]);
+            this.setModifires();
+        });
+        let span = this.renderer.createElement('span');
+        this.renderer.addClass(span, 'item-quantity__counter');
+        this.amountModifires[groupId][element.modifierId] = element.minAmount;
+        this.renderer.setProperty(span, 'innerHTML', this.amountModifires[groupId][element.modifierId]);
+        this.renderer.appendChild(itemQuantity, span);
+        let aPlusDiv = this.renderer.createElement('a');
+        this.renderer.addClass(aPlusDiv, 'item-quantity__button');
+        this.renderer.setProperty(aPlusDiv, 'innerHTML', '&#x2b;');
+        this.renderer.appendChild(itemQuantity, aPlusDiv);
+        this.renderer.appendChild(modifireDiv, itemQuantity);
+        this.renderer.listen(aPlusDiv, 'click', e => {
+            let value = +this.amountModifires[groupId][element.modifierId];
+            this.amountModifires[groupId][element.modifierId] = value + 1;
+            this.renderer.setProperty(span, 'innerHTML', this.amountModifires[groupId][element.modifierId]);
+            this.setModifires();
+        });
+        // Рендер блока стоимости и веса модификатора
+        let weightPriceDiv = this.renderer.createElement('div');
+        this.renderer.addClass(weightPriceDiv, 'weight-price');
+        let weightAndPriceHTML = element.dish.weight + " г / " + element.dish.price + "&nbsp;&#x20bd;";
+        this.renderer.setProperty(weightPriceDiv, 'innerHTML', weightAndPriceHTML);
+        this.renderer.appendChild(modifireDiv, weightPriceDiv);
+        this.setModifires();
+    }
+    setModifires() {
+        let modifires = [];
+        for (let groupId in this.stateModifires) {
+            for (let modifireId in this.stateModifires[groupId]) {
+                if (this.stateModifires[groupId][modifireId]) {
+                    modifires.push({
+                        id: modifireId,
+                        amount: this.amountModifires[groupId][modifireId],
+                        groupId: groupId
+                    });
+                }
+            }
+        }
+        console.log("модифікатори після циклу", modifires);
+        this.cartService.setModifires(modifires);
     }
 }
-CheckoutDirective.ɵfac = function CheckoutDirective_Factory(t) { return new (t || CheckoutDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
-CheckoutDirective.ɵdir = ɵɵdefineDirective({ type: CheckoutDirective, selectors: [["", "checkout", ""]], hostBindings: function CheckoutDirective_HostBindings(rf, ctx) { if (rf & 1) {
-        ɵɵlistener("click", function CheckoutDirective_click_HostBindingHandler() { return ctx.onClick(); });
-    } }, inputs: { cartTotal: "cartTotal", bonuses: "bonuses", name: "name", email: "email", phone: "phone", delivery: "delivery", selfService: "selfService", locationId: "locationId", street: "street", streetId: "streetId", home: "home", housing: "housing", apartment: "apartment", entrance: "entrance", doorphone: "doorphone", floor: "floor", paymentMethod: "paymentMethod", paymentMethodId: "paymentMethodId", personsCount: "personsCount", comment: "comment", date: "date", notifyMethodId: "notifyMethodId" }, outputs: { success: "success", error: "error", isChecking: "isChecking" }, features: [ɵɵNgOnChangesFeature] });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(CheckoutDirective, [{
+ModifiresDirective.ɵfac = function ModifiresDirective_Factory(t) { return new (t || ModifiresDirective)(ɵɵdirectiveInject(Renderer2), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(NgRestoCartService)); };
+ModifiresDirective.ɵdir = ɵɵdefineDirective({ type: ModifiresDirective, selectors: [["", "modifires", ""]], inputs: { modifires: "modifires" } });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ModifiresDirective, [{
         type: Directive,
         args: [{
-                selector: '[checkout]'
+                selector: '[modifires]'
             }]
-    }], function () { return [{ type: NgRestoCartService }]; }, { cartTotal: [{
+    }], function () { return [{ type: Renderer2 }, { type: ElementRef }, { type: NgRestoCartService }]; }, { modifires: [{
             type: Input
-        }], bonuses: [{
+        }] }); })();
+
+class OrderCartUserDirective {
+    constructor(cartService) {
+        this.cartService = cartService;
+        this.requiredFields = ["name", "phone", "street", "house"];
+        this.checkerFields = new BehaviorSubject(undefined);
+    }
+    onClick() {
+        this.order(this.orderCart.value);
+        console.log(this.orderCart.value);
+    }
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.cartService
+                .userCart()
+                .subscribe(cart => {
+                if (this.cart && this.orderCart.valid && this.cart.cartTotal != cart.cartTotal && cart.cartTotal > 0) {
+                    this.checkStreet(this.orderCart.value);
+                }
+                this.cart = cart;
+            });
+        }, 100);
+        setTimeout(() => {
+            this.checkerFields.next(this.checkForFields(this.orderCart._directives, this.requiredFields));
+        }, 100);
+        this.checkerFields.subscribe(state => {
+            if (state) {
+                this.orderCart.controls['street'].valueChanges.subscribe(val => {
+                    if (typeof val === 'object') {
+                        setTimeout(() => {
+                            if (this.orderCart.controls['house'].valid) {
+                                this.orderCart.value.name = this.orderCart.value.name || "Неуказано";
+                                this.orderCart.value.phone = this.orderCart.value.phone || "78888888888";
+                                this.checkStreet(this.orderCart.value);
+                            }
+                        }, 100);
+                    }
+                });
+                this.orderCart.controls['house'].valueChanges.subscribe(val => {
+                    setTimeout(() => {
+                        if (this.orderCart.controls['street'].valid) {
+                            this.orderCart.value.name = this.orderCart.value.name || "Неуказано";
+                            this.orderCart.value.phone = this.orderCart.value.phone || "78888888888";
+                            this.checkStreet(this.orderCart.value);
+                        }
+                    }, 100);
+                });
+            }
+        });
+    }
+    checkForFields(formDirectives, requiredFields) {
+        let fieldsAreAvailable = {};
+        let noFields = [];
+        formDirectives.forEach(element => {
+            fieldsAreAvailable[element.name] = true;
+        });
+        requiredFields.forEach(element => {
+            if (!fieldsAreAvailable.hasOwnProperty(element)) {
+                noFields.push(element);
+            }
+        });
+        if (noFields.length <= 0) {
+            return true;
+        }
+        else {
+            console.error("У формы отсутсвуют следующие обязательные для корректной работы модуля поля:", noFields);
+            return false;
+        }
+    }
+    order(dataToSend) {
+        if (this.checkForFields(this.orderCart._directives, this.requiredFields)) {
+            let payment;
+            let comment = dataToSend.comment || "Не указан";
+            if (dataToSend.cash) {
+                payment = "Наличными курьеру";
+            }
+            else if (dataToSend.bankcard) {
+                payment = "Банковской картой курьеру";
+            }
+            else {
+                payment = "Не указан";
+            }
+            console.log(dataToSend);
+            let data = {
+                "cartId": this.cart.cartId,
+                // TODO: тип оплаты надо вынести в отдельный модуль.
+                "comment": "\n Тип оплаты:" + payment + "\nКоментарий:" + comment,
+                // "delivery": {
+                //   "type": "string (self or nothing)"
+                // },
+                "address": {
+                    // "city": "string",
+                    "streetId": dataToSend.street.id,
+                    "home": dataToSend.house,
+                    "housing": dataToSend.housing,
+                    // "index": "string",
+                    "doorphone": dataToSend.doorphone,
+                    "entrance": dataToSend.entrance,
+                    "floor": dataToSend.floor,
+                    "apartment": dataToSend.apartment
+                },
+                "customer": {
+                    "phone": '+' + dataToSend.phone,
+                    "mail": dataToSend.email,
+                    "name": dataToSend.name
+                },
+                "personsCount": dataToSend.personsCount
+            };
+            this.cartService.orderCart(data).subscribe();
+        }
+        else {
+        }
+    }
+    checkStreet(dataToSend) {
+        console.log(">>>>", dataToSend);
+        if (this.checkForFields(this.orderCart._directives, this.requiredFields)) {
+            let data = {
+                "cartId": this.cart.cartId,
+                "comment": dataToSend.comment,
+                // "delivery": {
+                //   "type": "string (self or nothing)"
+                // },
+                "address": {
+                    // "city": "string",
+                    "streetId": dataToSend.street.id,
+                    "home": dataToSend.house,
+                    "housing": dataToSend.housing,
+                    // "index": "string",
+                    "doorphone": dataToSend.doorphone,
+                    "entrance": dataToSend.entrance,
+                    "floor": dataToSend.floor,
+                    "apartment": dataToSend.apartment
+                },
+                "customer": {
+                    "phone": '+' + dataToSend.phone,
+                    "mail": dataToSend.email,
+                    "name": dataToSend.name
+                },
+                "personsCount": dataToSend.personsCount
+            };
+            this.cartService.checkStreet(data);
+        }
+        else {
+        }
+    }
+    stringToNumber(str) {
+        console.log(typeof str);
+        if (typeof str === 'string') {
+            return +str;
+        }
+        else if (typeof str === "number") {
+            return str;
+        }
+        else {
+            console.error("Параметр home должен быть или string или number");
+        }
+    }
+}
+OrderCartUserDirective.ɵfac = function OrderCartUserDirective_Factory(t) { return new (t || OrderCartUserDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
+OrderCartUserDirective.ɵdir = ɵɵdefineDirective({ type: OrderCartUserDirective, selectors: [["", "orderCart", ""]], hostBindings: function OrderCartUserDirective_HostBindings(rf, ctx) { if (rf & 1) {
+        ɵɵlistener("click", function OrderCartUserDirective_click_HostBindingHandler() { return ctx.onClick(); });
+    } }, inputs: { orderCart: "orderCart" } });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(OrderCartUserDirective, [{
+        type: Directive,
+        args: [{
+                selector: '[orderCart]'
+            }]
+    }], function () { return [{ type: NgRestoCartService }]; }, { orderCart: [{
             type: Input
-        }], name: [{
+        }], onClick: [{
+            type: HostListener,
+            args: ['click']
+        }] }); })();
+
+class SetAmountDirective {
+    constructor(cartService) {
+        this.cartService = cartService;
+        this.cartService
+            .userCart()
+            .subscribe(res => this.cart = res);
+    }
+    onClick() {
+        this.changeAmount(this.action);
+    }
+    changeAmount(action) {
+        switch (action) {
+            case '+':
+                this.cartService.setDishCountToCart(this.dish.id, this.dish.amount + 1);
+                break;
+            case '-':
+                this.cartService.setDishCountToCart(this.dish.id, this.dish.amount - 1);
+                break;
+            default:
+                console.log("Директива SetDishAmount получила ложное значение action");
+                break;
+        }
+    }
+}
+SetAmountDirective.ɵfac = function SetAmountDirective_Factory(t) { return new (t || SetAmountDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
+SetAmountDirective.ɵdir = ɵɵdefineDirective({ type: SetAmountDirective, selectors: [["", "setDishAmount", ""]], hostBindings: function SetAmountDirective_HostBindings(rf, ctx) { if (rf & 1) {
+        ɵɵlistener("click", function SetAmountDirective_click_HostBindingHandler() { return ctx.onClick(); });
+    } }, inputs: { action: "action", dish: "dish" } });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(SetAmountDirective, [{
+        type: Directive,
+        args: [{
+                selector: '[setDishAmount]'
+            }]
+    }], function () { return [{ type: NgRestoCartService }]; }, { action: [{
             type: Input
-        }], email: [{
+        }], dish: [{
             type: Input
-        }], phone: [{
-            type: Input
-        }], delivery: [{
-            type: Input
-        }], selfService: [{
-            type: Input
-        }], locationId: [{
-            type: Input
-        }], street: [{
-            type: Input
-        }], streetId: [{
-            type: Input
-        }], home: [{
-            type: Input
-        }], housing: [{
-            type: Input
-        }], apartment: [{
-            type: Input
-        }], entrance: [{
-            type: Input
-        }], doorphone: [{
-            type: Input
-        }], floor: [{
-            type: Input
-        }], paymentMethod: [{
-            type: Input
-        }], paymentMethodId: [{
-            type: Input
-        }], personsCount: [{
-            type: Input
-        }], comment: [{
-            type: Input
-        }], date: [{
-            type: Input
-        }], notifyMethodId: [{
-            type: Input
-        }], success: [{
-            type: Output
-        }], error: [{
-            type: Output
-        }], isChecking: [{
-            type: Output
         }], onClick: [{
             type: HostListener,
             args: ['click']
@@ -2074,137 +2205,6 @@ NgRestoCartModule.ɵinj = ɵɵdefineInjector({ factory: function NgRestoCartModu
                 exports: [DIRECTIVES, COMPONENTS]
             }]
     }], null, null); })();
-
-class ModifiresDirective {
-    constructor(renderer, el, cartService) {
-        this.renderer = renderer;
-        this.el = el;
-        this.cartService = cartService;
-        this.amountModifires = {};
-        this.stateModifires = {};
-        setTimeout(() => {
-            this.render(this.modifires);
-        }, 100);
-    }
-    render(modifires) {
-        if (modifires.length > 0) {
-            let h = this.renderer.createElement('h5');
-            this.renderer.setProperty(h, 'innerHTML', 'К этому блюду можно добавить:');
-            this.renderer.appendChild(this.el.nativeElement, h);
-        }
-        modifires.forEach(elementGroup => {
-            this.stateModifires[elementGroup.modifierId] = {};
-            this.amountModifires[elementGroup.modifierId] = {};
-            let groupDiv = this.groupDiv(elementGroup.name);
-            this.renderer.appendChild(this.el.nativeElement, groupDiv);
-            let modArr;
-            if (elementGroup.childModifiers.length > 5) {
-                modArr = elementGroup.childModifiers.slice(0, 5);
-            }
-            else {
-                modArr = elementGroup.childModifiers;
-            }
-            modArr.forEach(element => {
-                let modifireDiv = this.modifireDiv(element, elementGroup.modifierId);
-                this.renderer.appendChild(groupDiv, modifireDiv);
-                this.stateModifires[elementGroup.modifierId][element.modifierId] = false;
-            });
-        });
-    }
-    groupDiv(nameGorup) {
-        let div = this.renderer.createElement('div');
-        this.renderer.addClass(div, 'group-modifires');
-        this.renderer.appendChild(div, this.renderer.createText('Название категории модификаторов: ' + nameGorup));
-        return div;
-    }
-    modifireDiv(element, groupId) {
-        let div = this.renderer.createElement('div');
-        this.renderer.addClass(div, 'additional-item');
-        this.renderOneModifire(element, div, groupId);
-        return div;
-    }
-    renderOneModifire(element, modifireDiv, groupId) {
-        // Рендер Названия модификатора
-        let itemNameDiv = this.renderer.createElement('div');
-        this.renderer.addClass(itemNameDiv, 'item-name');
-        let input = this.renderer.createElement('input');
-        this.renderer.setAttribute(input, 'type', 'checkbox');
-        this.renderer.setAttribute(input, 'id', element.modifierId);
-        this.renderer.appendChild(itemNameDiv, input);
-        this.renderer.listen(input, 'change', e => {
-            this.stateModifires[groupId][e.target.id] = e.target.checked;
-            this.setModifires();
-        });
-        let label = this.renderer.createElement('label');
-        this.renderer.setAttribute(label, 'for', element.modifierId);
-        this.renderer.appendChild(itemNameDiv, label);
-        this.renderer.setProperty(label, 'innerHTML', element.dish.name);
-        this.renderer.appendChild(modifireDiv, itemNameDiv);
-        // Рендер блока изминения количества модификатора
-        let itemQuantity = this.renderer.createElement('div');
-        let aMinusDiv = this.renderer.createElement('a');
-        this.renderer.addClass(aMinusDiv, 'item-quantity__button');
-        this.renderer.setProperty(aMinusDiv, 'innerHTML', '&#8722;');
-        this.renderer.appendChild(itemQuantity, aMinusDiv);
-        this.renderer.listen(aMinusDiv, 'click', e => {
-            let value = +this.amountModifires[groupId][element.modifierId];
-            this.amountModifires[groupId][element.modifierId] = value - 1;
-            if (this.amountModifires[groupId][element.modifierId] < element.minAmount)
-                this.amountModifires[groupId][element.modifierId] = element.minAmount;
-            this.renderer.setProperty(span, 'innerHTML', this.amountModifires[groupId][element.modifierId]);
-            this.setModifires();
-        });
-        let span = this.renderer.createElement('span');
-        this.renderer.addClass(span, 'item-quantity__counter');
-        this.amountModifires[groupId][element.modifierId] = element.minAmount;
-        this.renderer.setProperty(span, 'innerHTML', this.amountModifires[groupId][element.modifierId]);
-        this.renderer.appendChild(itemQuantity, span);
-        let aPlusDiv = this.renderer.createElement('a');
-        this.renderer.addClass(aPlusDiv, 'item-quantity__button');
-        this.renderer.setProperty(aPlusDiv, 'innerHTML', '&#x2b;');
-        this.renderer.appendChild(itemQuantity, aPlusDiv);
-        this.renderer.appendChild(modifireDiv, itemQuantity);
-        this.renderer.listen(aPlusDiv, 'click', e => {
-            let value = +this.amountModifires[groupId][element.modifierId];
-            this.amountModifires[groupId][element.modifierId] = value + 1;
-            this.renderer.setProperty(span, 'innerHTML', this.amountModifires[groupId][element.modifierId]);
-            this.setModifires();
-        });
-        // Рендер блока стоимости и веса модификатора
-        let weightPriceDiv = this.renderer.createElement('div');
-        this.renderer.addClass(weightPriceDiv, 'weight-price');
-        let weightAndPriceHTML = element.dish.weight + " г / " + element.dish.price + "&nbsp;&#x20bd;";
-        this.renderer.setProperty(weightPriceDiv, 'innerHTML', weightAndPriceHTML);
-        this.renderer.appendChild(modifireDiv, weightPriceDiv);
-        this.setModifires();
-    }
-    setModifires() {
-        let modifires = [];
-        for (let groupId in this.stateModifires) {
-            for (let modifireId in this.stateModifires[groupId]) {
-                if (this.stateModifires[groupId][modifireId]) {
-                    modifires.push({
-                        id: modifireId,
-                        amount: this.amountModifires[groupId][modifireId],
-                        groupId: groupId
-                    });
-                }
-            }
-        }
-        console.log("модифікатори після циклу", modifires);
-        this.cartService.setModifires(modifires);
-    }
-}
-ModifiresDirective.ɵfac = function ModifiresDirective_Factory(t) { return new (t || ModifiresDirective)(ɵɵdirectiveInject(Renderer2), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(NgRestoCartService)); };
-ModifiresDirective.ɵdir = ɵɵdefineDirective({ type: ModifiresDirective, selectors: [["", "modifires", ""]], inputs: { modifires: "modifires" } });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(ModifiresDirective, [{
-        type: Directive,
-        args: [{
-                selector: '[modifires]'
-            }]
-    }], function () { return [{ type: Renderer2 }, { type: ElementRef }, { type: NgRestoCartService }]; }, { modifires: [{
-            type: Input
-        }] }); })();
 
 /*
  * Public API Surface of ng-cart
