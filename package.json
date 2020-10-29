@@ -4,8 +4,6 @@
   "peerDependencies": {
     "ngx-store": "^2.1.0",
     "@angular/animations": "^10.2.1",
-    "@angular/cli": "^10.1.7",
-    "@angular/compiler-cli": "^10.2.1",
     "@angular/common": "^10.2.1",
     "@angular/compiler": "^10.2.1",
     "@angular/core": "^10.2.1",
@@ -34,7 +32,8 @@
     },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1002.0",
-    "@angular-devkit/build-ng-packagr": "~0.1001.7",
+    "@angular-devkit/build-ng-packagr": "~0.1002.0",
+    "@angular/cli": "^10.2.0",
     "@angular/compiler-cli": "^10.2.1",
     "@angular/language-service": "^10.2.1",
     "@types/jasmine": "^3.6.0",

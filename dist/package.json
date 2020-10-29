@@ -4,8 +4,6 @@
   "peerDependencies": {
     "ngx-store": "^2.1.0",
     "@angular/animations": "^10.2.1",
-    "@angular/cli": "^10.1.7",
-    "@angular/compiler-cli": "^10.2.1",
     "@angular/common": "^10.2.1",
     "@angular/compiler": "^10.2.1",
     "@angular/core": "^10.2.1",
