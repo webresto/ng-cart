@@ -20,3 +20,4 @@ export interface Order {
         name: string;
     };
 }
+//# sourceMappingURL=order.d.ts.map

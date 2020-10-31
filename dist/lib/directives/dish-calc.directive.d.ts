@@ -36,3 +36,4 @@ export declare class DishCalcDirective implements OnDestroy {
     static ɵfac: i0.ɵɵFactoryDef<DishCalcDirective, never>;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<DishCalcDirective, "[dishCalc]", never, { "dish": "dish"; "amount": "amount"; "selectedModifiers": "selectedModifiers"; }, { "validate": "validate"; "amountDishToAdd": "amountDishToAdd"; }, never>;
 }
+//# sourceMappingURL=dish-calc.directive.d.ts.map

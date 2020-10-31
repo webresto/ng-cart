@@ -6,12 +6,11 @@ export declare class NgRestoCartService {
     private eventer;
     cartID: string;
     cart: BehaviorSubject<any>;
+    cart$: import("rxjs").Subscription | Observable<any>;
     modifires: BehaviorSubject<any>;
     OrderFormChange: BehaviorSubject<any>;
-    modifiresMessage: BehaviorSubject<any>;
-    messages: EventMessage[];
+    modifiresMessage: BehaviorSubject<EventMessage[]>;
     constructor(net: NetService, eventer: EventerService);
-    initialStorage(): void;
     getCartId(): string;
     addDishToCart(data: any): void;
     addDishToCart$(data: any): Observable<any>;
@@ -31,3 +30,4 @@ export declare class NgRestoCartService {
     static ɵfac: i0.ɵɵFactoryDef<NgRestoCartService, never>;
     static ɵprov: i0.ɵɵInjectableDef<NgRestoCartService>;
 }
+//# sourceMappingURL=ng-restocart.service.d.ts.map

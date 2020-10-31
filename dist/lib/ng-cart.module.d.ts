@@ -13,3 +13,4 @@ export declare class NgRestoCartModule {
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<NgRestoCartModule, [typeof i1.AddDishToCartDirective, typeof i2.AmountCartDirective, typeof i3.DeleteFromCartDirective, typeof i4.OrderCartUserDirective, typeof i5.DishCalcDirective, typeof i6.SetDishCommentDirective, typeof i7.SetAmountDirective, typeof i8.CheckoutDirective, typeof i9.DishCalcComponent], [typeof i10.CommonModule], [typeof i1.AddDishToCartDirective, typeof i2.AmountCartDirective, typeof i3.DeleteFromCartDirective, typeof i4.OrderCartUserDirective, typeof i5.DishCalcDirective, typeof i6.SetDishCommentDirective, typeof i7.SetAmountDirective, typeof i8.CheckoutDirective, typeof i9.DishCalcComponent]>;
     static ɵinj: i0.ɵɵInjectorDef<NgRestoCartModule>;
 }
+//# sourceMappingURL=ng-cart.module.d.ts.map

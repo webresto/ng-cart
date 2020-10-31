@@ -10,3 +10,4 @@ export declare class DeleteFromCartDirective {
     static ɵfac: i0.ɵɵFactoryDef<DeleteFromCartDirective, never>;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<DeleteFromCartDirective, "[deleteFromCart]", never, { "dish": "dish"; "amountDish": "amountDish"; }, {}, never>;
 }
+//# sourceMappingURL=delete-from-cart.directive.d.ts.map

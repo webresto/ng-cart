@@ -11,3 +11,4 @@ export declare class AmountCartDirective {
     static ɵfac: i0.ɵɵFactoryDef<AmountCartDirective, never>;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AmountCartDirective, "[amountCart]", never, {}, {}, never>;
 }
+//# sourceMappingURL=amount-cart.directive.d.ts.map

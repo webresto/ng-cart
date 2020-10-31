@@ -9,34 +9,31 @@
             var _this = this;
             this.net = net;
             this.eventer = eventer;
-            this.OrderFormChange = new rxjs.BehaviorSubject(null);
-            this.cart = new rxjs.BehaviorSubject({});
-            this.modifires = new rxjs.BehaviorSubject([]);
-            this.modifiresMessage = new rxjs.BehaviorSubject([]);
-            this.initialStorage();
-            this.modifiresMessage.subscribe(function (messages) { return _this.messages = messages; });
-        }
-        NgRestoCartService.prototype.initialStorage = function () {
-            var _this = this;
             this.cartID = this.getCartId();
-            if (this.cartID) {
-                this.net
-                    .get('/cart?cartId=' + this.cartID)
-                    .pipe(operators.tap(function (cart) {
-                    if (cart.state == 'ORDER') {
-                        rxjs.throwError(new Error('Cart in order state'));
-                    }
-                }))
-                    .subscribe(function (cart) { return _this.cart.next(cart.cart); }, function (error) { return _this.removeCartId(); });
-            }
-        };
+            this.cart = new rxjs.BehaviorSubject({});
+            this.cart$ = this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(operators.map(function (cart) {
+                if (cart.state == 'ORDER') {
+                    return rxjs.throwError(new Error('Cart in order state'));
+                }
+                else {
+                    return cart;
+                }
+                ;
+            }), operators.catchError(function (err) {
+                _this.removeCartId();
+                return rxjs.throwError(err);
+            })) : rxjs.from([{}]).subscribe(this.cart);
+            this.modifires = new rxjs.BehaviorSubject([]);
+            this.OrderFormChange = new rxjs.BehaviorSubject(null);
+            this.modifiresMessage = new rxjs.BehaviorSubject([]);
+        }
         NgRestoCartService.prototype.getCartId = function () {
             return localStorage.getItem('cartID');
         };
         NgRestoCartService.prototype.addDishToCart = function (data) {
             var _this = this;
-            if (this.messages.length) {
-                this.messages.forEach(function (message) {
+            if (this.modifiresMessage.value.length) {
+                this.modifiresMessage.value.forEach(function (message) {
                     _this.eventer.emitMessageEvent(message);
                 });
                 return;
@@ -48,7 +45,7 @@
                 /*this.eventer.emitMessageEvent(
                  new EventMessage('success', 'Успех', 'Блюдо добавлено в корзину')
                  );*/
-            }, function (error) {
+            }, function () {
                 /*this.eventer.emitMessageEvent(
                  new EventMessage('error', 'Ошибка', 'Не удалось добавить блюдо')
                  )*/
@@ -56,11 +53,11 @@
         };
         NgRestoCartService.prototype.addDishToCart$ = function (data) {
             var _this = this;
-            if (this.messages.length) {
-                this.messages.forEach(function (message) {
+            if (this.modifiresMessage.value.length) {
+                this.modifiresMessage.value.forEach(function (message) {
                     _this.eventer.emitMessageEvent(message);
                 });
-                return rxjs.of(null);
+                return rxjs.from([null]);
             }
             return this.net.put('/cart/add', data)
                 .pipe(operators.tap(function (res) {
@@ -72,9 +69,9 @@
         NgRestoCartService.prototype.setDishCountToCart = function (dishId, amount) {
             var _this = this;
             this.net.post('/cart/set', {
-                "dishId": dishId,
-                "cartId": this.cartID,
-                "amount": amount
+                dishId: dishId,
+                cartId: this.cartID,
+                amount: amount
             }).subscribe(function (res) {
                 _this.setCartId(res.cart.cartId);
                 _this.cart.next(res.cart);
@@ -82,7 +79,7 @@
                 /*this.eventer.emitMessageEvent(
                  new EventMessage('success', 'Успех', 'Изменено количество')
                  );*/
-            }, function (error) {
+            }, function () {
                 /*this.eventer.emitMessageEvent(
                  new EventMessage('error', 'Ошибка', 'Не удалось изменить количество')
                  )*/
@@ -91,23 +88,23 @@
         NgRestoCartService.prototype.setDishComment = function (dishId, comment) {
             var _this = this;
             return this.net.post('/cart/setcomment', {
-                "dishId": dishId,
-                "cartId": this.cartID,
-                "comment": comment
+                dishId: dishId,
+                cartId: this.cartID,
+                comment: comment
             }).pipe(operators.tap(function (res) {
                 _this.setCartId(res.cart.cartId);
                 _this.cart.next(res.cart);
                 _this.cartID = res.cart.cartId;
-            }, function (error) {
+            }, function () {
                 _this.eventer.emitMessageEvent(new i1.EventMessage('error', 'Ошибка', 'Не удалось изменить коментарий'));
             }));
         };
         NgRestoCartService.prototype.removeDishFromCart$ = function (dishId, amount) {
             var _this = this;
             return this.net.put('/cart/remove', {
-                "dishId": dishId,
-                "cartId": this.cartID,
-                "amount": amount
+                dishId: dishId,
+                cartId: this.cartID,
+                amount: amount
             })
                 .pipe(operators.tap(function (res) {
                 _this.setCartId(res.cart.cartId);
@@ -118,9 +115,9 @@
         NgRestoCartService.prototype.removeDishFromCart = function (dishId, amount) {
             var _this = this;
             this.net.put('/cart/remove', {
-                "dishId": dishId,
-                "cartId": this.cartID,
-                "amount": amount
+                dishId: dishId,
+                cartId: this.cartID,
+                amount: amount
             }).subscribe(function (res) {
                 _this.setCartId(res.cart.cartId);
                 _this.cart.next(res.cart);
@@ -234,15 +231,17 @@
             localStorage.removeItem('cartID');
         };
         NgRestoCartService.prototype.userCart = function () {
-            return this.cart;
+            return this.cart.pipe();
         };
         NgRestoCartService.prototype.setModifires = function (modifires, messages) {
             this.modifires.next(modifires);
-            if (messages)
+            if (messages) {
                 this.modifiresMessage.next(messages);
+            }
+            ;
         };
         NgRestoCartService.prototype.getModifires = function () {
-            return this.modifires;
+            return this.modifires.pipe();
         };
         return NgRestoCartService;
     }());
@@ -277,20 +276,18 @@
         AddDishToCartDirective.prototype.addDishToCart = function (dishID, amount) {
             var _this = this;
             var data = {
-                "dishId": dishID,
-                "amount": amount,
-                "cartId": undefined,
-                "modifiers": this.modifires,
-                "comment": this.comment
+                dishId: dishID,
+                amount: amount,
+                cartId: undefined,
+                modifiers: this.modifires,
+                comment: this.comment
             };
             if (this.cart.cartId)
                 data.cartId = this.cart.cartId;
             this.loading.emit(true);
             this.cartService
                 .addDishToCart$(data)
-                .subscribe(function (_) { return _this.success.emit(true); }, function (e) { return _this.error.emit(e); }, function () {
-                _this.loading.emit(false);
-            });
+                .subscribe(function () { return _this.success.emit(true); }, function (e) { return _this.error.emit(e); }, function () { return _this.loading.emit(false); });
         };
         return AddDishToCartDirective;
     }());
@@ -299,14 +296,16 @@
             if (rf & 1) {
                 i0.ɵɵlistener("click", function AddDishToCartDirective_click_HostBindingHandler() { return ctx.onClick(); });
             }
-        }, inputs: { dish: "dish", amountDish: "amountDish", comment: "comment" }, outputs: { loading: "loading", success: "success", error: "error" } });
+        }, inputs: { modifires: "modifires", dish: "dish", amountDish: "amountDish", comment: "comment" }, outputs: { loading: "loading", success: "success", error: "error" } });
     /*@__PURE__*/ (function () {
         i0.ɵsetClassMetadata(AddDishToCartDirective, [{
                 type: i0.Directive,
                 args: [{
                         selector: '[addToCart]'
                     }]
-            }], function () { return [{ type: NgRestoCartService }]; }, { dish: [{
+            }], function () { return [{ type: NgRestoCartService }]; }, { modifires: [{
+                    type: i0.Input
+                }], dish: [{
                     type: i0.Input
                 }], amountDish: [{
                     type: i0.Input

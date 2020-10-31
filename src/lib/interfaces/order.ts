@@ -16,7 +16,7 @@ export interface Order {
         },
         customer: {
           phone: string,
-          mail?: string,       
+          mail?: string,
           name: string
         }
 }

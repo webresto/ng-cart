@@ -1,6 +1,6 @@
 import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, EventEmitter, ɵɵdirectiveInject, ɵɵdefineDirective, ɵɵlistener, Directive, Input, Output, HostListener, Renderer2, ElementRef, ɵɵNgOnChangesFeature, ɵɵelementContainer, ɵɵelementContainerStart, ɵɵelementStart, ɵɵtext, ɵɵelementEnd, ɵɵelementContainerEnd, ɵɵnextContext, ɵɵadvance, ɵɵproperty, ɵɵpureFunction1, ɵɵtextInterpolate, ɵɵgetCurrentView, ɵɵrestoreView, ɵɵtextInterpolate1, ɵɵtemplate, ɵɵreference, ɵɵpureFunction5, ɵɵpureFunction6, ɵɵtemplateRefExtractor, ɵɵelement, ɵɵstyleProp, ɵɵpureFunction3, ɵɵdefineComponent, Component, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
-import { BehaviorSubject, throwError, of } from 'rxjs';
-import { tap, filter, debounceTime } from 'rxjs/operators';
+import { BehaviorSubject, throwError, from } from 'rxjs';
+import { map, catchError, tap, filter, debounceTime } from 'rxjs/operators';
 import { EventMessage, NetService, EventerService } from '@webresto/ng-core';
 import { NgIf, NgTemplateOutlet, NgClass, NgForOf, CommonModule } from '@angular/common';
 
@@ -8,32 +8,30 @@ class NgRestoCartService {
     constructor(net, eventer) {
         this.net = net;
         this.eventer = eventer;
-        this.OrderFormChange = new BehaviorSubject(null);
-        this.cart = new BehaviorSubject({});
-        this.modifires = new BehaviorSubject([]);
-        this.modifiresMessage = new BehaviorSubject([]);
-        this.initialStorage();
-        this.modifiresMessage.subscribe(messages => this.messages = messages);
-    }
-    initialStorage() {
         this.cartID = this.getCartId();
-        if (this.cartID) {
-            this.net
-                .get('/cart?cartId=' + this.cartID)
-                .pipe(tap(cart => {
-                if (cart.state == 'ORDER') {
-                    throwError(new Error('Cart in order state'));
-                }
-            }))
-                .subscribe(cart => this.cart.next(cart.cart), error => this.removeCartId());
-        }
+        this.cart = new BehaviorSubject({});
+        this.cart$ = this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(map(cart => {
+            if (cart.state == 'ORDER') {
+                return throwError(new Error('Cart in order state'));
+            }
+            else {
+                return cart;
+            }
+            ;
+        }), catchError(err => {
+            this.removeCartId();
+            return throwError(err);
+        })) : from([{}]).subscribe(this.cart);
+        this.modifires = new BehaviorSubject([]);
+        this.OrderFormChange = new BehaviorSubject(null);
+        this.modifiresMessage = new BehaviorSubject([]);
     }
     getCartId() {
         return localStorage.getItem('cartID');
     }
     addDishToCart(data) {
-        if (this.messages.length) {
-            this.messages.forEach(message => {
+        if (this.modifiresMessage.value.length) {
+            this.modifiresMessage.value.forEach(message => {
                 this.eventer.emitMessageEvent(message);
             });
             return;
@@ -45,18 +43,18 @@ class NgRestoCartService {
             /*this.eventer.emitMessageEvent(
              new EventMessage('success', 'Успех', 'Блюдо добавлено в корзину')
              );*/
-        }, error => {
+        }, () => {
             /*this.eventer.emitMessageEvent(
              new EventMessage('error', 'Ошибка', 'Не удалось добавить блюдо')
              )*/
         });
     }
     addDishToCart$(data) {
-        if (this.messages.length) {
-            this.messages.forEach(message => {
+        if (this.modifiresMessage.value.length) {
+            this.modifiresMessage.value.forEach(message => {
                 this.eventer.emitMessageEvent(message);
             });
-            return of(null);
+            return from([null]);
         }
         return this.net.put('/cart/add', data)
             .pipe(tap(res => {
@@ -67,9 +65,9 @@ class NgRestoCartService {
     }
     setDishCountToCart(dishId, amount) {
         this.net.post('/cart/set', {
-            "dishId": dishId,
-            "cartId": this.cartID,
-            "amount": amount
+            dishId: dishId,
+            cartId: this.cartID,
+            amount: amount
         }).subscribe(res => {
             this.setCartId(res.cart.cartId);
             this.cart.next(res.cart);
@@ -77,7 +75,7 @@ class NgRestoCartService {
             /*this.eventer.emitMessageEvent(
              new EventMessage('success', 'Успех', 'Изменено количество')
              );*/
-        }, error => {
+        }, () => {
             /*this.eventer.emitMessageEvent(
              new EventMessage('error', 'Ошибка', 'Не удалось изменить количество')
              )*/
@@ -85,22 +83,22 @@ class NgRestoCartService {
     }
     setDishComment(dishId, comment) {
         return this.net.post('/cart/setcomment', {
-            "dishId": dishId,
-            "cartId": this.cartID,
-            "comment": comment
+            dishId: dishId,
+            cartId: this.cartID,
+            comment: comment
         }).pipe(tap(res => {
             this.setCartId(res.cart.cartId);
             this.cart.next(res.cart);
             this.cartID = res.cart.cartId;
-        }, error => {
+        }, () => {
             this.eventer.emitMessageEvent(new EventMessage('error', 'Ошибка', 'Не удалось изменить коментарий'));
         }));
     }
     removeDishFromCart$(dishId, amount) {
         return this.net.put('/cart/remove', {
-            "dishId": dishId,
-            "cartId": this.cartID,
-            "amount": amount
+            dishId: dishId,
+            cartId: this.cartID,
+            amount: amount
         })
             .pipe(tap(res => {
             this.setCartId(res.cart.cartId);
@@ -110,9 +108,9 @@ class NgRestoCartService {
     }
     removeDishFromCart(dishId, amount) {
         this.net.put('/cart/remove', {
-            "dishId": dishId,
-            "cartId": this.cartID,
-            "amount": amount
+            dishId: dishId,
+            cartId: this.cartID,
+            amount: amount
         }).subscribe(res => {
             this.setCartId(res.cart.cartId);
             this.cart.next(res.cart);
@@ -223,15 +221,17 @@ class NgRestoCartService {
         localStorage.removeItem('cartID');
     }
     userCart() {
-        return this.cart;
+        return this.cart.pipe();
     }
     setModifires(modifires, messages) {
         this.modifires.next(modifires);
-        if (messages)
+        if (messages) {
             this.modifiresMessage.next(messages);
+        }
+        ;
     }
     getModifires() {
-        return this.modifires;
+        return this.modifires.pipe();
     }
 }
 NgRestoCartService.ɵfac = function NgRestoCartService_Factory(t) { return new (t || NgRestoCartService)(ɵɵinject(NetService), ɵɵinject(EventerService)); };
@@ -261,32 +261,32 @@ class AddDishToCartDirective {
     }
     addDishToCart(dishID, amount) {
         let data = {
-            "dishId": dishID,
-            "amount": amount,
-            "cartId": undefined,
-            "modifiers": this.modifires,
-            "comment": this.comment
+            dishId: dishID,
+            amount: amount,
+            cartId: undefined,
+            modifiers: this.modifires,
+            comment: this.comment
         };
         if (this.cart.cartId)
             data.cartId = this.cart.cartId;
         this.loading.emit(true);
         this.cartService
             .addDishToCart$(data)
-            .subscribe(_ => this.success.emit(true), e => this.error.emit(e), () => {
-            this.loading.emit(false);
-        });
+            .subscribe(() => this.success.emit(true), e => this.error.emit(e), () => this.loading.emit(false));
     }
 }
 AddDishToCartDirective.ɵfac = function AddDishToCartDirective_Factory(t) { return new (t || AddDishToCartDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
 AddDishToCartDirective.ɵdir = ɵɵdefineDirective({ type: AddDishToCartDirective, selectors: [["", "addToCart", ""]], hostBindings: function AddDishToCartDirective_HostBindings(rf, ctx) { if (rf & 1) {
         ɵɵlistener("click", function AddDishToCartDirective_click_HostBindingHandler() { return ctx.onClick(); });
-    } }, inputs: { dish: "dish", amountDish: "amountDish", comment: "comment" }, outputs: { loading: "loading", success: "success", error: "error" } });
+    } }, inputs: { modifires: "modifires", dish: "dish", amountDish: "amountDish", comment: "comment" }, outputs: { loading: "loading", success: "success", error: "error" } });
 /*@__PURE__*/ (function () { ɵsetClassMetadata(AddDishToCartDirective, [{
         type: Directive,
         args: [{
                 selector: '[addToCart]'
             }]
-    }], function () { return [{ type: NgRestoCartService }]; }, { dish: [{
+    }], function () { return [{ type: NgRestoCartService }]; }, { modifires: [{
+            type: Input
+        }], dish: [{
             type: Input
         }], amountDish: [{
             type: Input

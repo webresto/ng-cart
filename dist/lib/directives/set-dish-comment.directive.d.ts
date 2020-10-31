@@ -13,3 +13,4 @@ export declare class SetDishCommentDirective {
     static ɵfac: i0.ɵɵFactoryDef<SetDishCommentDirective, never>;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<SetDishCommentDirective, "[setDishComment]", never, { "comment": "comment"; "dish": "dish"; }, { "success": "success"; "error": "error"; }, never>;
 }
+//# sourceMappingURL=set-dish-comment.directive.d.ts.map
