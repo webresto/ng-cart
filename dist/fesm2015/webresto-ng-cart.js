@@ -10,24 +10,27 @@ class NgRestoCartService {
         this.eventer = eventer;
         this.cartID = this.getCartId();
         this.cart = new BehaviorSubject({});
-        this.cart$ = this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(map(cart => {
-            if (cart.state == 'ORDER') {
-                return throwError(new Error('Cart in order state'));
-            }
-            else {
-                return cart;
-            }
-            ;
-        }), catchError(err => {
-            this.removeCartId();
-            return throwError(err);
-        })) : from([{}]).subscribe(res => this.cart.next(res));
         this.modifires = new BehaviorSubject([]);
         this.OrderFormChange = new BehaviorSubject(null);
         this.modifiresMessage = new BehaviorSubject([]);
     }
     getCartId() {
         return localStorage.getItem('cartID');
+    }
+    getCart() {
+        return this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(map(cart => {
+            if (cart.state == 'ORDER') {
+                return throwError(new Error('Cart in order state'));
+            }
+            else {
+                this.cart.next(cart.cart);
+                return cart.cart;
+            }
+            ;
+        }), catchError(err => {
+            this.removeCartId();
+            return throwError(err);
+        })) : from([{}]);
     }
     addDishToCart(data) {
         if (this.modifiresMessage.value.length) {

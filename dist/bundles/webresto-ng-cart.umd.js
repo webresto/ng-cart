@@ -6,29 +6,32 @@
 
     var NgRestoCartService = /** @class */ (function () {
         function NgRestoCartService(net, eventer) {
-            var _this = this;
             this.net = net;
             this.eventer = eventer;
             this.cartID = this.getCartId();
             this.cart = new rxjs.BehaviorSubject({});
-            this.cart$ = this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(operators.map(function (cart) {
-                if (cart.state == 'ORDER') {
-                    return rxjs.throwError(new Error('Cart in order state'));
-                }
-                else {
-                    return cart;
-                }
-                ;
-            }), operators.catchError(function (err) {
-                _this.removeCartId();
-                return rxjs.throwError(err);
-            })) : rxjs.from([{}]).subscribe(function (res) { return _this.cart.next(res); });
             this.modifires = new rxjs.BehaviorSubject([]);
             this.OrderFormChange = new rxjs.BehaviorSubject(null);
             this.modifiresMessage = new rxjs.BehaviorSubject([]);
         }
         NgRestoCartService.prototype.getCartId = function () {
             return localStorage.getItem('cartID');
+        };
+        NgRestoCartService.prototype.getCart = function () {
+            var _this = this;
+            return this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(operators.map(function (cart) {
+                if (cart.state == 'ORDER') {
+                    return rxjs.throwError(new Error('Cart in order state'));
+                }
+                else {
+                    _this.cart.next(cart.cart);
+                    return cart.cart;
+                }
+                ;
+            }), operators.catchError(function (err) {
+                _this.removeCartId();
+                return rxjs.throwError(err);
+            })) : rxjs.from([{}]);
         };
         NgRestoCartService.prototype.addDishToCart = function (data) {
             var _this = this;

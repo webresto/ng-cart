@@ -14,20 +14,6 @@ import { Order } from '../interfaces/order';
 export class NgRestoCartService {
   cartID: string = this.getCartId();
   cart: BehaviorSubject<any> = new BehaviorSubject({});
-  cart$ = this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(
-    map(
-      cart => {
-        if (cart.state == 'ORDER') {
-          return throwError(new Error('Cart in order state'));
-        } else {
-          return cart;
-        };
-      }),
-    catchError(err => {
-      this.removeCartId();
-      return throwError(err);
-    })
-  ) : from([{}]).subscribe(res => this.cart.next(res));
 
   modifires: BehaviorSubject<any> = new BehaviorSubject([]);
   OrderFormChange = new BehaviorSubject(null);
@@ -38,6 +24,24 @@ export class NgRestoCartService {
 
   getCartId(): string {
     return localStorage.getItem('cartID');
+  }
+
+  getCart() {
+    return this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(
+      map(
+        cart => {
+          if (cart.state == 'ORDER') {
+            return throwError(new Error('Cart in order state'));
+          } else {
+            this.cart.next(cart.cart);
+            return cart.cart;
+          };
+        }),
+      catchError(err => {
+        this.removeCartId();
+        return throwError(err);
+      })
+    ) : from([{}]);
   }
 
   addDishToCart(data) {
@@ -279,6 +283,7 @@ export class NgRestoCartService {
   setCartId(cartID) {
     localStorage.setItem('cartID', cartID);
   }
+
   removeCartId() {
     localStorage.removeItem('cartID');
   }

@@ -6,12 +6,12 @@ export declare class NgRestoCartService {
     private eventer;
     cartID: string;
     cart: BehaviorSubject<any>;
-    cart$: import("rxjs").Subscription | Observable<any>;
     modifires: BehaviorSubject<any>;
     OrderFormChange: BehaviorSubject<any>;
     modifiresMessage: BehaviorSubject<EventMessage[]>;
     constructor(net: NetService, eventer: EventerService);
     getCartId(): string;
+    getCart(): Observable<any>;
     addDishToCart(data: any): void;
     addDishToCart$(data: any): Observable<any>;
     setDishCountToCart(dishId: any, amount: any): void;
