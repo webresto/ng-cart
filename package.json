@@ -7,7 +7,6 @@
   "peerDependencies": {
     "@angular/common": "^10.2.1",
     "@angular/core": "^10.2.1",
-    "ngx-store": "^2.1.0",
-    "@webresto/ng-core": "git+https://github.com/webresto/ng-core.git#v10-axrl"
+    "ngx-store": "^2.1.0"
   }
 }
