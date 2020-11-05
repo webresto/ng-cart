@@ -6,7 +6,7 @@ import {
   EventerService,
   EventMessage
 } from '@webresto/ng-core';
-import { Order } from '../interfaces/order';
+import { Order } from '../../order';
 
 @Injectable({
   providedIn: 'root'

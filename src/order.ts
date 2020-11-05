@@ -1,4 +1,4 @@
-export interface Order {
+export declare interface Order {
         cartId: string,
         comment?: string,
         delivery?: {
