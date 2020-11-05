@@ -1,6 +1,6 @@
 import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, EventEmitter, ɵɵdirectiveInject, ɵɵdefineDirective, ɵɵlistener, Directive, Input, Output, HostListener, Renderer2, ElementRef, ɵɵNgOnChangesFeature, ɵɵelementContainer, ɵɵelementContainerStart, ɵɵelementStart, ɵɵtext, ɵɵelementEnd, ɵɵelementContainerEnd, ɵɵnextContext, ɵɵadvance, ɵɵproperty, ɵɵpureFunction1, ɵɵtextInterpolate, ɵɵgetCurrentView, ɵɵrestoreView, ɵɵtextInterpolate1, ɵɵtemplate, ɵɵreference, ɵɵpureFunction5, ɵɵpureFunction6, ɵɵtemplateRefExtractor, ɵɵelement, ɵɵstyleProp, ɵɵpureFunction3, ɵɵdefineComponent, Component, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
 import { BehaviorSubject, throwError, from } from 'rxjs';
-import { map, catchError, tap, filter, debounceTime } from 'rxjs/operators';
+import { switchMap, catchError, tap, filter, debounceTime } from 'rxjs/operators';
 import { EventMessage, NetService, EventerService } from '@webresto/ng-core';
 import { NgIf, NgTemplateOutlet, NgClass, NgForOf, CommonModule } from '@angular/common';
 
@@ -18,15 +18,15 @@ class NgRestoCartService {
         return localStorage.getItem('cartID');
     }
     getCart() {
-        return this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(map(cart => {
+        return this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(switchMap(cart => {
             if (cart.state == 'ORDER') {
                 return throwError(new Error('Cart in order state'));
             }
             else {
                 this.cart.next(cart.cart);
-                return cart.cart;
             }
             ;
+            return this.cart;
         }), catchError(err => {
             this.removeCartId();
             return throwError(err);
@@ -224,7 +224,7 @@ class NgRestoCartService {
         localStorage.removeItem('cartID');
     }
     userCart() {
-        return this.cart.pipe();
+        return this.cart;
     }
     setModifires(modifires, messages) {
         this.modifires.next(modifires);

@@ -19,15 +19,15 @@
         };
         NgRestoCartService.prototype.getCart = function () {
             var _this = this;
-            return this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(operators.map(function (cart) {
+            return this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(operators.switchMap(function (cart) {
                 if (cart.state == 'ORDER') {
                     return rxjs.throwError(new Error('Cart in order state'));
                 }
                 else {
                     _this.cart.next(cart.cart);
-                    return cart.cart;
                 }
                 ;
+                return _this.cart;
             }), operators.catchError(function (err) {
                 _this.removeCartId();
                 return rxjs.throwError(err);
@@ -234,7 +234,7 @@
             localStorage.removeItem('cartID');
         };
         NgRestoCartService.prototype.userCart = function () {
-            return this.cart.pipe();
+            return this.cart;
         };
         NgRestoCartService.prototype.setModifires = function (modifires, messages) {
             this.modifires.next(modifires);

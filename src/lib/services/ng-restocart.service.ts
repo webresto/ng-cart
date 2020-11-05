@@ -1,12 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, throwError, from } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import {
   NetService,
   EventerService,
   EventMessage
 } from '@webresto/ng-core';
-import { Order } from '../../order';
+
+declare interface Order {
+  cartId: string,
+  comment?: string,
+  delivery?: {
+    type: string
+  },
+  address?: {
+    city?: string,
+    streetId?: string,
+    home?:number,
+    housing?: string,
+    index?: string,
+    entrance?: string,
+    floor?: string,
+    apartment?: string
+  },
+  customer: {
+    phone: string,
+    mail?: string,
+    name: string
+  }
+}
 
 @Injectable({
   providedIn: 'root'
@@ -28,14 +50,14 @@ export class NgRestoCartService {
 
   getCart() {
     return this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(
-      map(
+      switchMap(
         cart => {
           if (cart.state == 'ORDER') {
             return throwError(new Error('Cart in order state'));
           } else {
             this.cart.next(cart.cart);
-            return cart.cart;
           };
+          return this.cart;
         }),
       catchError(err => {
         this.removeCartId();
@@ -289,7 +311,7 @@ export class NgRestoCartService {
   }
 
   userCart(): Observable<any> {
-    return this.cart.pipe();
+    return this.cart;
   }
 
   setModifires(modifires, messages?: EventMessage[]): void {
