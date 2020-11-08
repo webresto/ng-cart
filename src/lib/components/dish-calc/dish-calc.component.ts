@@ -123,6 +123,7 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
       }
       this.calculateTotalPrice();
     }
+    console.log(`this.modifiers.indexById`, this.modifiers.indexById);
   }
 
   calculateTotalAmountInGroup(groupId) {
@@ -135,11 +136,10 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
 
   checkImagesInModifier(modifierId) {
     const m: any = this.modifiers.indexById[modifierId];
-    this.modifiers.indexById[modifierId].imagesIsset = m.dish && m.dish.images && m.dish.images.length;
-
-    this.modifiers.indexById[modifierId].childImagesIsset = !!Object
-      .values(this.modifiersValueTree[modifierId])
-      .find((m: any) => m && m.dish && m.dish.images && m.dish.images.length);
+    this.modifiers.indexById[modifierId].imagesIsset = m.dish && m.dish.images && m.dish.images.length ? true : false;
+    this.modifiers.indexById[modifierId].childImagesIsset = !!this.modifiers.indexById[modifierId]
+      .childModifiers
+      .find((m: any) => m && m.dish && m.dish.images && m.dish.images.length ? true : false);
   }
 
   calculateTotalPrice() {
@@ -164,6 +164,34 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
       groupId: (modifier.dish && modifier.dish.groupId) ? modifier.dish.groupId : undefined,
       modifierId: modifier.modifierId
     }
+  }
+
+  selectTwoPartsAssembledModifier(modifier: any) {
+    const { groupId = 'single', modifierId } = this.getModifiersIds(modifier);
+    const { minAmount, maxAmount } = modifier;
+    const { minAmount: groupMinAmount = 0,
+      maxAmount: groupMaxAmount = 0 } = this.modifiers.indexById[groupId] || {};
+    const previousAmount: number = this.modifiersValueTree[groupId][modifierId];
+    const amount: number = previousAmount ? 0 : 1;
+
+    // Total amount in group
+    const groupAmount: number = this.modifiers.indexById[groupId].totalAmount - previousAmount + amount;
+    if(groupAmount > groupMaxAmount) {
+      console.warn(`Limit: max ${groupMaxAmount}. Current ${groupAmount}`);
+      this.eventer.emitMessageEvent(
+        new EventMessage(
+          'warning',
+          'Ограничение',
+          `Максимальное количество опций для группы
+            модификаторов "${this.modifiers.indexById[groupId].group.name}" - не более ${groupMaxAmount}`
+        )
+      );
+      return;
+    }
+
+    this.modifiersValueTree[groupId][modifierId] = amount;
+    this.calculateTotalAmountInGroup(groupId);
+    this.calculateTotalPrice();
   }
 
   changeModifierAmount(modifier: any, amount: number, operation: string) {
