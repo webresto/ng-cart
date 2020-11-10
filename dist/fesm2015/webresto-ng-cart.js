@@ -18,7 +18,7 @@ class NgRestoCartService {
         return localStorage.getItem('cartID');
     }
     getCart() {
-        return this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(switchMap(cart => {
+        return this.net.get('/cart?cartId=' + this.cartID).pipe(switchMap(cart => {
             if (cart.state == 'ORDER') {
                 return throwError(new Error('Cart in order state'));
             }
@@ -30,7 +30,7 @@ class NgRestoCartService {
         }), catchError(err => {
             this.removeCartId();
             return throwError(err);
-        })) : from([{}]);
+        }));
     }
     addDishToCart(data) {
         if (this.modifiresMessage.value.length) {

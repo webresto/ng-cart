@@ -11,7 +11,7 @@ export declare class NgRestoCartService {
     modifiresMessage: BehaviorSubject<EventMessage[]>;
     constructor(net: NetService, eventer: EventerService);
     getCartId(): string;
-    getCart(): Observable<{}>;
+    getCart(): Observable<Cart>;
     addDishToCart(data: any): void;
     addDishToCart$(data: any): Observable<any>;
     setDishCountToCart(dishId: any, amount: any): void;

@@ -19,7 +19,7 @@
         };
         NgRestoCartService.prototype.getCart = function () {
             var _this = this;
-            return this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(operators.switchMap(function (cart) {
+            return this.net.get('/cart?cartId=' + this.cartID).pipe(operators.switchMap(function (cart) {
                 if (cart.state == 'ORDER') {
                     return rxjs.throwError(new Error('Cart in order state'));
                 }
@@ -31,7 +31,7 @@
             }), operators.catchError(function (err) {
                 _this.removeCartId();
                 return rxjs.throwError(err);
-            })) : rxjs.from([{}]);
+            }));
         };
         NgRestoCartService.prototype.addDishToCart = function (data) {
             var _this = this;

@@ -26,7 +26,7 @@ export class NgRestoCartService {
   }
 
   getCart() {
-    return this.cartID ? this.net.get<{cart:Cart,state:any}>('/cart?cartId=' + this.cartID).pipe(
+    return this.net.get<{cart:Cart,state:any}>('/cart?cartId=' + this.cartID).pipe(
       switchMap(
         cart => {
           if (cart.state == 'ORDER') {
@@ -40,7 +40,7 @@ export class NgRestoCartService {
         this.removeCartId();
         return throwError(err);
       })
-    ) : from([{}]);
+    );
   }
 
   addDishToCart(data) {
