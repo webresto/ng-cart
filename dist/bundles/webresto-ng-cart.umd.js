@@ -9,7 +9,7 @@
             this.net = net;
             this.eventer = eventer;
             this.cartID = this.getCartId();
-            this.cart = new rxjs.BehaviorSubject({});
+            this.cart = new rxjs.BehaviorSubject(null);
             this.modifires = new rxjs.BehaviorSubject([]);
             this.OrderFormChange = new rxjs.BehaviorSubject(null);
             this.modifiresMessage = new rxjs.BehaviorSubject([]);
@@ -246,6 +246,18 @@
         NgRestoCartService.prototype.getModifires = function () {
             return this.modifires.pipe();
         };
+        NgRestoCartService.prototype.productInCart = function (product) {
+            return this.cart.pipe(operators.filter(function (cart) { return 'cartId' in cart; }), operators.map(function (cart) {
+                var _a;
+                return !!(cart && ((_a = cart === null || cart === void 0 ? void 0 : cart.dishes) === null || _a === void 0 ? void 0 : _a.find(function (dishInCart) { return dishInCart.dish.id === product.id; })));
+            }));
+        };
+        NgRestoCartService.prototype.getPickupPoints = function () {
+            return this.net.get('/pickupaddreses?cartId=string');
+        };
+        NgRestoCartService.prototype.getPaymentMethods = function () {
+            return this.net.get('/paymentmethods');
+        };
         return NgRestoCartService;
     }());
     NgRestoCartService.ɵfac = function NgRestoCartService_Factory(t) { return new (t || NgRestoCartService)(i0.ɵɵinject(i1.NetService), i0.ɵɵinject(i1.EventerService)); };
@@ -399,16 +411,15 @@
                 return;
             }
             var comment = this.comment || "Не указан";
-            var paymentMethod = this.paymentMethod || "Не указано";
             var data = {
-                "cartId": this.cart.cartId,
-                "comment": comment,
-                "customer": {
-                    "phone": this.preparePhone(this.phone),
-                    "mail": this.email,
-                    "name": this.name
+                cartId: this.cart.cartId,
+                comment: comment,
+                customer: {
+                    phone: this.preparePhone(this.phone),
+                    mail: this.email,
+                    name: this.name
                 },
-                "personsCount": +this.personsCount
+                personsCount: +this.personsCount
             };
             if (this.paymentMethodId) {
                 data["paymentMethodId"] = this.paymentMethodId;
@@ -433,14 +444,14 @@
             }
             else {
                 data["address"] = {
-                    "streetId": this.streetId,
-                    "street": this.street,
-                    "home": this.home,
-                    "housing": this.housing,
-                    "doorphone": this.doorphone || '',
-                    "entrance": this.entrance || '',
-                    "floor": this.floor || '',
-                    "apartment": this.apartment || ''
+                    streetId: this.streetId,
+                    street: this.street,
+                    home: this.home,
+                    housing: this.housing,
+                    doorphone: this.doorphone || '',
+                    entrance: this.entrance || '',
+                    floor: this.floor || '',
+                    apartment: this.apartment || ''
                 };
             }
             var cartId = this.cart.id;
@@ -462,16 +473,15 @@
             var _this = this;
             //if(this.streetId == '0') return;
             var comment = this.comment || "Не указан";
-            var paymentMethod = this.paymentMethod || "Не указано";
             var data = {
-                "cartId": this.cart.cartId,
-                "comment": comment,
-                "customer": {
-                    "phone": this.phone ? this.preparePhone(this.phone) : null,
-                    "mail": this.email,
-                    "name": this.name || null
+                cartId: this.cart.cartId,
+                comment: comment,
+                customer: {
+                    phone: this.phone ? this.preparePhone(this.phone) : null,
+                    mail: this.email,
+                    name: this.name || null
                 },
-                "personsCount": +this.personsCount
+                personsCount: +this.personsCount
             };
             data["selfService"] = this.selfService;
             if (this.paymentMethodId) {
@@ -488,14 +498,14 @@
             }
             else {
                 data["address"] = {
-                    "streetId": this.streetId,
-                    "street": this.street,
-                    "home": this.home,
-                    "housing": this.housing,
-                    "doorphone": this.doorphone || '',
-                    "entrance": this.entrance || '',
-                    "floor": this.floor || '',
-                    "apartment": this.apartment || ''
+                    streetId: this.streetId,
+                    street: this.street,
+                    home: this.home,
+                    housing: this.housing,
+                    doorphone: this.doorphone || '',
+                    entrance: this.entrance || '',
+                    floor: this.floor || '',
+                    apartment: this.apartment || ''
                 };
             }
             this.isChecking.emit(true);
@@ -504,7 +514,7 @@
                 .subscribe(
             //() => this.success.emit(true),
             //error => this.error.emit(error)
-            function (result) { return _this.isChecking.emit(false); }, function (error) { return _this.isChecking.emit(false); });
+            function () { return _this.isChecking.emit(false); }, function () { return _this.isChecking.emit(false); });
         };
         CheckoutDirective.prototype.preparePhone = function (phone) {
             if (!phone)

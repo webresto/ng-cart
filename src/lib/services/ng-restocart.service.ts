@@ -1,41 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, throwError, from } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import {
   NetService,
   EventerService,
   EventMessage
 } from '@webresto/ng-core';
 
-declare interface Order {
-  cartId: string,
-  comment?: string,
-  delivery?: {
-    type: string
-  },
-  address?: {
-    city?: string,
-    streetId?: string,
-    home?:number,
-    housing?: string,
-    index?: string,
-    entrance?: string,
-    floor?: string,
-    apartment?: string
-  },
-  customer: {
-    phone: string,
-    mail?: string,
-    name: string
-  }
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class NgRestoCartService {
   cartID: string = this.getCartId();
-  cart: BehaviorSubject<any> = new BehaviorSubject({});
+  cart: BehaviorSubject<Cart> = new BehaviorSubject(null);
 
   modifires: BehaviorSubject<any> = new BehaviorSubject([]);
   OrderFormChange = new BehaviorSubject(null);
@@ -49,7 +26,7 @@ export class NgRestoCartService {
   }
 
   getCart() {
-    return this.cartID ? this.net.get('/cart?cartId=' + this.cartID).pipe(
+    return this.cartID ? this.net.get<{cart:Cart,state:any}>('/cart?cartId=' + this.cartID).pipe(
       switchMap(
         cart => {
           if (cart.state == 'ORDER') {
@@ -192,7 +169,7 @@ export class NgRestoCartService {
   }
 
   checkoutCart(data) {
-    let order: Order = {
+    let order = {
       cartId: this.cartID,
       address: {
         streetId: data.street.id,
@@ -325,5 +302,195 @@ export class NgRestoCartService {
     return this.modifires.pipe();
   }
 
+  productInCart(product:DishListItem) {
+    return this.cart.pipe(
+      filter(cart => 'cartId' in cart),
+      map(cart => {
+        return !!(cart && cart?.dishes?.find(dishInCart => dishInCart.dish.id === product.id))
+      })
+    );
+  }
 
+  getPickupPoints() {
+    return this.net.get<PickupPoint[]>('/pickupaddreses?cartId=string');
+  }
+
+  getPaymentMethods() {
+    return this.net.get<PaymentMethod[]>('/paymentmethods');
+  }
+
+}
+
+declare interface PickupPoint {
+  id: string;
+  title: string;
+  address: string;
+  order: number;
+  enable: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+declare interface PaymentMethod {
+  iikoPaymentMethod: any,
+  id: string,
+  title: string,
+  type: string,
+  adapter: string,
+  order: number,
+  description: string,
+  enable: boolean,
+  createdAt: string,
+  updatedAt: string
+}
+
+declare interface DishInCart {
+  addedBy: string;
+  amount: number;
+  cart: string;
+  comment: string;
+  createdAt: string;
+  dish: DishListItem;
+  id: number;
+  itemTotal: number;
+  modifiers: any[];
+  parent: any;
+  totalWeight: number;
+  uniqueItems: number;
+  updatedAt: string;
+  weight: number;
+}
+
+declare interface Cart {
+  address: any
+  cartId: string
+  cartTotal: number
+  comment: string
+  createdAt: string
+  customer: string
+  delivery: any
+  deliveryDescription: string
+  deliveryItem: any
+  deliveryStatus: any
+  dishes: DishInCart[]
+  dishesCount: number
+  history: any
+  id: string
+  message: any
+  modifiers: any
+  nameOfModel: any
+  personsCount: number
+  problem: boolean
+  rmsId: string
+  selfDelivery: boolean
+  sendToIiko: boolean
+  state: string
+  totalWeight: string
+  uniqueDishes: string
+  updatedAt: string
+  user: any
+  FreeDeliveryFromMessage: string
+  date: null
+  deliveryTimeMessage: string
+  deliveryTotal: number
+  discountTotal: number
+  isPaymentPromise: boolean
+  orderDate: string
+  orderDateLimit: string
+  orderTotal: number
+  paid: boolean
+  paymentMethod: string
+  paymentMethodTitle: string
+  recommends: DishListItem[];
+  rmsDelivered: boolean
+  rmsDeliveryDate: null
+  rmsErrorCode: null
+  rmsErrorMessage: null
+  rmsOrderData: null
+  rmsOrderNumber: null
+  rmsStatusCode: null
+  selfService: boolean
+  shortId: string
+  total: number
+  untilFreeDeliveryMessage: string
+}
+
+declare interface DishListItem {
+  additionalInfo: any
+  balance: number
+  carbohydrateAmount: number
+  carbohydrateFullAmount: number
+  code: string
+  createdAt: string
+  description: string
+  differentPricesOn: any[]
+  doNotPrintInCheque: boolean
+  energyAmount: number
+  energyFullAmount: number
+  fatAmount: number
+  fatFullAmount: number
+  fiberAmount: number
+  fiberFullAmount: number
+  groupId: any
+  groupModifiers: []
+  hash: number
+  id: string
+  images: DishImageItem[]
+  imagesList: DishImageItem[]
+  isDeleted: boolean
+  isIncludedInMenu: boolean
+  measureUnit: string
+  modifiers: DishModifier[]
+  name: string
+  order: number
+  parentGroup: string
+  price: number
+  productCategoryId: string
+  prohibitedToSaleOn: any[]
+  rmsId: string
+  seoDescription: any
+  seoKeywords: any
+  seoText: any
+  seoTitle: any
+  slug: string
+  tags: any[]
+  tagsList: any[]
+  type: string
+  updatedAt: string
+  useBalanceForSell: boolean
+  weight: number
+}
+
+declare interface DishImageUrls {
+  large: string
+  origin: string
+  small: string
+}
+
+declare interface DishImageItem {
+  createdAt: string
+  group: any
+  id: string
+  images: DishImageUrls
+  updatedAt: string
+  uploadDate: string
+}
+
+declare interface DishBaseModifier {
+  maxAmount: number
+  minAmount: number
+  modifierId: string
+  required: boolean
+}
+
+declare interface DishModifier extends DishBaseModifier {
+  childModifiers: DishChildModifier[]
+  childModifiersHaveMinMaxRestrictions: boolean
+  group: DishListItem
+}
+
+declare interface DishChildModifier extends DishBaseModifier {
+  defaultAmount: number
+  hideIfDefaultAmount: boolean
+  dish: DishListItem
 }

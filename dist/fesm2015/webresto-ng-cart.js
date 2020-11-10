@@ -1,6 +1,6 @@
 import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, EventEmitter, ɵɵdirectiveInject, ɵɵdefineDirective, ɵɵlistener, Directive, Input, Output, HostListener, Renderer2, ElementRef, ɵɵNgOnChangesFeature, ɵɵelementContainer, ɵɵelementContainerStart, ɵɵelementStart, ɵɵtext, ɵɵelementEnd, ɵɵelementContainerEnd, ɵɵnextContext, ɵɵadvance, ɵɵproperty, ɵɵpureFunction1, ɵɵtextInterpolate, ɵɵgetCurrentView, ɵɵrestoreView, ɵɵtextInterpolate1, ɵɵtemplate, ɵɵreference, ɵɵpureFunction5, ɵɵpureFunction6, ɵɵtemplateRefExtractor, ɵɵelement, ɵɵstyleProp, ɵɵpureFunction3, ɵɵdefineComponent, Component, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
 import { BehaviorSubject, throwError, from } from 'rxjs';
-import { switchMap, catchError, tap, filter, debounceTime } from 'rxjs/operators';
+import { switchMap, catchError, tap, filter, map, debounceTime } from 'rxjs/operators';
 import { EventMessage, NetService, EventerService } from '@webresto/ng-core';
 import { NgIf, NgTemplateOutlet, NgClass, NgForOf, CommonModule } from '@angular/common';
 
@@ -9,7 +9,7 @@ class NgRestoCartService {
         this.net = net;
         this.eventer = eventer;
         this.cartID = this.getCartId();
-        this.cart = new BehaviorSubject({});
+        this.cart = new BehaviorSubject(null);
         this.modifires = new BehaviorSubject([]);
         this.OrderFormChange = new BehaviorSubject(null);
         this.modifiresMessage = new BehaviorSubject([]);
@@ -236,6 +236,18 @@ class NgRestoCartService {
     getModifires() {
         return this.modifires.pipe();
     }
+    productInCart(product) {
+        return this.cart.pipe(filter(cart => 'cartId' in cart), map(cart => {
+            var _a;
+            return !!(cart && ((_a = cart === null || cart === void 0 ? void 0 : cart.dishes) === null || _a === void 0 ? void 0 : _a.find(dishInCart => dishInCart.dish.id === product.id)));
+        }));
+    }
+    getPickupPoints() {
+        return this.net.get('/pickupaddreses?cartId=string');
+    }
+    getPaymentMethods() {
+        return this.net.get('/paymentmethods');
+    }
 }
 NgRestoCartService.ɵfac = function NgRestoCartService_Factory(t) { return new (t || NgRestoCartService)(ɵɵinject(NetService), ɵɵinject(EventerService)); };
 NgRestoCartService.ɵprov = ɵɵdefineInjectable({ token: NgRestoCartService, factory: NgRestoCartService.ɵfac, providedIn: 'root' });
@@ -373,16 +385,15 @@ class CheckoutDirective {
             return;
         }
         let comment = this.comment || "Не указан";
-        let paymentMethod = this.paymentMethod || "Не указано";
         let data = {
-            "cartId": this.cart.cartId,
-            "comment": comment,
-            "customer": {
-                "phone": this.preparePhone(this.phone),
-                "mail": this.email,
-                "name": this.name
+            cartId: this.cart.cartId,
+            comment: comment,
+            customer: {
+                phone: this.preparePhone(this.phone),
+                mail: this.email,
+                name: this.name
             },
-            "personsCount": +this.personsCount
+            personsCount: +this.personsCount
         };
         if (this.paymentMethodId) {
             data["paymentMethodId"] = this.paymentMethodId;
@@ -407,14 +418,14 @@ class CheckoutDirective {
         }
         else {
             data["address"] = {
-                "streetId": this.streetId,
-                "street": this.street,
-                "home": this.home,
-                "housing": this.housing,
-                "doorphone": this.doorphone || '',
-                "entrance": this.entrance || '',
-                "floor": this.floor || '',
-                "apartment": this.apartment || ''
+                streetId: this.streetId,
+                street: this.street,
+                home: this.home,
+                housing: this.housing,
+                doorphone: this.doorphone || '',
+                entrance: this.entrance || '',
+                floor: this.floor || '',
+                apartment: this.apartment || ''
             };
         }
         const cartId = this.cart.id;
@@ -435,16 +446,15 @@ class CheckoutDirective {
     checkStreet() {
         //if(this.streetId == '0') return;
         let comment = this.comment || "Не указан";
-        let paymentMethod = this.paymentMethod || "Не указано";
         let data = {
-            "cartId": this.cart.cartId,
-            "comment": comment,
-            "customer": {
-                "phone": this.phone ? this.preparePhone(this.phone) : null,
-                "mail": this.email,
-                "name": this.name || null
+            cartId: this.cart.cartId,
+            comment: comment,
+            customer: {
+                phone: this.phone ? this.preparePhone(this.phone) : null,
+                mail: this.email,
+                name: this.name || null
             },
-            "personsCount": +this.personsCount
+            personsCount: +this.personsCount
         };
         data["selfService"] = this.selfService;
         if (this.paymentMethodId) {
@@ -461,14 +471,14 @@ class CheckoutDirective {
         }
         else {
             data["address"] = {
-                "streetId": this.streetId,
-                "street": this.street,
-                "home": this.home,
-                "housing": this.housing,
-                "doorphone": this.doorphone || '',
-                "entrance": this.entrance || '',
-                "floor": this.floor || '',
-                "apartment": this.apartment || ''
+                streetId: this.streetId,
+                street: this.street,
+                home: this.home,
+                housing: this.housing,
+                doorphone: this.doorphone || '',
+                entrance: this.entrance || '',
+                floor: this.floor || '',
+                apartment: this.apartment || ''
             };
         }
         this.isChecking.emit(true);
@@ -477,7 +487,7 @@ class CheckoutDirective {
             .subscribe(
         //() => this.success.emit(true),
         //error => this.error.emit(error)
-        result => this.isChecking.emit(false), error => this.isChecking.emit(false));
+        () => this.isChecking.emit(false), () => this.isChecking.emit(false));
     }
     preparePhone(phone) {
         if (!phone)
