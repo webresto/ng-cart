@@ -6,6 +6,8 @@ import {
   EventerService,
   EventMessage
 } from '@webresto/ng-core';
+import { formatDate } from '@angular/common';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,18 +23,24 @@ export class NgRestoCartService {
 
   constructor(private net: NetService, private eventer: EventerService) { }
 
+  restrictions$ = new BehaviorSubject<string>(null);
+
+  restrictionsLoader$ = this.net.get(`/restrictions`).pipe(
+    map(restictions => formatDate(Date.now() + restictions.periodPossibleForOrder * 1000, 'yyyy-MM-dd', 'en'))
+  ).subscribe(this.restrictions$)
+
   getCartId(): string {
     return localStorage.getItem('cartID');
   }
 
   getCart() {
-    return this.net.get<{cart:Cart,state:any}>('/cart?cartId=' + this.cartID).pipe(
+    return this.net.get<{cart:Cart}>(`/cart${this.cartID?'?cartId='+this.cartID : ''}`).pipe(
       switchMap(
-        cart => {
-          if (cart.state == 'ORDER') {
+        data => {
+          if (data.cart.state == 'ORDER') {
             return throwError(new Error('Cart in order state'));
           } else {
-            this.cart.next(cart.cart);
+            this.cart.next(data.cart);
           };
           return this.cart;
         }),

@@ -1,8 +1,8 @@
 import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, EventEmitter, ɵɵdirectiveInject, ɵɵdefineDirective, ɵɵlistener, Directive, Input, Output, HostListener, Renderer2, ElementRef, ɵɵNgOnChangesFeature, ɵɵelementContainer, ɵɵelementContainerStart, ɵɵelementStart, ɵɵtext, ɵɵelementEnd, ɵɵelementContainerEnd, ɵɵnextContext, ɵɵadvance, ɵɵproperty, ɵɵpureFunction1, ɵɵtextInterpolate, ɵɵgetCurrentView, ɵɵrestoreView, ɵɵtextInterpolate1, ɵɵtemplate, ɵɵreference, ɵɵpureFunction5, ɵɵpureFunction6, ɵɵtemplateRefExtractor, ɵɵelement, ɵɵstyleProp, ɵɵpureFunction3, ɵɵdefineComponent, Component, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
 import { BehaviorSubject, throwError, from } from 'rxjs';
-import { switchMap, catchError, tap, filter, map, debounceTime } from 'rxjs/operators';
+import { map, switchMap, catchError, tap, filter, debounceTime } from 'rxjs/operators';
 import { EventMessage, NetService, EventerService } from '@webresto/ng-core';
-import { NgIf, NgTemplateOutlet, NgClass, NgForOf, CommonModule } from '@angular/common';
+import { formatDate, NgIf, NgTemplateOutlet, NgClass, NgForOf, CommonModule } from '@angular/common';
 
 class NgRestoCartService {
     constructor(net, eventer) {
@@ -13,17 +13,19 @@ class NgRestoCartService {
         this.modifires = new BehaviorSubject([]);
         this.OrderFormChange = new BehaviorSubject(null);
         this.modifiresMessage = new BehaviorSubject([]);
+        this.restrictions$ = new BehaviorSubject(null);
+        this.restrictionsLoader$ = this.net.get(`/restrictions`).pipe(map(restictions => formatDate(Date.now() + restictions.periodPossibleForOrder * 1000, 'yyyy-MM-dd', 'en'))).subscribe(this.restrictions$);
     }
     getCartId() {
         return localStorage.getItem('cartID');
     }
     getCart() {
-        return this.net.get('/cart?cartId=' + this.cartID).pipe(switchMap(cart => {
-            if (cart.state == 'ORDER') {
+        return this.net.get(`/cart${this.cartID ? '?cartId=' + this.cartID : ''}`).pipe(switchMap(data => {
+            if (data.cart.state == 'ORDER') {
                 return throwError(new Error('Cart in order state'));
             }
             else {
-                this.cart.next(cart.cart);
+                this.cart.next(data.cart);
             }
             ;
             return this.cart;
