@@ -18,6 +18,7 @@ export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     };
     totalPrice: number;
     modifiersValueTree: any;
+    twoPartsAssembledModifiersIdsByGroupId: any;
     imageUrl: string;
     constructor(cartService: NgRestoCartService, eventer: EventerService, imageUrl: string);
     ngOnInit(): void;

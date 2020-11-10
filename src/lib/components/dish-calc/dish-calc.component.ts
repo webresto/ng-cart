@@ -29,6 +29,7 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
 
   totalPrice: number;
   modifiersValueTree: any = {};
+  twoPartsAssembledModifiersIdsByGroupId: any = {};
   imageUrl: string;
 
   constructor(
@@ -174,21 +175,35 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     const previousAmount: number = this.modifiersValueTree[groupId][modifierId];
     const amount: number = previousAmount ? 0 : 1;
 
+    // Init tmp value storage if not exists
+    if(!this.twoPartsAssembledModifiersIdsByGroupId[groupId]) {
+      this.twoPartsAssembledModifiersIdsByGroupId[groupId] = [];
+    }
+
     // Total amount in group
     const groupAmount: number = this.modifiers.indexById[groupId].totalAmount - previousAmount + amount;
     if(groupAmount > groupMaxAmount) {
-      console.warn(`Limit: max ${groupMaxAmount}. Current ${groupAmount}`);
-      this.eventer.emitMessageEvent(
-        new EventMessage(
-          'warning',
-          'Ограничение',
-          `Максимальное количество опций для группы
+      if(this.twoPartsAssembledModifiersIdsByGroupId[groupId].length) {
+        for(let mId in this.modifiersValueTree[groupId]) {
+          this.modifiersValueTree[groupId][mId] = 0;
+        }
+        this.twoPartsAssembledModifiersIdsByGroupId[groupId] = this.twoPartsAssembledModifiersIdsByGroupId[groupId].slice(1,2);
+        this.modifiersValueTree[groupId][this.twoPartsAssembledModifiersIdsByGroupId[groupId][0]] = 1;
+      }else {
+        console.warn(`Limit: max ${groupMaxAmount}. Current ${groupAmount}`);
+        this.eventer.emitMessageEvent(
+          new EventMessage(
+            'warning',
+            'Ограничение',
+            `Максимальное количество опций для группы
             модификаторов "${this.modifiers.indexById[groupId].group.name}" - не более ${groupMaxAmount}`
-        )
-      );
-      return;
+          )
+        );
+        return;
+      }
     }
 
+    this.twoPartsAssembledModifiersIdsByGroupId[groupId].push(modifierId);
     this.modifiersValueTree[groupId][modifierId] = amount;
     this.calculateTotalAmountInGroup(groupId);
     this.calculateTotalPrice();
