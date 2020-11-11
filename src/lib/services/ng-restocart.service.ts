@@ -37,6 +37,9 @@ export class NgRestoCartService {
     return this.net.get<{cart:Cart}>(`/cart${this.cartID?'?cartId='+this.cartID : ''}`).pipe(
       switchMap(
         data => {
+          if (!this.cartID) {
+            this.setCartId(data.cart.cartId);
+          };
           if (data.cart.state == 'ORDER') {
             return throwError(new Error('Cart in order state'));
           } else {
