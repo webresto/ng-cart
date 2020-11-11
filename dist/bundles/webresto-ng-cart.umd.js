@@ -22,6 +22,10 @@
         NgRestoCartService.prototype.getCart = function () {
             var _this = this;
             return this.net.get("/cart" + (this.cartID ? '?cartId=' + this.cartID : '')).pipe(operators.switchMap(function (data) {
+                if (!_this.cartID) {
+                    _this.setCartId(data.cart.cartId);
+                }
+                ;
                 if (data.cart.state == 'ORDER') {
                     return rxjs.throwError(new Error('Cart in order state'));
                 }
