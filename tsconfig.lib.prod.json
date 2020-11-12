@@ -1,8 +1,5 @@
 {
   "extends": "./tsconfig.lib.json",
-  "include": [
-    "**/*.d.ts",
-  ],
   "compilerOptions": {
     "declarationMap": true
   }
