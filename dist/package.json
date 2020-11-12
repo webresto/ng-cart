@@ -5,8 +5,8 @@
     "tslib": "^2.0.1"
   },
   "peerDependencies": {
-    "@angular/common": "^10.2.1",
-    "@angular/core": "^10.2.1"
+    "@angular/common": "^11.0.0",
+    "@angular/core": "^11.0.0"
   },
   "main": "bundles/webresto-ng-cart.umd.js",
   "module": "fesm2015/webresto-ng-cart.js",
