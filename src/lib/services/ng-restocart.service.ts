@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, throwError, from } from 'rxjs';
+import { Observable, BehaviorSubject, throwError, from, ReplaySubject } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import {
   NetService,
@@ -23,18 +23,18 @@ export class NgRestoCartService {
 
   constructor(private net: NetService, private eventer: EventerService) { }
 
-  restrictions$ = new BehaviorSubject<any>(null);
+  restrictions$ = new ReplaySubject<string>(null);
 
-  restrictionsLoader$ = this.net.get(`/restrictions`).pipe(
-    map(restictions => formatDate(Date.now() + restictions.periodPossibleForOrder * 1000, 'yyyy-MM-dd', 'en'))
-  ).subscribe(this.restrictions$)
+  restrictionsLoader$ = this.net.get<RestrictionsOrder>(`/restrictions`).pipe(map(
+    restictions => formatDate(Date.now() + restictions.periodPossibleForOrder * 60000, 'yyyy-MM-dd', 'en'))
+  ).subscribe(this.restrictions$);
 
   getCartId(): string {
     return localStorage.getItem('cartID');
   }
 
   getCart() {
-    return this.net.get<{cart:Cart}>(`/cart${this.cartID?'?cartId='+this.cartID : ''}`).pipe(
+    return this.net.get<{ cart: Cart }>(`/cart${this.cartID ? '?cartId=' + this.cartID : ''}`).pipe(
       switchMap(
         data => {
           if (!this.cartID) {
@@ -313,7 +313,7 @@ export class NgRestoCartService {
     return this.modifires.pipe();
   }
 
-  productInCart(product:DishListItem) {
+  productInCart(product: DishListItem) {
     return this.cart.pipe(
       filter(cart => 'cartId' in cart),
       map(cart => {
@@ -505,3 +505,22 @@ declare interface DishChildModifier extends DishBaseModifier {
   hideIfDefaultAmount: boolean
   dish: DishListItem
 }
+
+declare interface WorkTimeBase {
+  start: string;
+  stop: string;
+  break: string;
+}
+
+declare interface WorkTime extends WorkTimeBase {
+  dayOfWeek: string
+  selfService: WorkTimeBase
+}
+
+declare interface RestrictionsOrder {
+  minDeliveryTime: string
+  periodPossibleForOrder: number
+  timezone: string
+  workTime: WorkTime[]
+}
+
