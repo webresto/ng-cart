@@ -243,21 +243,21 @@ export class NgRestoCartService {
             this.setCartId(result.cart.cartId);
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
-            /*if (result.message) {
-             this.eventer.emitMessageEvent(
-             new EventMessage(
-             result.message.type,
-             result.message.title,
-             result.message.body
-             )
-             );
-             }*/
+            if (result.message) {
+              this.eventer.emitMessageEvent(
+                new EventMessage(
+                  result.message.type,
+                  result.message.title,
+                  result.message.body
+                )
+              );
+            }
           },
           error => {
             console.error(error);
-            //this.eventer.emitMessageEvent(
-            //new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
-            //)
+            this.eventer.emitMessageEvent(
+              new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
+            );
           }
         )
       );

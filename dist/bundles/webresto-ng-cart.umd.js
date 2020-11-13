@@ -195,20 +195,12 @@
                 _this.setCartId(result.cart.cartId);
                 _this.cart.next(result.cart);
                 _this.cartID = result.cart.cartId;
-                /*if (result.message) {
-                 this.eventer.emitMessageEvent(
-                 new EventMessage(
-                 result.message.type,
-                 result.message.title,
-                 result.message.body
-                 )
-                 );
-                 }*/
+                if (result.message) {
+                    _this.eventer.emitMessageEvent(new i1.EventMessage(result.message.type, result.message.title, result.message.body));
+                }
             }, function (error) {
                 console.error(error);
-                //this.eventer.emitMessageEvent(
-                //new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
-                //)
+                _this.eventer.emitMessageEvent(new i1.EventMessage('error', 'Ошибка', 'Не удалось оформить заказ'));
             }));
         };
         NgRestoCartService.prototype.checkStreet = function (data) {
