@@ -23,7 +23,7 @@ export class NgRestoCartService {
 
   constructor(private net: NetService, private eventer: EventerService) { }
 
-  restrictions$ = new BehaviorSubject<string>(null);
+  restrictions$ = new BehaviorSubject<any>(null);
 
   restrictionsLoader$ = this.net.get(`/restrictions`).pipe(
     map(restictions => formatDate(Date.now() + restictions.periodPossibleForOrder * 1000, 'yyyy-MM-dd', 'en'))
