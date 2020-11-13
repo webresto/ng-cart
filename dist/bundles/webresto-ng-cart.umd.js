@@ -13,8 +13,8 @@
             this.modifires = new rxjs.BehaviorSubject([]);
             this.OrderFormChange = new rxjs.BehaviorSubject(null);
             this.modifiresMessage = new rxjs.BehaviorSubject([]);
-            this.restrictions$ = new rxjs.BehaviorSubject(null);
-            this.restrictionsLoader$ = this.net.get("/restrictions").pipe(operators.map(function (restictions) { return i3.formatDate(Date.now() + restictions.periodPossibleForOrder * 1000, 'yyyy-MM-dd', 'en'); })).subscribe(this.restrictions$);
+            this.restrictions$ = new rxjs.ReplaySubject(null);
+            this.restrictionsLoader$ = this.net.get("/restrictions").pipe(operators.map(function (restictions) { return i3.formatDate(Date.now() + restictions.periodPossibleForOrder * 60000, 'yyyy-MM-dd', 'en'); })).subscribe(this.restrictions$);
         }
         NgRestoCartService.prototype.getCartId = function () {
             return localStorage.getItem('cartID');

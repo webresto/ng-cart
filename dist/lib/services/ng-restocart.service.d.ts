@@ -1,4 +1,4 @@
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { NetService, EventerService, EventMessage } from '@webresto/ng-core';
 import * as i0 from "@angular/core";
 export declare class NgRestoCartService {
@@ -10,7 +10,7 @@ export declare class NgRestoCartService {
     OrderFormChange: BehaviorSubject<any>;
     modifiresMessage: BehaviorSubject<EventMessage[]>;
     constructor(net: NetService, eventer: EventerService);
-    restrictions$: BehaviorSubject<string>;
+    restrictions$: ReplaySubject<string>;
     restrictionsLoader$: import("rxjs").Subscription;
     getCartId(): string;
     getCart(): Observable<Cart>;
