@@ -6,7 +6,6 @@ import {
   EventerService,
   EventMessage
 } from '@webresto/ng-core';
-import { formatDate } from '@angular/common';
 
 
 @Injectable({
@@ -253,7 +252,7 @@ export class NgRestoCartService {
           error => {
             console.error(error);
             this.eventer.emitMessageEvent(
-              new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
+              new EventMessage(error?.type, error?.title, error?.body)
             );
           }
         )

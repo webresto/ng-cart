@@ -199,7 +199,7 @@
                 }
             }, function (error) {
                 console.error(error);
-                _this.eventer.emitMessageEvent(new i1.EventMessage('error', 'Ошибка', 'Не удалось оформить заказ'));
+                _this.eventer.emitMessageEvent(new i1.EventMessage(error === null || error === void 0 ? void 0 : error.type, error === null || error === void 0 ? void 0 : error.title, error === null || error === void 0 ? void 0 : error.body));
             }));
         };
         NgRestoCartService.prototype.checkStreet = function (data) {

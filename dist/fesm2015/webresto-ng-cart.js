@@ -190,7 +190,7 @@ class NgRestoCartService {
             }
         }, error => {
             console.error(error);
-            this.eventer.emitMessageEvent(new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ'));
+            this.eventer.emitMessageEvent(new EventMessage(error === null || error === void 0 ? void 0 : error.type, error === null || error === void 0 ? void 0 : error.title, error === null || error === void 0 ? void 0 : error.body));
         }));
     }
     checkStreet(data) {
