@@ -23,11 +23,8 @@ export class NgRestoCartService {
 
   constructor(private net: NetService, private eventer: EventerService) { }
 
-  restrictions$ = new ReplaySubject<string>(null);
 
-  restrictionsLoader$ = this.net.get<RestrictionsOrder>(`/restrictions`).pipe(map(
-    restictions => formatDate(Date.now() + restictions.periodPossibleForOrder * 60000, 'yyyy-MM-dd', 'en'))
-  ).subscribe(this.restrictions$);
+  restrictions$ = this.net.get<RestrictionsOrder>(`/restrictions`)
 
   getCartId(): string {
     return localStorage.getItem('cartID');

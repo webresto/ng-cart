@@ -1,4 +1,4 @@
-import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { NetService, EventerService, EventMessage } from '@webresto/ng-core';
 import * as i0 from "@angular/core";
 export declare class NgRestoCartService {
@@ -10,8 +10,7 @@ export declare class NgRestoCartService {
     OrderFormChange: BehaviorSubject<any>;
     modifiresMessage: BehaviorSubject<EventMessage[]>;
     constructor(net: NetService, eventer: EventerService);
-    restrictions$: ReplaySubject<string>;
-    restrictionsLoader$: import("rxjs").Subscription;
+    restrictions$: Observable<RestrictionsOrder>;
     getCartId(): string;
     getCart(): Observable<Cart>;
     addDishToCart(data: any): void;
@@ -198,6 +197,21 @@ declare interface DishChildModifier extends DishBaseModifier {
     defaultAmount: number;
     hideIfDefaultAmount: boolean;
     dish: DishListItem;
+}
+declare interface WorkTimeBase {
+    start: string;
+    stop: string;
+    break: string;
+}
+declare interface WorkTime extends WorkTimeBase {
+    dayOfWeek: string;
+    selfService: WorkTimeBase;
+}
+declare interface RestrictionsOrder {
+    minDeliveryTime: string;
+    periodPossibleForOrder: number;
+    timezone: string;
+    workTime: WorkTime[];
 }
 export {};
 //# sourceMappingURL=ng-restocart.service.d.ts.map
