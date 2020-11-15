@@ -1,5 +1,5 @@
 import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, EventEmitter, ɵɵdirectiveInject, ɵɵdefineDirective, ɵɵlistener, Directive, Input, Output, HostListener, Renderer2, ElementRef, ɵɵNgOnChangesFeature, ɵɵelementContainer, ɵɵelementContainerStart, ɵɵelementStart, ɵɵtext, ɵɵelementEnd, ɵɵelementContainerEnd, ɵɵnextContext, ɵɵadvance, ɵɵproperty, ɵɵpureFunction1, ɵɵtextInterpolate, ɵɵgetCurrentView, ɵɵrestoreView, ɵɵtextInterpolate1, ɵɵtemplate, ɵɵreference, ɵɵpureFunction5, ɵɵpureFunction6, ɵɵtemplateRefExtractor, ɵɵelement, ɵɵstyleProp, ɵɵpureFunction3, ɵɵdefineComponent, Component, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
-import { BehaviorSubject, throwError, from } from 'rxjs';
+import { BehaviorSubject, from, throwError } from 'rxjs';
 import { switchMap, catchError, tap, filter, map, debounceTime } from 'rxjs/operators';
 import { EventMessage, NetService, EventerService } from '@webresto/ng-core';
 import { NgIf, NgTemplateOutlet, NgClass, NgForOf, CommonModule } from '@angular/common';
@@ -20,6 +20,12 @@ class NgRestoCartService {
     }
     getCart() {
         return this.net.get(`/cart${this.cartID ? '?cartId=' + this.cartID : ''}`).pipe(switchMap(data => {
+            if (!data) {
+                this.removeCartId();
+            }
+            ;
+            return data ? from([data]) : this.net.get(`/cart}`);
+        }), switchMap(data => {
             if (!this.cartID) {
                 this.setCartId(data.cart.cartId);
             }

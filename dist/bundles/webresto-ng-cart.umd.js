@@ -21,6 +21,12 @@
         NgRestoCartService.prototype.getCart = function () {
             var _this = this;
             return this.net.get("/cart" + (this.cartID ? '?cartId=' + this.cartID : '')).pipe(operators.switchMap(function (data) {
+                if (!data) {
+                    _this.removeCartId();
+                }
+                ;
+                return data ? rxjs.from([data]) : _this.net.get("/cart}");
+            }), operators.switchMap(function (data) {
                 if (!_this.cartID) {
                     _this.setCartId(data.cart.cartId);
                 }

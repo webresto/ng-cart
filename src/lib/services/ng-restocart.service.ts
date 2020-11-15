@@ -31,6 +31,12 @@ export class NgRestoCartService {
 
   getCart() {
     return this.net.get<{ cart: Cart }>(`/cart${this.cartID ? '?cartId=' + this.cartID : ''}`).pipe(
+      switchMap(data => {
+        if (!data) {
+          this.removeCartId();
+        };
+        return data ? from([data]) : this.net.get<{ cart: Cart }>(`/cart}`)
+      }),
       switchMap(
         data => {
           if (!this.cartID) {
