@@ -56,6 +56,10 @@
                 _this.setCartId(res.cart.cartId);
                 _this.cart.next(res.cart);
                 _this.cartID = res.cart.cartId;
+                if (res.message) {
+                    _this.eventer.emitMessageEvent(new i1.EventMessage(res.message.type, res.message.title, res.message.body));
+                }
+                ;
                 /*this.eventer.emitMessageEvent(
                  new EventMessage('success', 'Успех', 'Блюдо добавлено в корзину')
                  );*/
@@ -78,6 +82,10 @@
                 _this.setCartId(res.cart.cartId);
                 _this.cart.next(res.cart);
                 _this.cartID = res.cart.cartId;
+                if (res.message) {
+                    _this.eventer.emitMessageEvent(new i1.EventMessage(res.message.type, res.message.title, res.message.body));
+                }
+                ;
             }));
         };
         NgRestoCartService.prototype.setDishCountToCart = function (dishId, amount) {
@@ -90,6 +98,10 @@
                 _this.setCartId(res.cart.cartId);
                 _this.cart.next(res.cart);
                 _this.cartID = res.cart.cartId;
+                if (res.message) {
+                    _this.eventer.emitMessageEvent(new i1.EventMessage(res.message.type, res.message.title, res.message.body));
+                }
+                ;
                 /*this.eventer.emitMessageEvent(
                  new EventMessage('success', 'Успех', 'Изменено количество')
                  );*/
@@ -109,6 +121,10 @@
                 _this.setCartId(res.cart.cartId);
                 _this.cart.next(res.cart);
                 _this.cartID = res.cart.cartId;
+                if (res.message) {
+                    _this.eventer.emitMessageEvent(new i1.EventMessage(res.message.type, res.message.title, res.message.body));
+                }
+                ;
             }, function () {
                 _this.eventer.emitMessageEvent(new i1.EventMessage('error', 'Ошибка', 'Не удалось изменить коментарий'));
             }));
@@ -120,10 +136,14 @@
                 cartId: this.cartID,
                 amount: amount
             })
-                .pipe(operators.tap(function (res) {
-                _this.setCartId(res.cart.cartId);
-                _this.cart.next(res.cart);
-                _this.cartID = res.cart.cartId;
+                .pipe(operators.tap(function (result) {
+                _this.setCartId(result.cart.cartId);
+                _this.cart.next(result.cart);
+                _this.cartID = result.cart.cartId;
+                if (result.message) {
+                    _this.eventer.emitMessageEvent(new i1.EventMessage(result.message.type, result.message.title, result.message.body));
+                }
+                ;
             }));
         };
         NgRestoCartService.prototype.removeDishFromCart = function (dishId, amount) {
@@ -132,10 +152,14 @@
                 dishId: dishId,
                 cartId: this.cartID,
                 amount: amount
-            }).subscribe(function (res) {
-                _this.setCartId(res.cart.cartId);
-                _this.cart.next(res.cart);
-                _this.cartID = res.cart.cartId;
+            }).subscribe(function (result) {
+                _this.setCartId(result.cart.cartId);
+                _this.cart.next(result.cart);
+                _this.cartID = result.cart.cartId;
+                if (result.message) {
+                    _this.eventer.emitMessageEvent(new i1.EventMessage(result.message.type, result.message.title, result.message.body));
+                }
+                ;
                 /*this.eventer.emitMessageEvent(
                  new EventMessage('success', 'Успех', 'Блюдо успешно удалено')
                  );*/
@@ -172,6 +196,10 @@
                 _this.setCartId(result.cart.cartId);
                 _this.cart.next(result.cart);
                 _this.cartID = result.cart.cartId;
+                if (result.message) {
+                    _this.eventer.emitMessageEvent(new i1.EventMessage(result.message.type, result.message.title, result.message.body));
+                }
+                ;
                 /*this.eventer.emitMessageEvent(
                  new EventMessage('success', 'Успех', 'Заказ упешно оформлен')
                  );*/
@@ -203,10 +231,7 @@
                 if (result.message) {
                     _this.eventer.emitMessageEvent(new i1.EventMessage(result.message.type, result.message.title, result.message.body));
                 }
-            }, function (error) {
-                console.error(error);
-                _this.eventer.emitMessageEvent(new i1.EventMessage(error === null || error === void 0 ? void 0 : error.type, error === null || error === void 0 ? void 0 : error.title, error === null || error === void 0 ? void 0 : error.body));
-            }));
+            }, function (error) { return _this.eventer.emitMessageEvent(new i1.EventMessage(error === null || error === void 0 ? void 0 : error.type, error === null || error === void 0 ? void 0 : error.title, error === null || error === void 0 ? void 0 : error.body)); }));
         };
         NgRestoCartService.prototype.checkStreet = function (data) {
             var _this = this;

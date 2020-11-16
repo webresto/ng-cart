@@ -54,6 +54,10 @@ class NgRestoCartService {
             this.setCartId(res.cart.cartId);
             this.cart.next(res.cart);
             this.cartID = res.cart.cartId;
+            if (res.message) {
+                this.eventer.emitMessageEvent(new EventMessage(res.message.type, res.message.title, res.message.body));
+            }
+            ;
             /*this.eventer.emitMessageEvent(
              new EventMessage('success', 'Успех', 'Блюдо добавлено в корзину')
              );*/
@@ -75,6 +79,10 @@ class NgRestoCartService {
             this.setCartId(res.cart.cartId);
             this.cart.next(res.cart);
             this.cartID = res.cart.cartId;
+            if (res.message) {
+                this.eventer.emitMessageEvent(new EventMessage(res.message.type, res.message.title, res.message.body));
+            }
+            ;
         }));
     }
     setDishCountToCart(dishId, amount) {
@@ -86,6 +94,10 @@ class NgRestoCartService {
             this.setCartId(res.cart.cartId);
             this.cart.next(res.cart);
             this.cartID = res.cart.cartId;
+            if (res.message) {
+                this.eventer.emitMessageEvent(new EventMessage(res.message.type, res.message.title, res.message.body));
+            }
+            ;
             /*this.eventer.emitMessageEvent(
              new EventMessage('success', 'Успех', 'Изменено количество')
              );*/
@@ -104,6 +116,10 @@ class NgRestoCartService {
             this.setCartId(res.cart.cartId);
             this.cart.next(res.cart);
             this.cartID = res.cart.cartId;
+            if (res.message) {
+                this.eventer.emitMessageEvent(new EventMessage(res.message.type, res.message.title, res.message.body));
+            }
+            ;
         }, () => {
             this.eventer.emitMessageEvent(new EventMessage('error', 'Ошибка', 'Не удалось изменить коментарий'));
         }));
@@ -114,10 +130,14 @@ class NgRestoCartService {
             cartId: this.cartID,
             amount: amount
         })
-            .pipe(tap(res => {
-            this.setCartId(res.cart.cartId);
-            this.cart.next(res.cart);
-            this.cartID = res.cart.cartId;
+            .pipe(tap(result => {
+            this.setCartId(result.cart.cartId);
+            this.cart.next(result.cart);
+            this.cartID = result.cart.cartId;
+            if (result.message) {
+                this.eventer.emitMessageEvent(new EventMessage(result.message.type, result.message.title, result.message.body));
+            }
+            ;
         }));
     }
     removeDishFromCart(dishId, amount) {
@@ -125,10 +145,14 @@ class NgRestoCartService {
             dishId: dishId,
             cartId: this.cartID,
             amount: amount
-        }).subscribe(res => {
-            this.setCartId(res.cart.cartId);
-            this.cart.next(res.cart);
-            this.cartID = res.cart.cartId;
+        }).subscribe(result => {
+            this.setCartId(result.cart.cartId);
+            this.cart.next(result.cart);
+            this.cartID = result.cart.cartId;
+            if (result.message) {
+                this.eventer.emitMessageEvent(new EventMessage(result.message.type, result.message.title, result.message.body));
+            }
+            ;
             /*this.eventer.emitMessageEvent(
              new EventMessage('success', 'Успех', 'Блюдо успешно удалено')
              );*/
@@ -164,6 +188,10 @@ class NgRestoCartService {
             this.setCartId(result.cart.cartId);
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
+            if (result.message) {
+                this.eventer.emitMessageEvent(new EventMessage(result.message.type, result.message.title, result.message.body));
+            }
+            ;
             /*this.eventer.emitMessageEvent(
              new EventMessage('success', 'Успех', 'Заказ упешно оформлен')
              );*/
@@ -194,10 +222,7 @@ class NgRestoCartService {
             if (result.message) {
                 this.eventer.emitMessageEvent(new EventMessage(result.message.type, result.message.title, result.message.body));
             }
-        }, error => {
-            console.error(error);
-            this.eventer.emitMessageEvent(new EventMessage(error === null || error === void 0 ? void 0 : error.type, error === null || error === void 0 ? void 0 : error.title, error === null || error === void 0 ? void 0 : error.body));
-        }));
+        }, error => this.eventer.emitMessageEvent(new EventMessage(error === null || error === void 0 ? void 0 : error.type, error === null || error === void 0 ? void 0 : error.title, error === null || error === void 0 ? void 0 : error.body))));
     }
     checkStreet(data) {
         this.net.post('/check', data).subscribe(res => {
