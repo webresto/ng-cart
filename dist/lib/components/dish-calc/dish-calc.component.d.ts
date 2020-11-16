@@ -16,6 +16,7 @@ export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
         };
         baseList: any[];
     };
+    isTwoPartsAssembledTemplate: boolean;
     totalPrice: number;
     modifiersValueTree: any;
     twoPartsAssembledModifiersIdsByGroupId: any;

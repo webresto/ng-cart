@@ -52,6 +52,37 @@
 }
 
 
+.ng-cart-dish-calc-two-parts-assembled {
+  .dish {
+    border: none;
+    margin-left: 0;
+    padding-bottom: 0;
+    .dish-image-box {
+      display: none;
+    }
+    .dish-description-box {
+      width: 100%;
+      height: auto;
+      .dish-name {
+        text-align: center;
+        font-weight: bold;
+        font-size: 28px;
+        line-height: 32px;
+        letter-spacing: 2.4px;
+        color: #0A0909;
+        text-transform: uppercase;
+      }
+      .dish-ingredients {
+        display: none;
+      }
+      .dish-price-box {
+        display: none;
+      }
+    }
+  }
+
+}
+
 
 .dish-image {
   width: 250px;
@@ -167,7 +198,18 @@
     align-items: center;
     justify-content: center;
     padding-bottom: 28px;
+    opacity: 1;
     border-bottom: 2px solid #969696;
+    height: 230px;
+    overflow: hidden;
+
+    transition: all 0.5s 0s ease;
+
+    &.empty {
+      border-bottom: none;
+      height: 0;
+      opacity: 0;
+    }
 
     .selected-dish {
       display: flex;

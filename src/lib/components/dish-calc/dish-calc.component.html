@@ -1,4 +1,4 @@
-<div class="ng-cart-dish-calc" *ngIf="dish">
+<div *ngIf="dish" class="ng-cart-dish-calc" [ngClass]="{'ng-cart-dish-calc-two-parts-assembled': isTwoPartsAssembledTemplate}">
     <div class="dish">
         <div class="dish-image-box">
             <ng-container *ngTemplateOutlet="dishImageTemplate; context: { dish: dish }"></ng-container>
@@ -87,7 +87,7 @@
                     <!-- Two parts assembled group modifier view (like pizza from two halves) -->
                     <ng-template #twoPartsAssembledTemplate>
                         <div class="two-parts-assembled">
-                            <div class="two-parts-assembled-header">
+                            <div class="two-parts-assembled-header" [ngClass]="{empty: !twoPartsAssembledModifiersIdsByGroupId[modifier.modifierId]?.length}">
                                 <ng-container *ngFor="let childModifier of modifier.childModifiers">
                                     <ng-container *ngIf="modifiersValueTree[modifier.modifierId][childModifier.modifierId]">
                                         <ng-container *ngIf="childModifier.dish as dish">

@@ -27,6 +27,8 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     baseList: [],
   };
 
+  isTwoPartsAssembledTemplate: boolean;
+
   totalPrice: number;
   modifiersValueTree: any = {};
   twoPartsAssembledModifiersIdsByGroupId: any = {};
@@ -82,6 +84,10 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
           // This is Base modifier
           modifierType = 'group';
           this.modifiers.baseList.push(modifier);
+
+          if(modifier.minAmount == 2 && modifier.maxAmount == 2) {
+            this.isTwoPartsAssembledTemplate = true;
+          }
           console.info('Group modifier:', modifier);
         } else if(modifier.dish) {
           modifierType = 'single';
@@ -201,9 +207,13 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
         );
         return;
       }
+    }else if(groupAmount === 0) {
+      this.twoPartsAssembledModifiersIdsByGroupId[groupId] = [];
     }
 
-    this.twoPartsAssembledModifiersIdsByGroupId[groupId].push(modifierId);
+    if(amount && !this.twoPartsAssembledModifiersIdsByGroupId[groupId].find(v => v == modifierId)) {
+      this.twoPartsAssembledModifiersIdsByGroupId[groupId].push(modifierId);
+    }
     this.modifiersValueTree[groupId][modifierId] = amount;
     this.calculateTotalAmountInGroup(groupId);
     this.calculateTotalPrice();
