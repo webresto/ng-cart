@@ -13,11 +13,12 @@ import {
 })
 export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input()  dish:any;
-  @Input()  amount:any;
-  @Input()  selectedModifiers:any;
-  @Output()  validate:EventEmitter<any> = new EventEmitter();
-  @Output()  amountDishToAdd:EventEmitter<any> = new EventEmitter();
+  @Input() dish:any;
+  @Input() amount:any;
+  @Input() selectedModifiers:any;
+  @Output() validate:EventEmitter<any> = new EventEmitter();
+  @Output() amountDishToAdd:EventEmitter<any> = new EventEmitter();
+  @Output() comment:EventEmitter<string> = new EventEmitter();
 
   modifiers = {
     indexById: {},

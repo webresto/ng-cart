@@ -9,6 +9,7 @@ export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     selectedModifiers: any;
     validate: EventEmitter<any>;
     amountDishToAdd: EventEmitter<any>;
+    comment: EventEmitter<string>;
     modifiers: {
         indexById: {};
         custom: {

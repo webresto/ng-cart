@@ -148,6 +148,12 @@
             <span>{{ totalPrice}}</span> ₽
         </span>
     </div>
+    <div class="comment" *ngIf="isTwoPartsAssembledTemplate">
+        <div class="title">Комментарий</div>
+        <div class="input-box">
+            <input #commentInput type="text" placeholder="" (keyup)="comment.emit(commentInput.value)">
+        </div>
+    </div>
 </div>
 
 

@@ -105,6 +105,33 @@
   }
 }
 
+.comment {
+  padding-bottom: 15px;
+  .title {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    color: #0A0909;
+    margin: 30px 0 20px 0;
+  }
+  .input-box {
+    margin-top: 10px;
+    input {
+      border: 2px solid #969696;
+      box-sizing: border-box;
+      border-radius: 15px;
+      height: 45px;
+      line-height: 45px;
+
+      font-style: italic;
+      font-weight: normal;
+      font-size: 20px;
+      color: #969696;
+      padding: 0 20px;
+    }
+  }
+}
+
 .modifiers {
   .modifier-group {
     margin-top: 25px;
