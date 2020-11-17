@@ -13,11 +13,12 @@ import {
 })
 export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input()  dish:any;
-  @Input()  amount:any;
-  @Input()  selectedModifiers:any;
-  @Output()  validate:EventEmitter<any> = new EventEmitter();
-  @Output()  amountDishToAdd:EventEmitter<any> = new EventEmitter();
+  @Input() dish:any;
+  @Input() amount:any;
+  @Input() selectedModifiers:any;
+  @Output() validate:EventEmitter<any> = new EventEmitter();
+  @Output() amountDishToAdd:EventEmitter<any> = new EventEmitter();
+  @Output() comment:EventEmitter<string> = new EventEmitter();
 
   modifiers = {
     indexById: {},
@@ -27,8 +28,11 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     baseList: [],
   };
 
+  isTwoPartsAssembledTemplate: boolean;
+
   totalPrice: number;
   modifiersValueTree: any = {};
+  twoPartsAssembledModifiersIdsByGroupId: any = {};
   imageUrl: string;
 
   constructor(
@@ -81,6 +85,10 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
           // This is Base modifier
           modifierType = 'group';
           this.modifiers.baseList.push(modifier);
+
+          if(modifier.minAmount == 2 && modifier.maxAmount == 2) {
+            this.isTwoPartsAssembledTemplate = true;
+          }
           console.info('Group modifier:', modifier);
         } else if(modifier.dish) {
           modifierType = 'single';
@@ -123,6 +131,7 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
       }
       this.calculateTotalPrice();
     }
+    console.log(`this.modifiers.indexById`, this.modifiers.indexById);
   }
 
   calculateTotalAmountInGroup(groupId) {
@@ -135,11 +144,10 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
 
   checkImagesInModifier(modifierId) {
     const m: any = this.modifiers.indexById[modifierId];
-    this.modifiers.indexById[modifierId].imagesIsset = m.dish && m.dish.images && m.dish.images.length;
-
-    this.modifiers.indexById[modifierId].childImagesIsset = !!Object
-      .values(this.modifiersValueTree[modifierId])
-      .find((m: any) => m && m.dish && m.dish.images && m.dish.images.length);
+    this.modifiers.indexById[modifierId].imagesIsset = m.dish && m.dish.images && m.dish.images.length ? true : false;
+    this.modifiers.indexById[modifierId].childImagesIsset = !!this.modifiers.indexById[modifierId]
+      .childModifiers
+      .find((m: any) => m && m.dish && m.dish.images && m.dish.images.length ? true : false);
   }
 
   calculateTotalPrice() {
@@ -164,6 +172,52 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
       groupId: (modifier.dish && modifier.dish.groupId) ? modifier.dish.groupId : undefined,
       modifierId: modifier.modifierId
     }
+  }
+
+  selectTwoPartsAssembledModifier(modifier: any) {
+    const { groupId = 'single', modifierId } = this.getModifiersIds(modifier);
+    const { minAmount, maxAmount } = modifier;
+    const { minAmount: groupMinAmount = 0,
+      maxAmount: groupMaxAmount = 0 } = this.modifiers.indexById[groupId] || {};
+    const previousAmount: number = this.modifiersValueTree[groupId][modifierId];
+    const amount: number = previousAmount ? 0 : 1;
+
+    // Init tmp value storage if not exists
+    if(!this.twoPartsAssembledModifiersIdsByGroupId[groupId]) {
+      this.twoPartsAssembledModifiersIdsByGroupId[groupId] = [];
+    }
+
+    // Total amount in group
+    const groupAmount: number = this.modifiers.indexById[groupId].totalAmount - previousAmount + amount;
+    if(groupAmount > groupMaxAmount) {
+      if(this.twoPartsAssembledModifiersIdsByGroupId[groupId].length) {
+        for(let mId in this.modifiersValueTree[groupId]) {
+          this.modifiersValueTree[groupId][mId] = 0;
+        }
+        this.twoPartsAssembledModifiersIdsByGroupId[groupId] = this.twoPartsAssembledModifiersIdsByGroupId[groupId].slice(1,2);
+        this.modifiersValueTree[groupId][this.twoPartsAssembledModifiersIdsByGroupId[groupId][0]] = 1;
+      }else {
+        console.warn(`Limit: max ${groupMaxAmount}. Current ${groupAmount}`);
+        this.eventer.emitMessageEvent(
+          new EventMessage(
+            'warning',
+            'Ограничение',
+            `Максимальное количество опций для группы
+            модификаторов "${this.modifiers.indexById[groupId].group.name}" - не более ${groupMaxAmount}`
+          )
+        );
+        return;
+      }
+    }else if(groupAmount === 0) {
+      this.twoPartsAssembledModifiersIdsByGroupId[groupId] = [];
+    }
+
+    if(amount && !this.twoPartsAssembledModifiersIdsByGroupId[groupId].find(v => v == modifierId)) {
+      this.twoPartsAssembledModifiersIdsByGroupId[groupId].push(modifierId);
+    }
+    this.modifiersValueTree[groupId][modifierId] = amount;
+    this.calculateTotalAmountInGroup(groupId);
+    this.calculateTotalPrice();
   }
 
   changeModifierAmount(modifier: any, amount: number, operation: string) {

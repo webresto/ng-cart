@@ -10,6 +10,7 @@ export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     selectedModifiers: any;
     validate: EventEmitter<any>;
     amountDishToAdd: EventEmitter<any>;
+    comment: EventEmitter<string>;
     modifiers: {
         indexById: {};
         custom: {
@@ -17,8 +18,10 @@ export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
         };
         baseList: any[];
     };
+    isTwoPartsAssembledTemplate: boolean;
     totalPrice: number;
     modifiersValueTree: any;
+    twoPartsAssembledModifiersIdsByGroupId: any;
     imageUrl: string;
     constructor(cartService: NgRestoCartService, eventer: EventerService, imageUrl: string);
     ngOnInit(): void;
@@ -31,6 +34,7 @@ export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
         groupId: any;
         modifierId: any;
     };
+    selectTwoPartsAssembledModifier(modifier: any): void;
     changeModifierAmount(modifier: any, amount: number, operation: string): void;
     setModifiers(): void;
     checkValid(): void;
