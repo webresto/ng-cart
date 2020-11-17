@@ -37,12 +37,12 @@ export class NgRestoCartService {
       }),
       switchMap(
         data => {
-          if (!this.cartID) {
-            this.setCartId(data.cart.cartId);
-          };
           if (data.cart.state == 'ORDER') {
             return throwError(new Error('Cart in order state'));
           } else {
+            if (!this.cartID) {
+              this.setCartId(data.cart.cartId);
+            };
             this.cart.next(data.cart);
           };
           return this.cart;

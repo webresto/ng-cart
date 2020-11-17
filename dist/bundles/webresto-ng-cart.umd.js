@@ -27,14 +27,14 @@
                 ;
                 return data ? rxjs.from([data]) : _this.net.get("/cart}");
             }), operators.switchMap(function (data) {
-                if (!_this.cartID) {
-                    _this.setCartId(data.cart.cartId);
-                }
-                ;
                 if (data.cart.state == 'ORDER') {
                     return rxjs.throwError(new Error('Cart in order state'));
                 }
                 else {
+                    if (!_this.cartID) {
+                        _this.setCartId(data.cart.cartId);
+                    }
+                    ;
                     _this.cart.next(data.cart);
                 }
                 ;

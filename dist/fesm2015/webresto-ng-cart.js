@@ -26,14 +26,14 @@ class NgRestoCartService {
             ;
             return data ? from([data]) : this.net.get(`/cart}`);
         }), switchMap(data => {
-            if (!this.cartID) {
-                this.setCartId(data.cart.cartId);
-            }
-            ;
             if (data.cart.state == 'ORDER') {
                 return throwError(new Error('Cart in order state'));
             }
             else {
+                if (!this.cartID) {
+                    this.setCartId(data.cart.cartId);
+                }
+                ;
                 this.cart.next(data.cart);
             }
             ;
