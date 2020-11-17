@@ -67,11 +67,7 @@ export class NgRestoCartService {
         this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
-        if (res.message) {
-          this.eventer.emitMessageEvent(
-            new EventMessage(res.message.type, res.message.title, res.message.body)
-          );
-        };
+
         /*this.eventer.emitMessageEvent(
          new EventMessage('success', 'Успех', 'Блюдо добавлено в корзину')
          );*/
@@ -97,11 +93,6 @@ export class NgRestoCartService {
           this.setCartId(res.cart.cartId);
           this.cart.next(res.cart);
           this.cartID = res.cart.cartId;
-          if (res.message) {
-            this.eventer.emitMessageEvent(
-              new EventMessage(res.message.type, res.message.title, res.message.body)
-            );
-          };
         })
       );
   }
@@ -116,16 +107,9 @@ export class NgRestoCartService {
         this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
-        if (res.message) {
-          this.eventer.emitMessageEvent(
-            new EventMessage(res.message.type, res.message.title, res.message.body)
-          );
-        };
         /*this.eventer.emitMessageEvent(
          new EventMessage('success', 'Успех', 'Изменено количество')
          );*/
-
-
       }, () => {
         /*this.eventer.emitMessageEvent(
          new EventMessage('error', 'Ошибка', 'Не удалось изменить количество')
@@ -143,16 +127,8 @@ export class NgRestoCartService {
         this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
-        if (res.message) {
-          this.eventer.emitMessageEvent(
-            new EventMessage(res.message.type, res.message.title, res.message.body)
-          );
-        };
-      }, () => {
-        this.eventer.emitMessageEvent(
-          new EventMessage('error', 'Ошибка', 'Не удалось изменить коментарий')
-        )
-      }
+
+      }, () => {}
     ))
 
   }
@@ -167,11 +143,6 @@ export class NgRestoCartService {
         this.setCartId(result.cart.cartId);
         this.cart.next(result.cart);
         this.cartID = result.cart.cartId;
-        if (result.message) {
-          this.eventer.emitMessageEvent(
-            new EventMessage(result.message.type, result.message.title, result.message.body)
-          );
-        };
       }));
 
   }
@@ -183,20 +154,14 @@ export class NgRestoCartService {
       amount: amount
     }).subscribe(
       result => {
-
         this.setCartId(result.cart.cartId);
         this.cart.next(result.cart);
         this.cartID = result.cart.cartId;
-        if (result.message) {
-          this.eventer.emitMessageEvent(
-            new EventMessage(result.message.type, result.message.title, result.message.body)
-          );
-        };
         /*this.eventer.emitMessageEvent(
          new EventMessage('success', 'Успех', 'Блюдо успешно удалено')
          );*/
 
-      }, error => {
+      }, () => {
         /*this.eventer.emitMessageEvent(
          new EventMessage('error', 'Ошибка', 'Не удалось удалить блюдо')
          )*/
@@ -235,11 +200,7 @@ export class NgRestoCartService {
             this.setCartId(result.cart.cartId);
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
-            if (result.message) {
-              this.eventer.emitMessageEvent(
-                new EventMessage(result.message.type, result.message.title, result.message.body)
-              );
-            };
+
             /*this.eventer.emitMessageEvent(
              new EventMessage('success', 'Успех', 'Заказ упешно оформлен')
              );*/
@@ -273,15 +234,8 @@ export class NgRestoCartService {
             this.setCartId(result.cart.cartId);
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
-            if (result.message) {
-              this.eventer.emitMessageEvent(
-                new EventMessage(result.message.type, result.message.title, result.message.body)
-              );
-            }
           },
-          error => this.eventer.emitMessageEvent(
-            new EventMessage(error?.type, error?.title, error?.body)
-          )
+          () => {}
         )
       );
   }
@@ -293,11 +247,6 @@ export class NgRestoCartService {
         this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
-        if (res.message) {
-          this.eventer.emitMessageEvent(
-            new EventMessage(res.message.type, res.message.title, res.message.body)
-          );
-        }
       }, error => {
         if (error.error) {
           if (error.error.cart) {
