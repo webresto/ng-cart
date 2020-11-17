@@ -1884,7 +1884,7 @@
     function DishCalcComponent_div_0_ng_container_10_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "div", 19);
+            i0.ɵɵelementStart(1, "div", 20);
             i0.ɵɵelementStart(2, "span");
             i0.ɵɵtext(3);
             i0.ɵɵelementEnd();
@@ -1903,28 +1903,28 @@
     var _c1 = function (a0) { return { selected: a0 }; };
     function DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_2_Template(rf, ctx) {
         if (rf & 1) {
-            var _r20_1 = i0.ɵɵgetCurrentView();
+            var _r21_1 = i0.ɵɵgetCurrentView();
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "div", 23);
-            i0.ɵɵlistener("click", function DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_2_Template_div_click_1_listener() { i0.ɵɵrestoreView(_r20_1); var childModifier_r18 = ctx.$implicit; var ctx_r19 = i0.ɵɵnextContext(4); return ctx_r19.changeModifierAmount(childModifier_r18, 1, "checkbox"); });
+            i0.ɵɵelementStart(1, "div", 24);
+            i0.ɵɵlistener("click", function DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_2_Template_div_click_1_listener() { i0.ɵɵrestoreView(_r21_1); var childModifier_r19 = ctx.$implicit; var ctx_r20 = i0.ɵɵnextContext(4); return ctx_r20.changeModifierAmount(childModifier_r19, 1, "checkbox"); });
             i0.ɵɵtext(2);
             i0.ɵɵelementEnd();
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var childModifier_r18 = ctx.$implicit;
-            var modifier_r15 = i0.ɵɵnextContext().ngIf;
-            var ctx_r16 = i0.ɵɵnextContext(3);
+            var childModifier_r19 = ctx.$implicit;
+            var modifier_r16 = i0.ɵɵnextContext().ngIf;
+            var ctx_r17 = i0.ɵɵnextContext(3);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c1, !!ctx_r16.modifiersValueTree[modifier_r15.modifierId][childModifier_r18.modifierId]));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c1, !!ctx_r17.modifiersValueTree[modifier_r16.modifierId][childModifier_r19.modifierId]));
             i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", childModifier_r18.dish == null ? null : childModifier_r18.dish.name, " ");
+            i0.ɵɵtextInterpolate1(" ", childModifier_r19.dish == null ? null : childModifier_r19.dish.name, " ");
         }
     }
     function DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_3_ng_container_1_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "div", 19);
+            i0.ɵɵelementStart(1, "div", 20);
             i0.ɵɵelementStart(2, "span");
             i0.ɵɵtext(3);
             i0.ɵɵelementEnd();
@@ -1933,178 +1933,407 @@
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var childModifier_r22 = i0.ɵɵnextContext().$implicit;
+            var childModifier_r23 = i0.ɵɵnextContext().$implicit;
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0, !(childModifier_r22.dish == null ? null : childModifier_r22.dish.price)));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c0, !(childModifier_r23.dish == null ? null : childModifier_r23.dish.price)));
             i0.ɵɵadvance(2);
-            i0.ɵɵtextInterpolate(childModifier_r22.dish == null ? null : childModifier_r22.dish.price);
+            i0.ɵɵtextInterpolate(childModifier_r23.dish == null ? null : childModifier_r23.dish.price);
         }
     }
     function DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_3_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵtemplate(1, DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_3_ng_container_1_Template, 5, 4, "ng-container", 20);
+            i0.ɵɵtemplate(1, DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_3_ng_container_1_Template, 5, 4, "ng-container", 21);
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var childModifier_r22 = ctx.$implicit;
-            var modifier_r15 = i0.ɵɵnextContext().ngIf;
-            var ctx_r17 = i0.ɵɵnextContext(3);
+            var childModifier_r23 = ctx.$implicit;
+            var modifier_r16 = i0.ɵɵnextContext().ngIf;
+            var ctx_r18 = i0.ɵɵnextContext(3);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngIf", !!ctx_r17.modifiersValueTree[modifier_r15.modifierId][childModifier_r22.modifierId]);
+            i0.ɵɵproperty("ngIf", !!ctx_r18.modifiersValueTree[modifier_r16.modifierId][childModifier_r23.modifierId]);
         }
     }
     function DishCalcComponent_div_0_ng_template_11_ng_container_0_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "div", 21);
-            i0.ɵɵtemplate(2, DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_2_Template, 3, 4, "ng-container", 22);
+            i0.ɵɵelementStart(1, "div", 22);
+            i0.ɵɵtemplate(2, DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_2_Template, 3, 4, "ng-container", 23);
             i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(3, DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_3_Template, 2, 1, "ng-container", 22);
+            i0.ɵɵtemplate(3, DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_3_Template, 2, 1, "ng-container", 23);
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var modifier_r15 = ctx.ngIf;
+            var modifier_r16 = ctx.ngIf;
             i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngForOf", modifier_r15.childModifiers);
+            i0.ɵɵproperty("ngForOf", modifier_r16.childModifiers);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngForOf", modifier_r15.childModifiers);
+            i0.ɵɵproperty("ngForOf", modifier_r16.childModifiers);
         }
     }
     function DishCalcComponent_div_0_ng_template_11_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵtemplate(0, DishCalcComponent_div_0_ng_template_11_ng_container_0_Template, 4, 2, "ng-container", 20);
+            i0.ɵɵtemplate(0, DishCalcComponent_div_0_ng_template_11_ng_container_0_Template, 4, 2, "ng-container", 21);
         }
         if (rf & 2) {
             var ctx_r12 = i0.ɵɵnextContext(2);
             i0.ɵɵproperty("ngIf", ctx_r12.modifiers.custom.fixed);
         }
     }
-    function DishCalcComponent_div_0_div_13_ng_container_1_div_2_div_1_Template(rf, ctx) {
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_div_1_div_1_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 30);
+            i0.ɵɵelementStart(0, "div", 32);
             i0.ɵɵtext(1);
             i0.ɵɵelementEnd();
         }
         if (rf & 2) {
-            var group_r31 = i0.ɵɵnextContext().ngIf;
+            var group_r33 = i0.ɵɵnextContext().ngIf;
             i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate(group_r31.name);
+            i0.ɵɵtextInterpolate(group_r33.name);
         }
     }
-    function DishCalcComponent_div_0_div_13_ng_container_1_div_2_div_2_Template(rf, ctx) {
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_div_1_div_2_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 31);
+            i0.ɵɵelementStart(0, "div", 33);
             i0.ɵɵtext(1);
             i0.ɵɵelementEnd();
         }
         if (rf & 2) {
-            var group_r31 = i0.ɵɵnextContext().ngIf;
+            var group_r33 = i0.ɵɵnextContext().ngIf;
             i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate(group_r31.description);
+            i0.ɵɵtextInterpolate(group_r33.description);
         }
     }
-    function DishCalcComponent_div_0_div_13_ng_container_1_div_2_Template(rf, ctx) {
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_div_1_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 27);
-            i0.ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_div_2_div_1_Template, 2, 1, "div", 28);
-            i0.ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_div_2_div_2_Template, 2, 1, "div", 29);
+            i0.ɵɵelementStart(0, "div", 29);
+            i0.ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_div_1_div_1_Template, 2, 1, "div", 30);
+            i0.ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_div_1_div_2_Template, 2, 1, "div", 31);
             i0.ɵɵelementEnd();
         }
         if (rf & 2) {
-            var group_r31 = ctx.ngIf;
+            var group_r33 = ctx.ngIf;
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngIf", group_r31.name);
+            i0.ɵɵproperty("ngIf", group_r33.name);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngIf", group_r31.description);
+            i0.ɵɵproperty("ngIf", group_r33.description);
         }
     }
-    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_container_2_Template(rf, ctx) {
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_ng_container_3_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainer(0);
         }
     }
     var _c2 = function (a0) { return { "without-images": a0 }; };
     var _c3 = function (a0, a2, a3, a4, a5) { return { modifier: a0, groupId: "single", amount: a2, groupAmount: a3, groupMinAmount: a4, groupMaxAmount: a5 }; };
-    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_Template(rf, ctx) {
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "div", 32);
-            i0.ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_container_2_Template, 1, 0, "ng-container", 8);
+            i0.ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_div_1_Template, 3, 2, "div", 27);
+            i0.ɵɵelementStart(2, "div", 28);
+            i0.ɵɵtemplate(3, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_ng_container_3_Template, 1, 0, "ng-container", 8);
             i0.ɵɵelementEnd();
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var modifier_r27 = i0.ɵɵnextContext().$implicit;
+            var modifier_r28 = i0.ɵɵnextContext().$implicit;
             var ctx_r29 = i0.ɵɵnextContext(3);
             var _r3 = i0.ɵɵreference(4);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c2, !modifier_r27.childImagesIsset));
+            i0.ɵɵproperty("ngIf", modifier_r28.group);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngTemplateOutlet", _r3)("ngTemplateOutletContext", i0.ɵɵpureFunction5(5, _c3, modifier_r27, ctx_r29.modifiersValueTree["single"][modifier_r27.modifierId], ctx_r29.modifiersValueTree["single"][modifier_r27.modifierId], modifier_r27.minAmount || 0, modifier_r27.maxAmount || 100));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c2, !modifier_r28.childImagesIsset));
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngTemplateOutlet", _r3)("ngTemplateOutletContext", i0.ɵɵpureFunction5(6, _c3, modifier_r28, ctx_r29.modifiersValueTree["single"][modifier_r28.modifierId], ctx_r29.modifiersValueTree["single"][modifier_r28.modifierId], modifier_r28.minAmount || 0, modifier_r28.maxAmount || 100));
         }
     }
-    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_4_ng_container_2_ng_container_1_Template(rf, ctx) {
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_container_1_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementContainer(0);
+        }
+    }
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_div_0_div_1_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 32);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var group_r46 = i0.ɵɵnextContext().ngIf;
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(group_r46.name);
+        }
+    }
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_div_0_div_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 33);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var group_r46 = i0.ɵɵnextContext().ngIf;
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate(group_r46.description);
+        }
+    }
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_div_0_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 29);
+            i0.ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_div_0_div_1_Template, 2, 1, "div", 30);
+            i0.ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_div_0_div_2_Template, 2, 1, "div", 31);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var group_r46 = ctx.ngIf;
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", group_r46.name);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", group_r46.description);
+        }
+    }
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_ng_container_2_ng_container_1_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainer(0);
         }
     }
     var _c4 = function (a0, a1, a2, a3, a4, a5) { return { modifier: a0, groupId: a1, amount: a2, groupAmount: a3, groupMinAmount: a4, groupMaxAmount: a5 }; };
-    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_4_ng_container_2_Template(rf, ctx) {
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_ng_container_2_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_4_ng_container_2_ng_container_1_Template, 1, 0, "ng-container", 8);
+            i0.ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_ng_container_2_ng_container_1_Template, 1, 0, "ng-container", 8);
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var childModifier_r39 = ctx.$implicit;
-            var modifier_r27 = i0.ɵɵnextContext(2).$implicit;
-            var ctx_r38 = i0.ɵɵnextContext(3);
+            var childModifier_r51 = ctx.$implicit;
+            var modifier_r28 = i0.ɵɵnextContext(3).$implicit;
+            var ctx_r45 = i0.ɵɵnextContext(3);
             var _r3 = i0.ɵɵreference(4);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngTemplateOutlet", _r3)("ngTemplateOutletContext", i0.ɵɵpureFunction6(2, _c4, childModifier_r39, modifier_r27.modifierId, ctx_r38.modifiersValueTree[modifier_r27.modifierId][childModifier_r39.modifierId], ctx_r38.modifiers.indexById[modifier_r27.modifierId].totalAmount, modifier_r27.minAmount || 0, modifier_r27.maxAmount || 100));
+            i0.ɵɵproperty("ngTemplateOutlet", _r3)("ngTemplateOutletContext", i0.ɵɵpureFunction6(2, _c4, childModifier_r51, modifier_r28.modifierId, ctx_r45.modifiersValueTree[modifier_r28.modifierId][childModifier_r51.modifierId], ctx_r45.modifiers.indexById[modifier_r28.modifierId].totalAmount, modifier_r28.minAmount || 0, modifier_r28.maxAmount || 100));
         }
     }
-    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_4_Template(rf, ctx) {
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵtemplate(0, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_div_0_Template, 3, 2, "div", 27);
+            i0.ɵɵelementStart(1, "div", 37);
+            i0.ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_ng_container_2_Template, 2, 9, "ng-container", 23);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var modifier_r28 = i0.ɵɵnextContext(2).$implicit;
+            i0.ɵɵproperty("ngIf", modifier_r28.group);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c2, !modifier_r28.imagesIsset));
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngForOf", modifier_r28.childModifiers);
+        }
+    }
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_1_ng_container_5_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementContainer(0);
+        }
+    }
+    var _c5 = function (a0) { return { dish: a0 }; };
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_1_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "div", 33);
-            i0.ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_4_ng_container_2_Template, 2, 9, "ng-container", 22);
+            i0.ɵɵelementStart(1, "div", 43);
+            i0.ɵɵelementStart(2, "div", 44);
+            i0.ɵɵtext(3);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(4, "div", 45);
+            i0.ɵɵtemplate(5, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_1_ng_container_5_Template, 1, 0, "ng-container", 8);
+            i0.ɵɵelementEnd();
             i0.ɵɵelementEnd();
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var modifier_r27 = i0.ɵɵnextContext().$implicit;
+            var dish_r61 = ctx.ngIf;
+            i0.ɵɵnextContext(8);
+            var _r1 = i0.ɵɵreference(2);
+            i0.ɵɵadvance(3);
+            i0.ɵɵtextInterpolate(dish_r61.name);
+            i0.ɵɵadvance(2);
+            i0.ɵɵproperty("ngTemplateOutlet", _r1)("ngTemplateOutletContext", i0.ɵɵpureFunction1(3, _c5, dish_r61));
+        }
+    }
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_2_ng_container_5_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementContainer(0);
+        }
+    }
+    var _c6 = function () { return {}; };
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementContainerStart(0);
+            i0.ɵɵelementStart(1, "div", 43);
+            i0.ɵɵelementStart(2, "div", 44);
+            i0.ɵɵtext(3, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u043B\u043E\u0432\u0438\u043D\u0443");
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(4, "div", 45);
+            i0.ɵɵtemplate(5, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_2_ng_container_5_Template, 1, 0, "ng-container", 8);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementContainerEnd();
+        }
+        if (rf & 2) {
+            i0.ɵɵnextContext(8);
+            var _r1 = i0.ɵɵreference(2);
+            i0.ɵɵadvance(5);
+            i0.ɵɵproperty("ngTemplateOutlet", _r1)("ngTemplateOutletContext", i0.ɵɵpureFunction1(3, _c5, i0.ɵɵpureFunction0(2, _c6)));
+        }
+    }
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementContainerStart(0);
+            i0.ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_1_Template, 6, 5, "ng-container", 21);
+            i0.ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_2_Template, 6, 5, "ng-container", 21);
+            i0.ɵɵelementContainerEnd();
+        }
+        if (rf & 2) {
+            var childModifier_r57 = i0.ɵɵnextContext().$implicit;
+            var modifier_r28 = i0.ɵɵnextContext(3).$implicit;
+            var ctx_r58 = i0.ɵɵnextContext(3);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(2, _c2, !modifier_r27.imagesIsset));
+            i0.ɵɵproperty("ngIf", childModifier_r57.dish);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngForOf", modifier_r27.childModifiers);
+            i0.ɵɵproperty("ngIf", ctx_r58.modifiers.indexById[modifier_r28.modifierId].totalAmount == 1);
+        }
+    }
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementContainerStart(0);
+            i0.ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_Template, 3, 2, "ng-container", 21);
+            i0.ɵɵelementContainerEnd();
+        }
+        if (rf & 2) {
+            var childModifier_r57 = ctx.$implicit;
+            var modifier_r28 = i0.ɵɵnextContext(3).$implicit;
+            var ctx_r55 = i0.ɵɵnextContext(3);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", ctx_r55.modifiersValueTree[modifier_r28.modifierId][childModifier_r57.modifierId]);
+        }
+    }
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_div_1_ng_container_2_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementContainer(0);
+        }
+    }
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_div_1_Template(rf, ctx) {
+        if (rf & 1) {
+            var _r73_1 = i0.ɵɵgetCurrentView();
+            i0.ɵɵelementStart(0, "div", 47);
+            i0.ɵɵlistener("click", function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_div_1_Template_div_click_0_listener() { i0.ɵɵrestoreView(_r73_1); var childModifier_r67 = i0.ɵɵnextContext().$implicit; var ctx_r71 = i0.ɵɵnextContext(6); return ctx_r71.selectTwoPartsAssembledModifier(childModifier_r67); });
+            i0.ɵɵelementStart(1, "div", 45);
+            i0.ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_div_1_ng_container_2_Template, 1, 0, "ng-container", 8);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(3, "div", 10);
+            i0.ɵɵtext(4);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(5, "div", 48);
+            i0.ɵɵelementStart(6, "div", 49);
+            i0.ɵɵelementStart(7, "span");
+            i0.ɵɵtext(8);
+            i0.ɵɵelementEnd();
+            i0.ɵɵtext(9, " \u20BD ");
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var dish_r69 = ctx.ngIf;
+            var childModifier_r67 = i0.ɵɵnextContext().$implicit;
+            var modifier_r28 = i0.ɵɵnextContext(3).$implicit;
+            var ctx_r68 = i0.ɵɵnextContext(3);
+            var _r1 = i0.ɵɵreference(2);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(6, _c1, ctx_r68.modifiersValueTree[modifier_r28.modifierId][childModifier_r67.modifierId]));
+            i0.ɵɵadvance(2);
+            i0.ɵɵproperty("ngTemplateOutlet", _r1)("ngTemplateOutletContext", i0.ɵɵpureFunction1(8, _c5, dish_r69));
+            i0.ɵɵadvance(2);
+            i0.ɵɵtextInterpolate1(" ", dish_r69.name, " ");
+            i0.ɵɵadvance(2);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(10, _c0, !dish_r69.price));
+            i0.ɵɵadvance(2);
+            i0.ɵɵtextInterpolate(dish_r69.price);
+        }
+    }
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementContainerStart(0);
+            i0.ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_div_1_Template, 10, 12, "div", 46);
+            i0.ɵɵelementContainerEnd();
+        }
+        if (rf & 2) {
+            var childModifier_r67 = ctx.$implicit;
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", childModifier_r67.dish);
+        }
+    }
+    var _c7 = function (a0) { return { empty: a0 }; };
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 38);
+            i0.ɵɵelementStart(1, "div", 39);
+            i0.ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_Template, 2, 1, "ng-container", 23);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(3, "div", 40);
+            i0.ɵɵelementStart(4, "div", 41);
+            i0.ɵɵtext(5, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043B\u044E\u0431\u044B\u0435 \u0434\u0432\u0435 \u043F\u043E\u043B\u043E\u0432\u0438\u043D\u043A\u0438");
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(6, "div", 42);
+            i0.ɵɵtemplate(7, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_Template, 2, 1, "ng-container", 23);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var modifier_r28 = i0.ɵɵnextContext(2).$implicit;
+            var ctx_r43 = i0.ɵɵnextContext(3);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(3, _c7, !(ctx_r43.twoPartsAssembledModifiersIdsByGroupId[modifier_r28.modifierId] == null ? null : ctx_r43.twoPartsAssembledModifiersIdsByGroupId[modifier_r28.modifierId].length)));
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngForOf", modifier_r28.childModifiers);
+            i0.ɵɵadvance(5);
+            i0.ɵɵproperty("ngForOf", modifier_r28.childModifiers);
+        }
+    }
+    function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementContainerStart(0);
+            i0.ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_container_1_Template, 1, 0, "ng-container", 34);
+            i0.ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_Template, 3, 5, "ng-template", null, 35, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵtemplate(4, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_Template, 8, 5, "ng-template", null, 36, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵelementContainerEnd();
+        }
+        if (rf & 2) {
+            var _r40 = i0.ɵɵreference(3);
+            var _r42 = i0.ɵɵreference(5);
+            var modifier_r28 = i0.ɵɵnextContext().$implicit;
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", modifier_r28.minAmount == 2 && modifier_r28.maxAmount == 2)("ngIfThen", _r42)("ngIfElse", _r40);
         }
     }
     function DishCalcComponent_div_0_div_13_ng_container_1_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "div", 25);
-            i0.ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_div_2_Template, 3, 2, "div", 26);
-            i0.ɵɵtemplate(3, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_Template, 3, 11, "ng-container", 20);
-            i0.ɵɵtemplate(4, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_4_Template, 3, 4, "ng-container", 20);
+            i0.ɵɵelementStart(1, "div", 26);
+            i0.ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_Template, 4, 12, "ng-container", 21);
+            i0.ɵɵtemplate(3, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_Template, 6, 3, "ng-container", 21);
             i0.ɵɵelementEnd();
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var modifier_r27 = ctx.$implicit;
+            var modifier_r28 = ctx.$implicit;
             i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngIf", modifier_r27.group);
+            i0.ɵɵproperty("ngIf", modifier_r28.dish);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngIf", modifier_r27.dish);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngIf", modifier_r27.childModifiers == null ? null : modifier_r27.childModifiers.length);
+            i0.ɵɵproperty("ngIf", modifier_r28.childModifiers == null ? null : modifier_r28.childModifiers.length);
         }
     }
     function DishCalcComponent_div_0_div_13_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 24);
-            i0.ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_Template, 5, 3, "ng-container", 22);
+            i0.ɵɵelementStart(0, "div", 25);
+            i0.ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_Template, 4, 2, "ng-container", 23);
             i0.ɵɵelementEnd();
         }
         if (rf & 2) {
@@ -2113,7 +2342,22 @@
             i0.ɵɵproperty("ngForOf", ctx_r13.modifiers.baseList);
         }
     }
-    var _c5 = function (a0) { return { dish: a0 }; };
+    function DishCalcComponent_div_0_div_21_Template(rf, ctx) {
+        if (rf & 1) {
+            var _r80_1 = i0.ɵɵgetCurrentView();
+            i0.ɵɵelementStart(0, "div", 50);
+            i0.ɵɵelementStart(1, "div", 44);
+            i0.ɵɵtext(2, "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439");
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(3, "div", 51);
+            i0.ɵɵelementStart(4, "input", 52, 53);
+            i0.ɵɵlistener("keyup", function DishCalcComponent_div_0_div_21_Template_input_keyup_4_listener() { i0.ɵɵrestoreView(_r80_1); var _r78 = i0.ɵɵreference(5); var ctx_r79 = i0.ɵɵnextContext(2); return ctx_r79.comment.emit(_r78.value); });
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+        }
+    }
+    var _c8 = function (a0) { return { "ng-cart-dish-calc-two-parts-assembled": a0 }; };
     function DishCalcComponent_div_0_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementStart(0, "div", 5);
@@ -2146,14 +2390,16 @@
             i0.ɵɵtext(20, " \u20BD ");
             i0.ɵɵelementEnd();
             i0.ɵɵelementEnd();
+            i0.ɵɵtemplate(21, DishCalcComponent_div_0_div_21_Template, 6, 0, "div", 19);
             i0.ɵɵelementEnd();
         }
         if (rf & 2) {
             var _r11 = i0.ɵɵreference(12);
             var ctx_r0 = i0.ɵɵnextContext();
             var _r1 = i0.ɵɵreference(2);
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(10, _c8, ctx_r0.isTwoPartsAssembledTemplate));
             i0.ɵɵadvance(3);
-            i0.ɵɵproperty("ngTemplateOutlet", _r1)("ngTemplateOutletContext", i0.ɵɵpureFunction1(8, _c5, ctx_r0.dish));
+            i0.ɵɵproperty("ngTemplateOutlet", _r1)("ngTemplateOutletContext", i0.ɵɵpureFunction1(12, _c5, ctx_r0.dish));
             i0.ɵɵadvance(3);
             i0.ɵɵtextInterpolate(ctx_r0.dish.name);
             i0.ɵɵadvance(2);
@@ -2164,35 +2410,37 @@
             i0.ɵɵproperty("ngIf", ctx_r0.modifiers.baseList == null ? null : ctx_r0.modifiers.baseList.length);
             i0.ɵɵadvance(6);
             i0.ɵɵtextInterpolate(ctx_r0.totalPrice);
+            i0.ɵɵadvance(2);
+            i0.ɵɵproperty("ngIf", ctx_r0.isTwoPartsAssembledTemplate);
         }
     }
     function DishCalcComponent_ng_template_1_ng_container_0_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelement(1, "div", 35);
+            i0.ɵɵelement(1, "div", 55);
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var dish_r43 = i0.ɵɵnextContext().dish;
-            var ctx_r44 = i0.ɵɵnextContext();
+            var dish_r81 = i0.ɵɵnextContext().dish;
+            var ctx_r82 = i0.ɵɵnextContext();
             i0.ɵɵadvance(1);
-            i0.ɵɵstyleProp("background-image", "url(" + ctx_r44.imageUrl + dish_r43.images[0].images.small + ")");
+            i0.ɵɵstyleProp("background-image", "url(" + ctx_r82.imageUrl + dish_r81.images[0].images.small + ")");
         }
     }
     function DishCalcComponent_ng_template_1_ng_template_1_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "div", 36);
+            i0.ɵɵelement(0, "div", 56);
         }
     }
     function DishCalcComponent_ng_template_1_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵtemplate(0, DishCalcComponent_ng_template_1_ng_container_0_Template, 2, 2, "ng-container", 13);
-            i0.ɵɵtemplate(1, DishCalcComponent_ng_template_1_ng_template_1_Template, 1, 0, "ng-template", null, 34, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵtemplate(1, DishCalcComponent_ng_template_1_ng_template_1_Template, 1, 0, "ng-template", null, 54, i0.ɵɵtemplateRefExtractor);
         }
         if (rf & 2) {
-            var dish_r43 = ctx.dish;
-            var _r45 = i0.ɵɵreference(2);
-            i0.ɵɵproperty("ngIf", (dish_r43 == null ? null : dish_r43.images) && (dish_r43.images[0] == null ? null : dish_r43.images[0].images == null ? null : dish_r43.images[0].images.small))("ngIfElse", _r45);
+            var dish_r81 = ctx.dish;
+            var _r83 = i0.ɵɵreference(2);
+            i0.ɵɵproperty("ngIf", (dish_r81 == null ? null : dish_r81.images) && (dish_r81.images[0] == null ? null : dish_r81.images[0].images == null ? null : dish_r81.images[0].images.small))("ngIfElse", _r83);
         }
     }
     function DishCalcComponent_ng_template_3_ng_container_0_ng_container_3_Template(rf, ctx) {
@@ -2200,158 +2448,168 @@
             i0.ɵɵelementContainer(0);
         }
     }
-    function DishCalcComponent_ng_template_3_ng_container_0_ng_container_15_ng_container_1_Template(rf, ctx) {
+    function DishCalcComponent_ng_template_3_ng_container_0_div_7_Template(rf, ctx) {
+        if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 65);
+            i0.ɵɵtext(1);
+            i0.ɵɵelementEnd();
+        }
+        if (rf & 2) {
+            var dish_r93 = i0.ɵɵnextContext().ngIf;
+            i0.ɵɵadvance(1);
+            i0.ɵɵtextInterpolate1("", dish_r93.weight * 1000, " \u0433\u0440");
+        }
+    }
+    function DishCalcComponent_ng_template_3_ng_container_0_ng_container_14_ng_container_1_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainer(0);
         }
     }
-    var _c6 = function (a0, a1, a2) { return { modifier: a0, groupId: a1, amount: a2 }; };
-    function DishCalcComponent_ng_template_3_ng_container_0_ng_container_15_Template(rf, ctx) {
+    var _c9 = function (a0, a1, a2) { return { modifier: a0, groupId: a1, amount: a2 }; };
+    function DishCalcComponent_ng_template_3_ng_container_0_ng_container_14_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵtemplate(1, DishCalcComponent_ng_template_3_ng_container_0_ng_container_15_ng_container_1_Template, 1, 0, "ng-container", 8);
+            i0.ɵɵtemplate(1, DishCalcComponent_ng_template_3_ng_container_0_ng_container_14_ng_container_1_Template, 1, 0, "ng-container", 8);
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var ctx_r61 = i0.ɵɵnextContext(2);
-            var modifier_r48 = ctx_r61.modifier;
-            var groupId_r49 = ctx_r61.groupId;
-            var amount_r50 = ctx_r61.amount;
+            var ctx_r101 = i0.ɵɵnextContext(2);
+            var modifier_r86 = ctx_r101.modifier;
+            var groupId_r87 = ctx_r101.groupId;
+            var amount_r88 = ctx_r101.amount;
             i0.ɵɵnextContext();
             var _r7 = i0.ɵɵreference(8);
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngTemplateOutlet", _r7)("ngTemplateOutletContext", i0.ɵɵpureFunction3(2, _c6, modifier_r48, groupId_r49, amount_r50));
+            i0.ɵɵproperty("ngTemplateOutlet", _r7)("ngTemplateOutletContext", i0.ɵɵpureFunction3(2, _c9, modifier_r86, groupId_r87, amount_r88));
         }
     }
-    function DishCalcComponent_ng_template_3_ng_container_0_ng_template_16_ng_container_0_Template(rf, ctx) {
+    function DishCalcComponent_ng_template_3_ng_container_0_ng_template_15_ng_container_0_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainer(0);
         }
     }
-    function DishCalcComponent_ng_template_3_ng_container_0_ng_template_16_Template(rf, ctx) {
+    function DishCalcComponent_ng_template_3_ng_container_0_ng_template_15_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵtemplate(0, DishCalcComponent_ng_template_3_ng_container_0_ng_template_16_ng_container_0_Template, 1, 0, "ng-container", 8);
+            i0.ɵɵtemplate(0, DishCalcComponent_ng_template_3_ng_container_0_ng_template_15_ng_container_0_Template, 1, 0, "ng-container", 8);
         }
         if (rf & 2) {
-            var ctx_r63 = i0.ɵɵnextContext(2);
-            var modifier_r48 = ctx_r63.modifier;
-            var groupId_r49 = ctx_r63.groupId;
-            var amount_r50 = ctx_r63.amount;
-            var groupAmount_r51 = ctx_r63.groupAmount;
-            var groupMinAmount_r52 = ctx_r63.groupMinAmount;
-            var groupMaxAmount_r53 = ctx_r63.groupMaxAmount;
+            var ctx_r103 = i0.ɵɵnextContext(2);
+            var modifier_r86 = ctx_r103.modifier;
+            var groupId_r87 = ctx_r103.groupId;
+            var amount_r88 = ctx_r103.amount;
+            var groupAmount_r89 = ctx_r103.groupAmount;
+            var groupMinAmount_r90 = ctx_r103.groupMinAmount;
+            var groupMaxAmount_r91 = ctx_r103.groupMaxAmount;
             i0.ɵɵnextContext();
             var _r5 = i0.ɵɵreference(6);
-            i0.ɵɵproperty("ngTemplateOutlet", _r5)("ngTemplateOutletContext", i0.ɵɵpureFunction6(2, _c4, modifier_r48, groupId_r49, amount_r50, groupAmount_r51, groupMinAmount_r52, groupMaxAmount_r53));
+            i0.ɵɵproperty("ngTemplateOutlet", _r5)("ngTemplateOutletContext", i0.ɵɵpureFunction6(2, _c4, modifier_r86, groupId_r87, amount_r88, groupAmount_r89, groupMinAmount_r90, groupMaxAmount_r91));
         }
     }
     function DishCalcComponent_ng_template_3_ng_container_0_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "div", 37);
-            i0.ɵɵelementStart(2, "div", 38);
+            i0.ɵɵelementStart(1, "div", 57);
+            i0.ɵɵelementStart(2, "div", 58);
             i0.ɵɵtemplate(3, DishCalcComponent_ng_template_3_ng_container_0_ng_container_3_Template, 1, 0, "ng-container", 8);
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(4, "div", 39);
-            i0.ɵɵelementStart(5, "div", 40);
+            i0.ɵɵelementStart(4, "div", 59);
+            i0.ɵɵelementStart(5, "div", 60);
             i0.ɵɵtext(6);
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(7, "div", 41);
-            i0.ɵɵtext(8);
+            i0.ɵɵtemplate(7, DishCalcComponent_ng_template_3_ng_container_0_div_7_Template, 2, 1, "div", 61);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementStart(8, "div", 62);
+            i0.ɵɵelementStart(9, "div", 49);
+            i0.ɵɵelementStart(10, "span");
+            i0.ɵɵtext(11);
+            i0.ɵɵelementEnd();
+            i0.ɵɵtext(12, " \u20BD ");
             i0.ɵɵelementEnd();
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(9, "div", 42);
-            i0.ɵɵelementStart(10, "div", 43);
-            i0.ɵɵelementStart(11, "span");
-            i0.ɵɵtext(12);
-            i0.ɵɵelementEnd();
-            i0.ɵɵtext(13, " \u20BD ");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(14, "div", 44);
-            i0.ɵɵtemplate(15, DishCalcComponent_ng_template_3_ng_container_0_ng_container_15_Template, 2, 6, "ng-container", 13);
-            i0.ɵɵtemplate(16, DishCalcComponent_ng_template_3_ng_container_0_ng_template_16_Template, 1, 9, "ng-template", null, 45, i0.ɵɵtemplateRefExtractor);
+            i0.ɵɵelementStart(13, "div", 63);
+            i0.ɵɵtemplate(14, DishCalcComponent_ng_template_3_ng_container_0_ng_container_14_Template, 2, 6, "ng-container", 13);
+            i0.ɵɵtemplate(15, DishCalcComponent_ng_template_3_ng_container_0_ng_template_15_Template, 1, 9, "ng-template", null, 64, i0.ɵɵtemplateRefExtractor);
             i0.ɵɵelementEnd();
             i0.ɵɵelementEnd();
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var dish_r55 = ctx.ngIf;
-            var _r58 = i0.ɵɵreference(17);
-            var ctx_r64 = i0.ɵɵnextContext();
-            var groupMinAmount_r52 = ctx_r64.groupMinAmount;
-            var groupMaxAmount_r53 = ctx_r64.groupMaxAmount;
+            var dish_r93 = ctx.ngIf;
+            var _r97 = i0.ɵɵreference(16);
+            var ctx_r104 = i0.ɵɵnextContext();
+            var groupMinAmount_r90 = ctx_r104.groupMinAmount;
+            var groupMaxAmount_r91 = ctx_r104.groupMaxAmount;
             i0.ɵɵnextContext();
             var _r1 = i0.ɵɵreference(2);
             i0.ɵɵadvance(3);
-            i0.ɵɵproperty("ngTemplateOutlet", _r1)("ngTemplateOutletContext", i0.ɵɵpureFunction1(8, _c5, dish_r55));
+            i0.ɵɵproperty("ngTemplateOutlet", _r1)("ngTemplateOutletContext", i0.ɵɵpureFunction1(8, _c5, dish_r93));
             i0.ɵɵadvance(3);
-            i0.ɵɵtextInterpolate(dish_r55.name);
+            i0.ɵɵtextInterpolate(dish_r93.name);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("ngIf", dish_r93.weight);
             i0.ɵɵadvance(2);
-            i0.ɵɵtextInterpolate1("", dish_r55.weight * 1000, " \u0433\u0440");
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(10, _c0, !dish_r93.price));
             i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(10, _c0, !dish_r55.price));
-            i0.ɵɵadvance(2);
-            i0.ɵɵtextInterpolate(dish_r55.price);
+            i0.ɵɵtextInterpolate(dish_r93.price);
             i0.ɵɵadvance(3);
-            i0.ɵɵproperty("ngIf", groupMinAmount_r52 <= 1 && groupMaxAmount_r53 == 1)("ngIfElse", _r58);
+            i0.ɵɵproperty("ngIf", groupMinAmount_r90 <= 1 && groupMaxAmount_r91 == 1)("ngIfElse", _r97);
         }
     }
     function DishCalcComponent_ng_template_3_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵtemplate(0, DishCalcComponent_ng_template_3_ng_container_0_Template, 18, 12, "ng-container", 20);
+            i0.ɵɵtemplate(0, DishCalcComponent_ng_template_3_ng_container_0_Template, 17, 12, "ng-container", 21);
         }
         if (rf & 2) {
-            var modifier_r48 = ctx.modifier;
-            i0.ɵɵproperty("ngIf", modifier_r48.dish);
+            var modifier_r86 = ctx.modifier;
+            i0.ɵɵproperty("ngIf", modifier_r86.dish);
         }
     }
-    var _c7 = function (a0) { return { disabled: a0 }; };
+    var _c10 = function (a0) { return { disabled: a0 }; };
     function DishCalcComponent_ng_template_5_Template(rf, ctx) {
         if (rf & 1) {
-            var _r73_1 = i0.ɵɵgetCurrentView();
+            var _r113_1 = i0.ɵɵgetCurrentView();
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "div", 46);
-            i0.ɵɵelementStart(2, "div", 47);
-            i0.ɵɵlistener("click", function DishCalcComponent_ng_template_5_Template_div_click_2_listener() { i0.ɵɵrestoreView(_r73_1); var modifier_r65 = ctx.modifier; var amount_r67 = ctx.amount; var ctx_r72 = i0.ɵɵnextContext(); return ctx_r72.changeModifierAmount(modifier_r65, amount_r67 - 1, "minus"); });
+            i0.ɵɵelementStart(1, "div", 66);
+            i0.ɵɵelementStart(2, "div", 67);
+            i0.ɵɵlistener("click", function DishCalcComponent_ng_template_5_Template_div_click_2_listener() { i0.ɵɵrestoreView(_r113_1); var modifier_r105 = ctx.modifier; var amount_r107 = ctx.amount; var ctx_r112 = i0.ɵɵnextContext(); return ctx_r112.changeModifierAmount(modifier_r105, amount_r107 - 1, "minus"); });
             i0.ɵɵtext(3, "-");
             i0.ɵɵelementEnd();
-            i0.ɵɵelement(4, "input", 48, 49);
-            i0.ɵɵelementStart(6, "div", 50);
-            i0.ɵɵlistener("click", function DishCalcComponent_ng_template_5_Template_div_click_6_listener() { i0.ɵɵrestoreView(_r73_1); var modifier_r65 = ctx.modifier; var amount_r67 = ctx.amount; var ctx_r74 = i0.ɵɵnextContext(); return ctx_r74.changeModifierAmount(modifier_r65, amount_r67 + 1, "plus"); });
+            i0.ɵɵelement(4, "input", 68, 69);
+            i0.ɵɵelementStart(6, "div", 70);
+            i0.ɵɵlistener("click", function DishCalcComponent_ng_template_5_Template_div_click_6_listener() { i0.ɵɵrestoreView(_r113_1); var modifier_r105 = ctx.modifier; var amount_r107 = ctx.amount; var ctx_r114 = i0.ɵɵnextContext(); return ctx_r114.changeModifierAmount(modifier_r105, amount_r107 + 1, "plus"); });
             i0.ɵɵtext(7, "+");
             i0.ɵɵelementEnd();
             i0.ɵɵelementEnd();
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var amount_r67 = ctx.amount;
-            var groupAmount_r68 = ctx.groupAmount;
-            var groupMinAmount_r69 = ctx.groupMinAmount;
-            var groupMaxAmount_r70 = ctx.groupMaxAmount;
+            var amount_r107 = ctx.amount;
+            var groupAmount_r108 = ctx.groupAmount;
+            var groupMinAmount_r109 = ctx.groupMinAmount;
+            var groupMaxAmount_r110 = ctx.groupMaxAmount;
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c7, !amount_r67 && groupAmount_r68 >= groupMaxAmount_r70));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(4, _c10, !amount_r107 && groupAmount_r108 >= groupMaxAmount_r110));
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(6, _c7, !amount_r67 || groupAmount_r68 <= groupMinAmount_r69));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(6, _c10, !amount_r107 || groupAmount_r108 <= groupMinAmount_r109));
             i0.ɵɵadvance(2);
-            i0.ɵɵproperty("value", amount_r67);
+            i0.ɵɵproperty("value", amount_r107);
             i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(8, _c7, groupAmount_r68 >= groupMaxAmount_r70));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(8, _c10, groupAmount_r108 >= groupMaxAmount_r110));
         }
     }
     function DishCalcComponent_ng_template_7_Template(rf, ctx) {
         if (rf & 1) {
-            var _r79_1 = i0.ɵɵgetCurrentView();
+            var _r119_1 = i0.ɵɵgetCurrentView();
             i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "div", 51);
-            i0.ɵɵlistener("click", function DishCalcComponent_ng_template_7_Template_div_click_1_listener() { i0.ɵɵrestoreView(_r79_1); var modifier_r75 = ctx.modifier; var amount_r77 = ctx.amount; var ctx_r78 = i0.ɵɵnextContext(); return ctx_r78.changeModifierAmount(modifier_r75, amount_r77 ? 0 : 1, "checkbox"); });
+            i0.ɵɵelementStart(1, "div", 71);
+            i0.ɵɵlistener("click", function DishCalcComponent_ng_template_7_Template_div_click_1_listener() { i0.ɵɵrestoreView(_r119_1); var modifier_r115 = ctx.modifier; var amount_r117 = ctx.amount; var ctx_r118 = i0.ɵɵnextContext(); return ctx_r118.changeModifierAmount(modifier_r115, amount_r117 ? 0 : 1, "checkbox"); });
             i0.ɵɵelementEnd();
             i0.ɵɵelementContainerEnd();
         }
         if (rf & 2) {
-            var amount_r77 = ctx.amount;
+            var amount_r117 = ctx.amount;
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(1, _c1, amount_r77));
+            i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(1, _c1, amount_r117));
         }
     }
     var DishCalcComponent = /** @class */ (function () {
@@ -2360,6 +2618,7 @@
             this.eventer = eventer;
             this.validate = new i0.EventEmitter();
             this.amountDishToAdd = new i0.EventEmitter();
+            this.comment = new i0.EventEmitter();
             this.modifiers = {
                 indexById: {},
                 custom: {
@@ -2368,6 +2627,7 @@
                 baseList: [],
             };
             this.modifiersValueTree = {};
+            this.twoPartsAssembledModifiersIdsByGroupId = {};
             this.imageUrl = imageUrl;
         }
         DishCalcComponent.prototype.ngOnInit = function () {
@@ -2413,6 +2673,9 @@
                             // This is Base modifier
                             modifierType = 'group';
                             this.modifiers.baseList.push(modifier);
+                            if (modifier.minAmount == 2 && modifier.maxAmount == 2) {
+                                this.isTwoPartsAssembledTemplate = true;
+                            }
                             console.info('Group modifier:', modifier);
                         }
                         else if (modifier.dish) {
@@ -2471,6 +2734,7 @@
                 }
                 this.calculateTotalPrice();
             }
+            console.log("this.modifiers.indexById", this.modifiers.indexById);
         };
         DishCalcComponent.prototype.calculateTotalAmountInGroup = function (groupId) {
             if (groupId == 'single')
@@ -2482,10 +2746,10 @@
         };
         DishCalcComponent.prototype.checkImagesInModifier = function (modifierId) {
             var m = this.modifiers.indexById[modifierId];
-            this.modifiers.indexById[modifierId].imagesIsset = m.dish && m.dish.images && m.dish.images.length;
-            this.modifiers.indexById[modifierId].childImagesIsset = !!Object
-                .values(this.modifiersValueTree[modifierId])
-                .find(function (m) { return m && m.dish && m.dish.images && m.dish.images.length; });
+            this.modifiers.indexById[modifierId].imagesIsset = m.dish && m.dish.images && m.dish.images.length ? true : false;
+            this.modifiers.indexById[modifierId].childImagesIsset = !!this.modifiers.indexById[modifierId]
+                .childModifiers
+                .find(function (m) { return m && m.dish && m.dish.images && m.dish.images.length ? true : false; });
         };
         DishCalcComponent.prototype.calculateTotalPrice = function () {
             var totalPrice = this.dish.price || 0;
@@ -2508,6 +2772,42 @@
                 groupId: (modifier.dish && modifier.dish.groupId) ? modifier.dish.groupId : undefined,
                 modifierId: modifier.modifierId
             };
+        };
+        DishCalcComponent.prototype.selectTwoPartsAssembledModifier = function (modifier) {
+            var _a = this.getModifiersIds(modifier), _b = _a.groupId, groupId = _b === void 0 ? 'single' : _b, modifierId = _a.modifierId;
+            var minAmount = modifier.minAmount, maxAmount = modifier.maxAmount;
+            var _c = this.modifiers.indexById[groupId] || {}, _d = _c.minAmount, groupMinAmount = _d === void 0 ? 0 : _d, _e = _c.maxAmount, groupMaxAmount = _e === void 0 ? 0 : _e;
+            var previousAmount = this.modifiersValueTree[groupId][modifierId];
+            var amount = previousAmount ? 0 : 1;
+            // Init tmp value storage if not exists
+            if (!this.twoPartsAssembledModifiersIdsByGroupId[groupId]) {
+                this.twoPartsAssembledModifiersIdsByGroupId[groupId] = [];
+            }
+            // Total amount in group
+            var groupAmount = this.modifiers.indexById[groupId].totalAmount - previousAmount + amount;
+            if (groupAmount > groupMaxAmount) {
+                if (this.twoPartsAssembledModifiersIdsByGroupId[groupId].length) {
+                    for (var mId in this.modifiersValueTree[groupId]) {
+                        this.modifiersValueTree[groupId][mId] = 0;
+                    }
+                    this.twoPartsAssembledModifiersIdsByGroupId[groupId] = this.twoPartsAssembledModifiersIdsByGroupId[groupId].slice(1, 2);
+                    this.modifiersValueTree[groupId][this.twoPartsAssembledModifiersIdsByGroupId[groupId][0]] = 1;
+                }
+                else {
+                    console.warn("Limit: max " + groupMaxAmount + ". Current " + groupAmount);
+                    this.eventer.emitMessageEvent(new i1.EventMessage('warning', 'Ограничение', "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043E\u043F\u0446\u0438\u0439 \u0434\u043B\u044F \u0433\u0440\u0443\u043F\u043F\u044B\n            \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u0432 \"" + this.modifiers.indexById[groupId].group.name + "\" - \u043D\u0435 \u0431\u043E\u043B\u0435\u0435 " + groupMaxAmount));
+                    return;
+                }
+            }
+            else if (groupAmount === 0) {
+                this.twoPartsAssembledModifiersIdsByGroupId[groupId] = [];
+            }
+            if (amount && !this.twoPartsAssembledModifiersIdsByGroupId[groupId].find(function (v) { return v == modifierId; })) {
+                this.twoPartsAssembledModifiersIdsByGroupId[groupId].push(modifierId);
+            }
+            this.modifiersValueTree[groupId][modifierId] = amount;
+            this.calculateTotalAmountInGroup(groupId);
+            this.calculateTotalPrice();
         };
         DishCalcComponent.prototype.changeModifierAmount = function (modifier, amount, operation) {
             if (amount < 0)
@@ -2613,9 +2913,9 @@
         return DishCalcComponent;
     }());
     DishCalcComponent.ɵfac = function DishCalcComponent_Factory(t) { return new (t || DishCalcComponent)(i0.ɵɵdirectiveInject(NgRestoCartService), i0.ɵɵdirectiveInject(i1.EventerService), i0.ɵɵdirectiveInject('ImageUrl')); };
-    DishCalcComponent.ɵcmp = i0.ɵɵdefineComponent({ type: DishCalcComponent, selectors: [["dish-calc"]], inputs: { dish: "dish", amount: "amount", selectedModifiers: "selectedModifiers" }, outputs: { validate: "validate", amountDishToAdd: "amountDishToAdd" }, features: [i0.ɵɵNgOnChangesFeature], decls: 9, vars: 1, consts: [["class", "ng-cart-dish-calc", 4, "ngIf"], ["dishImageTemplate", ""], ["modifierTemplate", ""], ["modifierCounterTemplate", ""], ["modifierCheckboxTemplate", ""], [1, "ng-cart-dish-calc"], [1, "dish"], [1, "dish-image-box"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "dish-description-box"], [1, "dish-name"], [1, "dish-ingredients"], [1, "dish-price-box"], [4, "ngIf", "ngIfElse"], ["modifierFixedTemplate", ""], ["class", "modifiers", 4, "ngIf"], [1, "result"], [1, "text"], [1, "price"], [1, "price", 3, "ngClass"], [4, "ngIf"], [1, "modifier-fixed"], [4, "ngFor", "ngForOf"], [1, "item", 3, "ngClass", "click"], [1, "modifiers"], [1, "modifier-group"], ["class", "modifier-header", 4, "ngIf"], [1, "modifier-header"], ["class", "modifier-name", 4, "ngIf"], ["class", "modifier-description", 4, "ngIf"], [1, "modifier-name"], [1, "modifier-description"], [1, "modifier-box", 3, "ngClass"], [1, "modifier-children", 3, "ngClass"], ["imgPlaceholder", ""], [1, "dish-image"], [1, "dish-image-placeholder"], [1, "modifier-dish"], [1, "modifier-dish-image-box"], [1, "modifier-dish-description-box"], [1, "modifier-dish-name"], [1, "modifier-dish-weight"], [1, "modifier-dish-price-box"], [3, "ngClass"], [1, "modifier-dish-action-box"], ["counterTemplate", ""], [1, "modifier-counter", 3, "ngClass"], ["onselectstart", "return false;", 1, "minus", 3, "ngClass", "click"], ["readonly", "", 3, "value"], ["input", ""], ["onselectstart", "return false;", 1, "plus", 3, "ngClass", "click"], [1, "modifier-checkbox", 3, "ngClass", "click"]], template: function DishCalcComponent_Template(rf, ctx) {
+    DishCalcComponent.ɵcmp = i0.ɵɵdefineComponent({ type: DishCalcComponent, selectors: [["dish-calc"]], inputs: { dish: "dish", amount: "amount", selectedModifiers: "selectedModifiers" }, outputs: { validate: "validate", amountDishToAdd: "amountDishToAdd", comment: "comment" }, features: [i0.ɵɵNgOnChangesFeature], decls: 9, vars: 1, consts: [["class", "ng-cart-dish-calc", 3, "ngClass", 4, "ngIf"], ["dishImageTemplate", ""], ["modifierTemplate", ""], ["modifierCounterTemplate", ""], ["modifierCheckboxTemplate", ""], [1, "ng-cart-dish-calc", 3, "ngClass"], [1, "dish"], [1, "dish-image-box"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "dish-description-box"], [1, "dish-name"], [1, "dish-ingredients"], [1, "dish-price-box"], [4, "ngIf", "ngIfElse"], ["modifierFixedTemplate", ""], ["class", "modifiers", 4, "ngIf"], [1, "result"], [1, "text"], [1, "price"], ["class", "comment", 4, "ngIf"], [1, "price", 3, "ngClass"], [4, "ngIf"], [1, "modifier-fixed"], [4, "ngFor", "ngForOf"], [1, "item", 3, "ngClass", "click"], [1, "modifiers"], [1, "modifier-group"], ["class", "modifier-header", 4, "ngIf"], [1, "modifier-box", 3, "ngClass"], [1, "modifier-header"], ["class", "modifier-name", 4, "ngIf"], ["class", "modifier-description", 4, "ngIf"], [1, "modifier-name"], [1, "modifier-description"], [4, "ngIf", "ngIfThen", "ngIfElse"], ["groupTemplate", ""], ["twoPartsAssembledTemplate", ""], [1, "modifier-children", 3, "ngClass"], [1, "two-parts-assembled"], [1, "two-parts-assembled-header", 3, "ngClass"], [1, "two-parts-assembled-body"], [1, "two-parts-assembled-body-name"], [1, "two-parts-assembled-body-list"], [1, "selected-dish"], [1, "title"], [1, "image-box"], ["class", "two-parts-assembled-body-list-dish", 3, "ngClass", "click", 4, "ngIf"], [1, "two-parts-assembled-body-list-dish", 3, "ngClass", "click"], [1, "dish-price"], [3, "ngClass"], [1, "comment"], [1, "input-box"], ["type", "text", "placeholder", "", 3, "keyup"], ["commentInput", ""], ["imgPlaceholder", ""], [1, "dish-image"], [1, "dish-image-placeholder"], [1, "modifier-dish"], [1, "modifier-dish-image-box"], [1, "modifier-dish-description-box"], [1, "modifier-dish-name"], ["class", "modifier-dish-weight", 4, "ngIf"], [1, "modifier-dish-price-box"], [1, "modifier-dish-action-box"], ["counterTemplate", ""], [1, "modifier-dish-weight"], [1, "modifier-counter", 3, "ngClass"], ["onselectstart", "return false;", 1, "minus", 3, "ngClass", "click"], ["readonly", "", 3, "value"], ["input", ""], ["onselectstart", "return false;", 1, "plus", 3, "ngClass", "click"], [1, "modifier-checkbox", 3, "ngClass", "click"]], template: function DishCalcComponent_Template(rf, ctx) {
             if (rf & 1) {
-                i0.ɵɵtemplate(0, DishCalcComponent_div_0_Template, 21, 10, "div", 0);
+                i0.ɵɵtemplate(0, DishCalcComponent_div_0_Template, 22, 14, "div", 0);
                 i0.ɵɵtemplate(1, DishCalcComponent_ng_template_1_Template, 3, 2, "ng-template", null, 1, i0.ɵɵtemplateRefExtractor);
                 i0.ɵɵtemplate(3, DishCalcComponent_ng_template_3_Template, 1, 1, "ng-template", null, 2, i0.ɵɵtemplateRefExtractor);
                 i0.ɵɵtemplate(5, DishCalcComponent_ng_template_5_Template, 8, 10, "ng-template", null, 3, i0.ɵɵtemplateRefExtractor);
@@ -2624,7 +2924,7 @@
             if (rf & 2) {
                 i0.ɵɵproperty("ngIf", ctx.dish);
             }
-        }, directives: [i3.NgIf, i3.NgTemplateOutlet, i3.NgClass, i3.NgForOf], styles: [".dish[_ngcontent-%COMP%]{align-items:flex-start;border-bottom:2px solid #969696;display:flex;padding-bottom:34px}.dish[_ngcontent-%COMP%]   .dish-image-box[_ngcontent-%COMP%]{background-color:#eee;background-size:50%;box-sizing:border-box;height:170px;position:relative;text-align:center;width:250px}.dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]{align-items:stretch;box-sizing:border-box;display:flex;flex-direction:column;height:170px;margin-left:34px;padding:5px 0 0}.dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-name[_ngcontent-%COMP%]{color:#0a0909;font-size:28px;font-weight:700;letter-spacing:2.4px;line-height:32px}.dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-ingredients[_ngcontent-%COMP%]{color:#000;flex-grow:1;font-size:15px;line-height:17px;margin-top:15px;overflow:hidden}.dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-price-box[_ngcontent-%COMP%]{align-items:center;display:flex;font-size:20px;font-weight:700;height:45px;justify-content:space-between;line-height:23px;margin-right:49px}.dish-image[_ngcontent-%COMP%]{background-position:top;background-repeat:no-repeat;background-size:cover;border-radius:0;height:100%;width:250px}.result[_ngcontent-%COMP%]{color:#0a0909;font-size:24px;font-weight:700;line-height:28px;margin-top:49px;text-align:right}.result[_ngcontent-%COMP%]   .price[_ngcontent-%COMP%]{margin-left:76px}.modifiers[_ngcontent-%COMP%]   .modifier-group[_ngcontent-%COMP%]{border-bottom:2px solid #969696;margin-top:25px;padding-bottom:25px}.modifiers[_ngcontent-%COMP%]   .modifier-header[_ngcontent-%COMP%]{margin-bottom:25px}.modifiers[_ngcontent-%COMP%]   .modifier-header[_ngcontent-%COMP%]   .modifier-name[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:500;line-height:23px}.modifiers[_ngcontent-%COMP%]   .modifier-header[_ngcontent-%COMP%]   .modifier-description[_ngcontent-%COMP%]{color:#0a0909;font-size:15px;line-height:17px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]{align-items:center;box-sizing:border-box;display:flex;height:100px;justify-content:center;margin-bottom:2px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-image-box[_ngcontent-%COMP%]{background-color:#eee;background-size:50%;box-sizing:border-box;height:100px;margin-right:28px;position:relative;text-align:center;width:100px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-description-box[_ngcontent-%COMP%]{display:flex;flex-direction:column;flex-grow:1;justify-content:center}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-description-box[_ngcontent-%COMP%]   .modifier-dish-name[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:500;line-height:23px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-description-box[_ngcontent-%COMP%]   .modifier-dish-weight[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;line-height:23px;margin-top:10px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-price-box[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:700;line-height:23px;margin-right:105px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-price-box[_ngcontent-%COMP%]   .zero-price[_ngcontent-%COMP%]{display:none}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-action-box[_ngcontent-%COMP%]{display:flex;justify-content:center;width:151px}.modifier-fixed[_ngcontent-%COMP%]{align-items:stretch;border:2px solid #767676;border-radius:15px;box-sizing:border-box;display:flex;height:45px}.modifier-fixed[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%]{align-items:center;color:#767676;display:flex;font-size:20px;font-weight:500;height:45px;justify-content:center;line-height:23px;margin-top:-2px;width:142px}.modifier-fixed[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%]:first-child{margin-left:-2px}.modifier-fixed[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%]:last-child{margin-right:-2px}.modifier-fixed[_ngcontent-%COMP%]   .item.selected[_ngcontent-%COMP%]{background:#0a0909;border-radius:15px;color:#fff}.modifier-fixed[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%]:not(.selected){cursor:pointer}.modifier-checkbox[_ngcontent-%COMP%]{align-items:center;background:#e0e0e0;border-radius:15px;cursor:pointer;display:flex;height:50px;justify-content:center;width:50px}.modifier-checkbox.selected[_ngcontent-%COMP%]:after{content:url(\"data:image/svg+xml; base64, PHN2ZyB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHZpZXdCb3g9IjAgMCAyOCAyOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIgMTMuNUwxMS4zMjMxIDI2TDI2IDIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==\")}.modifier-counter[_ngcontent-%COMP%]{align-items:center;background:#e0e0e0;border:none;border-radius:15px;display:flex;height:50px;position:relative;width:151px}.modifier-counter.disabled[_ngcontent-%COMP%]{opacity:.3}.modifier-counter[_ngcontent-%COMP%]:not(.disabled)   .minus.disabled[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]:not(.disabled)   .plus.disabled[_ngcontent-%COMP%]{cursor:default;opacity:.15}.modifier-counter[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]{background:transparent;border:none;font-weight:500;padding:0;width:100%}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]{color:#0a0909;font-size:18px;height:50px;line-height:50px;text-align:center}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%]{cursor:pointer;display:block;font-style:normal;font-weight:700;padding:0 30px;position:absolute;top:0}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%]:hover, .modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%]:hover{color:#000}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%]:active, .modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%]:active{color:#cc0009}.modifier-counter[_ngcontent-%COMP%]   .minus.loading[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]   .plus.loading[_ngcontent-%COMP%]{opacity:.2}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%]{left:0}.modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%]{right:0}.without-images[_ngcontent-%COMP%]   .modifier-dish-image-box[_ngcontent-%COMP%]{height:70px!important}.without-images[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]{height:70px}"] });
+        }, directives: [i3.NgIf, i3.NgClass, i3.NgTemplateOutlet, i3.NgForOf], styles: [".dish[_ngcontent-%COMP%]{align-items:flex-start;border-bottom:2px solid #969696;display:flex;padding-bottom:34px}.dish[_ngcontent-%COMP%]   .dish-image-box[_ngcontent-%COMP%]{background-color:#eee;background-size:50%;box-sizing:border-box;height:170px;position:relative;text-align:center;width:250px}.dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]{align-items:stretch;box-sizing:border-box;display:flex;flex-direction:column;height:170px;margin-left:34px;padding:5px 0 0}.dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-name[_ngcontent-%COMP%]{color:#0a0909;font-size:28px;font-weight:700;letter-spacing:2.4px;line-height:32px}.dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-ingredients[_ngcontent-%COMP%]{color:#000;flex-grow:1;font-size:15px;line-height:17px;margin-top:15px;overflow:hidden}.dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-price-box[_ngcontent-%COMP%]{align-items:center;display:flex;font-size:20px;font-weight:700;height:45px;justify-content:space-between;line-height:23px;margin-right:49px}.ng-cart-dish-calc-two-parts-assembled[_ngcontent-%COMP%]   .dish[_ngcontent-%COMP%]{border:none;margin-left:0;padding-bottom:0}.ng-cart-dish-calc-two-parts-assembled[_ngcontent-%COMP%]   .dish[_ngcontent-%COMP%]   .dish-image-box[_ngcontent-%COMP%]{display:none}.ng-cart-dish-calc-two-parts-assembled[_ngcontent-%COMP%]   .dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]{height:auto;width:100%}.ng-cart-dish-calc-two-parts-assembled[_ngcontent-%COMP%]   .dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-name[_ngcontent-%COMP%]{color:#0a0909;font-size:28px;font-weight:700;letter-spacing:2.4px;line-height:32px;text-align:center;text-transform:uppercase}.ng-cart-dish-calc-two-parts-assembled[_ngcontent-%COMP%]   .dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-ingredients[_ngcontent-%COMP%], .ng-cart-dish-calc-two-parts-assembled[_ngcontent-%COMP%]   .dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-price-box[_ngcontent-%COMP%]{display:none}.dish-image[_ngcontent-%COMP%]{background-position:top;background-repeat:no-repeat;background-size:cover;border-radius:0;height:100%;width:250px}.result[_ngcontent-%COMP%]{color:#0a0909;font-size:24px;font-weight:700;line-height:28px;margin-top:49px;text-align:right}.result[_ngcontent-%COMP%]   .price[_ngcontent-%COMP%]{margin-left:76px}.comment[_ngcontent-%COMP%]{padding-bottom:15px}.comment[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:500;line-height:23px;margin:30px 0 20px}.comment[_ngcontent-%COMP%]   .input-box[_ngcontent-%COMP%]{margin-top:10px}.comment[_ngcontent-%COMP%]   .input-box[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]{border:2px solid #969696;border-radius:15px;box-sizing:border-box;color:#969696;font-size:20px;font-style:italic;font-weight:400;height:45px;line-height:45px;padding:0 20px}.modifiers[_ngcontent-%COMP%]   .modifier-group[_ngcontent-%COMP%]{border-bottom:2px solid #969696;margin-top:25px;padding-bottom:25px}.modifiers[_ngcontent-%COMP%]   .modifier-header[_ngcontent-%COMP%]{margin-bottom:25px}.modifiers[_ngcontent-%COMP%]   .modifier-header[_ngcontent-%COMP%]   .modifier-name[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:500;line-height:23px}.modifiers[_ngcontent-%COMP%]   .modifier-header[_ngcontent-%COMP%]   .modifier-description[_ngcontent-%COMP%]{color:#0a0909;font-size:15px;line-height:17px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]{align-items:center;box-sizing:border-box;display:flex;height:100px;justify-content:center;margin-bottom:2px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-image-box[_ngcontent-%COMP%]{background-color:#fff;background-size:50%;box-sizing:border-box;height:100px;margin-right:28px;position:relative;text-align:center;width:100px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-image-box[_ngcontent-%COMP%]   .dish-image[_ngcontent-%COMP%]{background-position:50%;background-size:contain;height:100%;width:100%}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-description-box[_ngcontent-%COMP%]{display:flex;flex-direction:column;flex-grow:1;justify-content:center}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-description-box[_ngcontent-%COMP%]   .modifier-dish-name[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:500;line-height:23px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-description-box[_ngcontent-%COMP%]   .modifier-dish-weight[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;line-height:23px;margin-top:10px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-price-box[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:700;line-height:23px;margin-right:105px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-price-box[_ngcontent-%COMP%]   .zero-price[_ngcontent-%COMP%]{display:none}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-action-box[_ngcontent-%COMP%]{display:flex;justify-content:center;width:151px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]{align-items:center;border-bottom:2px solid #969696;display:flex;height:230px;justify-content:center;opacity:1;overflow:hidden;padding-bottom:28px;transition:all .5s ease 0s}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header.empty[_ngcontent-%COMP%]{border-bottom:none;height:0;opacity:0}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]{align-items:center;display:flex;justify-content:flex-end;width:50%}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{color:#0a0909;font-size:21px;line-height:25px;margin-right:24px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]   .image-box[_ngcontent-%COMP%]{height:200px;overflow:hidden;width:100px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]   .image-box[_ngcontent-%COMP%]   .dish-image[_ngcontent-%COMP%]{height:100%;width:200%}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]:nth-child(2){flex-direction:row-reverse}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]:nth-child(2)   .title[_ngcontent-%COMP%]{margin-left:24px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]:nth-child(2)   .image-box[_ngcontent-%COMP%]{direction:rtl}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-name[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:500;line-height:23px;padding:20px 0}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]{-ms-grid-columns:1fr 1fr 1fr;display:-ms-grid;display:grid;grid-column-gap:30px;grid-row-gap:24px;grid-template-columns:1fr 1fr 1fr;margin-top:30px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]   .two-parts-assembled-body-list-dish[_ngcontent-%COMP%]{align-items:center;border:1.5px solid hsla(0,0%,100%,0);box-sizing:border-box;color:#0a0909;cursor:pointer;display:flex;flex-direction:column}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]   .two-parts-assembled-body-list-dish.selected[_ngcontent-%COMP%]{border:1.5px solid #0a0909;border-radius:15px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]   .two-parts-assembled-body-list-dish[_ngcontent-%COMP%]   .dish-name[_ngcontent-%COMP%]{font-size:17px;font-weight:500;letter-spacing:2.4px;line-height:20px;padding:0 5px;text-align:center;text-transform:uppercase}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]   .two-parts-assembled-body-list-dish[_ngcontent-%COMP%]   .dish-price[_ngcontent-%COMP%]{font-size:20px;font-weight:700;line-height:23px;padding:5px 0 10px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]   .two-parts-assembled-body-list-dish[_ngcontent-%COMP%]   .image-box[_ngcontent-%COMP%]{border-radius:15px 15px 0 0;height:228px;width:228px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]   .two-parts-assembled-body-list-dish[_ngcontent-%COMP%]   .image-box[_ngcontent-%COMP%]   .dish-image[_ngcontent-%COMP%]{border-radius:15px 15px 0 0;height:100%;width:100%}.modifier-fixed[_ngcontent-%COMP%]{align-items:stretch;border:2px solid #767676;border-radius:15px;box-sizing:border-box;display:flex;height:45px}.modifier-fixed[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%]{align-items:center;color:#767676;display:flex;font-size:20px;font-weight:500;height:45px;justify-content:center;line-height:23px;margin-top:-2px;width:142px}.modifier-fixed[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%]:first-child{margin-left:-2px}.modifier-fixed[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%]:last-child{margin-right:-2px}.modifier-fixed[_ngcontent-%COMP%]   .item.selected[_ngcontent-%COMP%]{background:#0a0909;border-radius:15px;color:#fff}.modifier-fixed[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%]:not(.selected){cursor:pointer}.modifier-checkbox[_ngcontent-%COMP%]{align-items:center;background:#e0e0e0;border-radius:15px;cursor:pointer;display:flex;height:50px;justify-content:center;width:50px}.modifier-checkbox.selected[_ngcontent-%COMP%]:after{content:url(\"data:image/svg+xml; base64, PHN2ZyB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHZpZXdCb3g9IjAgMCAyOCAyOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIgMTMuNUwxMS4zMjMxIDI2TDI2IDIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==\")}.modifier-counter[_ngcontent-%COMP%]{align-items:center;background:#e0e0e0;border:none;border-radius:15px;display:flex;height:50px;position:relative;width:151px}.modifier-counter.disabled[_ngcontent-%COMP%]{opacity:.3}.modifier-counter[_ngcontent-%COMP%]:not(.disabled)   .minus.disabled[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]:not(.disabled)   .plus.disabled[_ngcontent-%COMP%]{cursor:default;opacity:.15}.modifier-counter[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]{background:transparent;border:none;font-weight:500;padding:0;width:100%}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]{color:#0a0909;font-size:18px;height:50px;line-height:50px;text-align:center}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%]{cursor:pointer;display:block;font-style:normal;font-weight:700;padding:0 30px;position:absolute;top:0}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%]:hover, .modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%]:hover{color:#000}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%]:active, .modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%]:active{color:#cc0009}.modifier-counter[_ngcontent-%COMP%]   .minus.loading[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]   .plus.loading[_ngcontent-%COMP%]{opacity:.2}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%]{left:0}.modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%]{right:0}.without-images[_ngcontent-%COMP%]   .modifier-dish-image-box[_ngcontent-%COMP%]{height:70px!important}.without-images[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]{height:70px}"] });
     /*@__PURE__*/ (function () {
         i0.ɵsetClassMetadata(DishCalcComponent, [{
                 type: i0.Component,
@@ -2647,6 +2947,8 @@
                 }], validate: [{
                     type: i0.Output
                 }], amountDishToAdd: [{
+                    type: i0.Output
+                }], comment: [{
                     type: i0.Output
                 }] });
     })();
