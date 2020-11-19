@@ -244,11 +244,19 @@
                 return !!(cart && ((_a = cart === null || cart === void 0 ? void 0 : cart.dishes) === null || _a === void 0 ? void 0 : _a.find(function (dishInCart) { return dishInCart.dish.id === product.id; })));
             }));
         };
-        NgRestoCartService.prototype.getPickupPoints = function () {
-            return this.net.get('/pickupaddreses?cartId=string');
+        NgRestoCartService.prototype.getPickupPoints = function (cartId) {
+            return this.net.get('/pickupaddreses', true, {
+                params: {
+                    cartId: cartId
+                }
+            });
         };
-        NgRestoCartService.prototype.getPaymentMethods = function () {
-            return this.net.get('/paymentmethods');
+        NgRestoCartService.prototype.getPaymentMethods = function (cartId) {
+            return this.net.get('/paymentmethods', true, {
+                params: {
+                    cartId: cartId
+                }
+            });
         };
         return NgRestoCartService;
     }());

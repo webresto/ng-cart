@@ -234,11 +234,19 @@ class NgRestoCartService {
             return !!(cart && ((_a = cart === null || cart === void 0 ? void 0 : cart.dishes) === null || _a === void 0 ? void 0 : _a.find(dishInCart => dishInCart.dish.id === product.id)));
         }));
     }
-    getPickupPoints() {
-        return this.net.get('/pickupaddreses?cartId=string');
+    getPickupPoints(cartId) {
+        return this.net.get('/pickupaddreses', true, {
+            params: {
+                cartId
+            }
+        });
     }
-    getPaymentMethods() {
-        return this.net.get('/paymentmethods');
+    getPaymentMethods(cartId) {
+        return this.net.get('/paymentmethods', true, {
+            params: {
+                cartId
+            }
+        });
     }
 }
 NgRestoCartService.ɵfac = function NgRestoCartService_Factory(t) { return new (t || NgRestoCartService)(ɵɵinject(NetService), ɵɵinject(EventerService)); };

@@ -29,8 +29,8 @@ export declare class NgRestoCartService {
     setModifires(modifires: any, messages?: EventMessage[]): void;
     getModifires(): Observable<any>;
     productInCart(product: DishListItem): Observable<boolean>;
-    getPickupPoints(): Observable<PickupPoint[]>;
-    getPaymentMethods(): Observable<PaymentMethod[]>;
+    getPickupPoints(cartId: string): Observable<PickupPoint[]>;
+    getPaymentMethods(cartId: string): Observable<PaymentMethod[]>;
     static ɵfac: i0.ɵɵFactoryDef<NgRestoCartService, never>;
     static ɵprov: i0.ɵɵInjectableDef<NgRestoCartService>;
 }

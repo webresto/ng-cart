@@ -294,12 +294,20 @@ export class NgRestoCartService {
     );
   }
 
-  getPickupPoints() {
-    return this.net.get<PickupPoint[]>('/pickupaddreses?cartId=string');
+  getPickupPoints(cartId:string) {
+    return this.net.get<PickupPoint[]>('/pickupaddreses',true, {
+      params:{
+        cartId
+      }
+    });
   }
 
-  getPaymentMethods() {
-    return this.net.get<PaymentMethod[]>('/paymentmethods');
+  getPaymentMethods(cartId:string) {
+    return this.net.get<PaymentMethod[]>('/paymentmethods',true, {
+      params:{
+        cartId
+      }
+    });
   }
 
 }
