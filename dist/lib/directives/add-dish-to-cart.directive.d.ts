@@ -8,6 +8,7 @@ export declare class AddDishToCartDirective {
     dish: any;
     amountDish: any;
     comment: string;
+    replace: boolean;
     loading: EventEmitter<boolean>;
     success: EventEmitter<boolean>;
     error: EventEmitter<any>;

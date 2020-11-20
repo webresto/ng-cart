@@ -26,6 +26,7 @@ export class AddDishToCartDirective {
   @Input() dish:any;
   @Input() amountDish:any;
   @Input() comment:string;
+  @Input() replace:boolean;
 
   @Output() loading = new EventEmitter<boolean>();
   @Output() success = new EventEmitter<boolean>();
@@ -43,7 +44,8 @@ export class AddDishToCartDirective {
       "amount": amount,
       "cartId": undefined,
       "modifiers": this.modifires,
-      "comment":this.comment
+      "comment": this.comment,
+      "replace": this.replace ? true : undefined
     };
 
     if (this.cart.cartId) data.cartId = this.cart.cartId;

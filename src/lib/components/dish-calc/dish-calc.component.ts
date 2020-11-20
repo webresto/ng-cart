@@ -61,6 +61,8 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
       baseList: [],
     };
 
+
+
     this.modifiersValueTree = {};
     if(this.dish && this.dish.modifiers) {
       for(let modifier of this.dish.modifiers) {
@@ -131,7 +133,32 @@ export class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
       }
       this.calculateTotalPrice();
     }
-    console.log(`this.modifiers.indexById`, this.modifiers.indexById);
+
+    //console.log(`this.modifiers.indexById`, this.modifiers.indexById);
+    //console.log(`selectedModifiers`, this.selectedModifiers);
+
+    if(this.selectedModifiers && this.selectedModifiers.length) {
+      for(let m of this.selectedModifiers) {
+        if(!m.amount) continue;
+        try {
+          const groupId = m.groupId || 'single';
+          const groupModifier = this.modifiers.indexById[groupId];
+          const modifier = this.modifiers.indexById[m.id];
+
+          if(groupModifier && groupModifier.minAmount == 2 && groupModifier.maxAmount == 2) {
+            this.selectTwoPartsAssembledModifier(modifier);
+          } else {
+            this.modifiersValueTree[groupId][m.id] = m.amount;
+            this.calculateTotalAmountInGroup(groupId);
+          }
+
+        } catch (e) {
+          console.error(`Invalid modifiers amounts`, e);
+        }
+      }
+    }
+    this.calculateTotalPrice();
+    this.checkValid();
   }
 
   calculateTotalAmountInGroup(groupId) {
