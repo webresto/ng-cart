@@ -383,7 +383,7 @@ declare interface Cart {
   FreeDeliveryFromMessage: string
   date: null
   deliveryTimeMessage: string
-  deliveryTotal: number
+  deliveryCost: number
   discountTotal: number
   isPaymentPromise: boolean
   orderDate: string
