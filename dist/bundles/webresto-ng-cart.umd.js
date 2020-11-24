@@ -221,9 +221,11 @@
         };
         NgRestoCartService.prototype.setCartId = function (cartID) {
             localStorage.setItem('cartID', cartID);
+            this.cartID = cartID;
         };
         NgRestoCartService.prototype.removeCartId = function () {
             localStorage.removeItem('cartID');
+            this.cartID = null;
         };
         NgRestoCartService.prototype.userCart = function () {
             return this.cart;

@@ -264,10 +264,12 @@ export class NgRestoCartService {
 
   setCartId(cartID) {
     localStorage.setItem('cartID', cartID);
+    this.cartID = cartID;
   }
 
   removeCartId() {
     localStorage.removeItem('cartID');
+    this.cartID = null;
   }
 
   userCart(): Observable<any> {
