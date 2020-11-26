@@ -314,7 +314,7 @@ export class NgRestoCartService {
 
 }
 
-declare interface PickupPoint {
+export declare interface PickupPoint {
   id: string;
   title: string;
   address: string;
@@ -324,7 +324,7 @@ declare interface PickupPoint {
   updatedAt: string;
 }
 
-declare interface PaymentMethod {
+export declare interface PaymentMethod {
   iikoPaymentMethod: any,
   id: string,
   title: string,
@@ -337,7 +337,7 @@ declare interface PaymentMethod {
   updatedAt: string
 }
 
-declare interface DishInCart {
+export declare interface DishInCart {
   addedBy: string;
   amount: number;
   cart: string;
@@ -354,7 +354,7 @@ declare interface DishInCart {
   weight: number;
 }
 
-declare interface Cart {
+export declare interface Cart {
   address: any
   cartId: string
   cartTotal: number
@@ -408,7 +408,7 @@ declare interface Cart {
   untilFreeDeliveryMessage: string
 }
 
-declare interface DishListItem {
+export declare interface DishListItem {
   additionalInfo: any
   balance: number
   carbohydrateAmount: number
@@ -454,13 +454,13 @@ declare interface DishListItem {
   weight: number
 }
 
-declare interface DishImageUrls {
+export declare interface DishImageUrls {
   large: string
   origin: string
   small: string
 }
 
-declare interface DishImageItem {
+export declare interface DishImageItem {
   createdAt: string
   group: any
   id: string
@@ -469,38 +469,39 @@ declare interface DishImageItem {
   uploadDate: string
 }
 
-declare interface DishBaseModifier {
+export declare interface DishBaseModifier {
   maxAmount: number
   minAmount: number
   modifierId: string
   required: boolean
 }
 
-declare interface DishModifier extends DishBaseModifier {
+export declare interface DishModifier extends DishBaseModifier {
   childModifiers: DishChildModifier[]
   childModifiersHaveMinMaxRestrictions: boolean
   group: DishListItem
 }
 
-declare interface DishChildModifier extends DishBaseModifier {
+export declare interface DishChildModifier extends DishBaseModifier {
   defaultAmount: number
   hideIfDefaultAmount: boolean
   dish: DishListItem
 }
 
-declare interface WorkTimeBase {
+export declare interface WorkTimeBase {
   start: string;
   stop: string;
   break: string;
 }
 
-declare interface WorkTime extends WorkTimeBase {
+export declare interface WorkTime extends WorkTimeBase {
   dayOfWeek: string
   selfService: WorkTimeBase
 }
 
-declare interface RestrictionsOrder {
+export declare interface RestrictionsOrder {
   minDeliveryTime: string
+  deliveryToTimeEnabled:boolean
   periodPossibleForOrder: number
   timezone: string
   workTime: WorkTime[]
