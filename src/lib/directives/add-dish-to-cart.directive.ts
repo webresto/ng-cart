@@ -1,4 +1,4 @@
-import { Directive , HostListener, Input} from '@angular/core';
+import { Directive, HostListener, Input, Output, EventEmitter } from '@angular/core';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 
@@ -8,9 +8,9 @@ import { NgRestoCartService } from '../services/ng-restocart.service';
 export class AddDishToCartDirective {
 
   cart;
-  modifires;
+  @Input() modifires: any;
 
-  constructor(private cartService:NgRestoCartService) {
+  constructor(private cartService: NgRestoCartService) {
 
     this.cartService
       .userCart()
@@ -23,32 +23,40 @@ export class AddDishToCartDirective {
   }
 
 
-  @Input() dish:any;
-  @Input() amountDish:any;
-  @Input() comment:string;
+  @Input() dish: any;
+  @Input() amountDish: any;
+  @Input() comment: string;
 
+  @Output() loading = new EventEmitter<boolean>();
+  @Output() success = new EventEmitter<boolean>();
+  @Output() error = new EventEmitter<any>();
 
   @HostListener('click')
   onClick() {
-
     this.addDishToCart(this.dish.id, this.amountDish)
-
   }
 
   private addDishToCart(dishID, amount) {
 
     let data = {
-      "dishId": dishID,
-      "amount": amount,
-      "cartId": undefined,
-      "modifiers": this.modifires,
-      "comment":this.comment
+      dishId: dishID,
+      amount: amount,
+      cartId: undefined,
+      modifiers: this.modifires,
+      comment: this.comment
     };
-    //console.log("другие даные", data)
 
     if (this.cart.cartId) data.cartId = this.cart.cartId;
-    this.cartService.addDishToCart(data);
-  }
 
+    this.loading.emit(true);
+
+    this.cartService
+      .addDishToCart$(data)
+      .subscribe(
+        () => this.success.emit(true),
+        e => this.error.emit(e),
+        () => this.loading.emit(false)
+      );
+  }
 
 }

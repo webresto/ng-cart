@@ -1,80 +1,70 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-
+import { Observable, BehaviorSubject, throwError, from } from 'rxjs';
+import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import {
   NetService,
   EventerService,
   EventMessage
 } from '@webresto/ng-core';
 
-import { Order } from '../interfaces/order';
-/*  TODO: В етом класе еще надо реализовать логику проверки доступности разных типов зхранилищь, но пока нету фикса нужного нам модуля ето
- затруднательно прийдется ждать.  */
 
 @Injectable({
   providedIn: 'root'
 })
 export class NgRestoCartService {
-  cartID:string;
-  cart:BehaviorSubject<any>;
-  modifires:BehaviorSubject<any>;
+  cartID: string = this.getCartId();
+  cart: BehaviorSubject<Cart> = new BehaviorSubject(null);
+  modifires: BehaviorSubject<any> = new BehaviorSubject([]);
   OrderFormChange = new BehaviorSubject(null);
 
-  modifiresMessage:BehaviorSubject<any>;
-  messages:EventMessage[];
+  modifiresMessage: BehaviorSubject<EventMessage[]> = new BehaviorSubject([]);
 
-  constructor(private net:NetService,
-              private eventer:EventerService) {
-    this.cart = new BehaviorSubject({});
-    this.modifires = new BehaviorSubject([]);
-    this.modifiresMessage = new BehaviorSubject([]);
+  constructor(private net: NetService, private eventer: EventerService) { }
 
-    this.initialStorage();
+  restrictions$ = this.net.get<RestrictionsOrder>(`/restrictions`)
 
-    this.modifiresMessage.subscribe(messages => this.messages = messages);
-  }
-
-  initialStorage() {
-
-    this.cartID = this.getcartIDFromStorage();
-
-    if (this.cartID) {
-      this.net.get('/cart?cartId=' + this.cartID).subscribe(cart=> {
-        this.cart.next(cart.cart);
-      });
-    }
-
-    /*     this.restoStorageService.sub('localStorageService','cartID').subscribe(res=>{
-
-     if(res.changeKey){
-     console.log("event",res)
-     this.net.get('cart?cartId='+this.cartID).subscribe(cart=>{
-     this.cart.next(cart);
-     });}
-
-     });; */
-
-
-  }
-
-  getcartIDFromStorage():string {
+  getCartId(): string {
     return localStorage.getItem('cartID');
   }
 
-  addDishToCart(data) {
+  getCart() {
+    return this.net.get<{ cart: Cart }>(`/cart${this.cartID ? '?cartId=' + this.cartID : ''}`).pipe(
+      switchMap(data => {
+        if (!data) {
+          this.removeCartId();
+        };
+        return data ? from([data]) : this.net.get<{ cart: Cart }>(`/cart}`)
+      }),
+      switchMap(
+        data => {
+          if (data.cart.state == 'ORDER') {
+            return throwError(new Error('Cart in order state'));
+          } else {
+            if (!this.cartID) {
+              this.setCartId(data.cart.cartId);
+            };
+            this.cart.next(data.cart);
+          };
+          return this.cart;
+        }),
+      catchError(err => {
+        this.removeCartId();
+        return throwError(err);
+      })
+    );
+  }
 
-    if (this.messages.length) {
-      this.messages.forEach(message => {
+  addDishToCart(data) {
+    if (this.modifiresMessage.value.length) {
+      this.modifiresMessage.value.forEach(message => {
         this.eventer.emitMessageEvent(message);
       });
       return;
     }
 
     this.net.put('/cart/add', data).subscribe(
-      res=> {
-
-        this.setcartIDFromStorage(res.cart.cartId);
+      res => {
+        this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
 
@@ -82,31 +72,45 @@ export class NgRestoCartService {
          new EventMessage('success', 'Успех', 'Блюдо добавлено в корзину')
          );*/
 
-      }, error => {
+      }, () => {
         /*this.eventer.emitMessageEvent(
          new EventMessage('error', 'Ошибка', 'Не удалось добавить блюдо')
          )*/
       });
   }
 
+  addDishToCart$(data) {
+    if (this.modifiresMessage.value.length) {
+      this.modifiresMessage.value.forEach(message => {
+        this.eventer.emitMessageEvent(message);
+      });
+      return from([null]);
+    }
+
+    return this.net.put('/cart/add', data)
+      .pipe(
+        tap(res => {
+          this.setCartId(res.cart.cartId);
+          this.cart.next(res.cart);
+          this.cartID = res.cart.cartId;
+        })
+      );
+  }
+
   setDishCountToCart(dishId, amount) {
     this.net.post('/cart/set', {
-      "dishId": dishId,
-      "cartId": this.cartID,
-      "amount": amount
+      dishId: dishId,
+      cartId: this.cartID,
+      amount: amount
     }).subscribe(
-      res=> {
-
-        this.setcartIDFromStorage(res.cart.cartId);
+      res => {
+        this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
-
         /*this.eventer.emitMessageEvent(
          new EventMessage('success', 'Успех', 'Изменено количество')
          );*/
-
-
-      }, error => {
+      }, () => {
         /*this.eventer.emitMessageEvent(
          new EventMessage('error', 'Ошибка', 'Не удалось изменить количество')
          )*/
@@ -115,41 +119,49 @@ export class NgRestoCartService {
 
   setDishComment(dishId, comment) {
     return this.net.post('/cart/setcomment', {
-      "dishId": dishId,
-      "cartId": this.cartID,
-      "comment": comment
+      dishId: dishId,
+      cartId: this.cartID,
+      comment: comment
     }).pipe(tap(
-      res=> {
-
-        this.setcartIDFromStorage(res.cart.cartId);
+      res => {
+        this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
 
-      }, error => {
-        this.eventer.emitMessageEvent(
-          new EventMessage('error', 'Ошибка', 'Не удалось изменить коментарий')
-        )
-      }
+      }, () => {}
     ))
+
+  }
+
+  removeDishFromCart$(dishId, amount) {
+    return this.net.put('/cart/remove', {
+      dishId: dishId,
+      cartId: this.cartID,
+      amount: amount
+    })
+      .pipe(tap(result => {
+        this.setCartId(result.cart.cartId);
+        this.cart.next(result.cart);
+        this.cartID = result.cart.cartId;
+      }));
 
   }
 
   removeDishFromCart(dishId, amount) {
     this.net.put('/cart/remove', {
-      "dishId": dishId,
-      "cartId": this.cartID,
-      "amount": amount
+      dishId: dishId,
+      cartId: this.cartID,
+      amount: amount
     }).subscribe(
-      res=> {
-
-        this.setcartIDFromStorage(res.cart.cartId);
-        this.cart.next(res.cart);
-        this.cartID = res.cart.cartId;
+      result => {
+        this.setCartId(result.cart.cartId);
+        this.cart.next(result.cart);
+        this.cartID = result.cart.cartId;
         /*this.eventer.emitMessageEvent(
          new EventMessage('success', 'Успех', 'Блюдо успешно удалено')
          );*/
 
-      }, error => {
+      }, () => {
         /*this.eventer.emitMessageEvent(
          new EventMessage('error', 'Ошибка', 'Не удалось удалить блюдо')
          )*/
@@ -158,7 +170,7 @@ export class NgRestoCartService {
   }
 
   checkoutCart(data) {
-    let order:Order = {
+    let order = {
       cartId: this.cartID,
       address: {
         streetId: data.street.id,
@@ -185,9 +197,10 @@ export class NgRestoCartService {
       .pipe(
         tap(
           result => {
-            this.setcartIDFromStorage(result.cart.cartId);
+            this.setCartId(result.cart.cartId);
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
+
             /*this.eventer.emitMessageEvent(
              new EventMessage('success', 'Успех', 'Заказ упешно оформлен')
              );*/
@@ -195,7 +208,7 @@ export class NgRestoCartService {
           error => {
             console.log("Ошибка оформления!", error);
             if (error.error && error.error.cart) {
-              this.setcartIDFromStorage(error.error.cart.cartId);
+              this.setCartId(error.error.cart.cartId);
               this.cart.next(error.error.cart);
               this.cartID = error.error.cart.cartId;
             }
@@ -213,50 +226,31 @@ export class NgRestoCartService {
       );
   }
 
-  checkStreetV2(data):Observable<any> {
+  checkStreetV2(data): Observable<any> {
     return this.net.post('/check', data)
       .pipe(
         tap(
           result => {
-            this.setcartIDFromStorage(result.cart.cartId);
+            this.setCartId(result.cart.cartId);
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
-            /*if (result.message) {
-             this.eventer.emitMessageEvent(
-             new EventMessage(
-             result.message.type,
-             result.message.title,
-             result.message.body
-             )
-             );
-             }*/
           },
-          error => {
-            console.error(error);
-            //this.eventer.emitMessageEvent(
-            //new EventMessage('error', 'Ошибка', 'Не удалось оформить заказ')
-            //)
-          }
+          () => {}
         )
       );
   }
 
-  checkStreet(data):void {
+  checkStreet(data): void {
 
     this.net.post('/check', data).subscribe(
       res => {
-        this.setcartIDFromStorage(res.cart.cartId);
+        this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
-        if (res.message) {
-          this.eventer.emitMessageEvent(
-            new EventMessage(res.message.type, res.message.title, res.message.body)
-          );
-        }
       }, error => {
         if (error.error) {
           if (error.error.cart) {
-            this.setcartIDFromStorage(error.error.cart.cartId);
+            this.setCartId(error.error.cart.cartId);
             this.cart.next(error.error.cart);
             this.cartID = error.error.cart.cartId;
           }
@@ -268,23 +262,248 @@ export class NgRestoCartService {
 
   }
 
-  setcartIDFromStorage(cartID) {
+  setCartId(cartID) {
     localStorage.setItem('cartID', cartID);
-
+    this.cartID = cartID;
   }
 
-  userCart():Observable<any> {
+  removeCartId() {
+    localStorage.removeItem('cartID');
+    this.cartID = null;
+  }
+
+  userCart(): Observable<any> {
     return this.cart;
   }
 
-  setModifires(modifires, messages?:EventMessage[]):void {
+  setModifires(modifires, messages?: EventMessage[]): void {
     this.modifires.next(modifires);
-    if (messages) this.modifiresMessage.next(messages);
+    if (messages) {
+      this.modifiresMessage.next(messages);
+    };
   }
 
-  getModifires():Observable<any> {
-    return this.modifires;
+  getModifires(): Observable<any> {
+    return this.modifires.pipe();
   }
 
+  productInCart(product: DishListItem) {
+    return this.cart.pipe(
+      filter(cart => 'cartId' in cart),
+      map(cart => {
+        return !!(cart && cart?.dishes?.find(dishInCart => dishInCart.dish.id === product.id))
+      })
+    );
+  }
+
+  getPickupPoints(cartId:string) {
+    return this.net.get<PickupPoint[]>('/pickupaddreses',true, {
+      params:{
+        cartId
+      }
+    });
+  }
+
+  getPaymentMethods(cartId:string) {
+    return this.net.get<PaymentMethod[]>('/paymentmethods',true, {
+      params:{
+        cartId
+      }
+    });
+  }
 
 }
+
+export declare interface PickupPoint {
+  id: string;
+  title: string;
+  address: string;
+  order: number;
+  enable: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export declare interface PaymentMethod {
+  iikoPaymentMethod: any,
+  id: string,
+  title: string,
+  type: string,
+  adapter: string,
+  order: number,
+  description: string,
+  enable: boolean,
+  createdAt: string,
+  updatedAt: string
+}
+
+export declare interface DishInCart {
+  addedBy: string;
+  amount: number;
+  cart: string;
+  comment: string;
+  createdAt: string;
+  dish: DishListItem;
+  id: number;
+  itemTotal: number;
+  modifiers: any[];
+  parent: any;
+  totalWeight: number;
+  uniqueItems: number;
+  updatedAt: string;
+  weight: number;
+}
+
+export declare interface Cart {
+  address: any
+  cartId: string
+  cartTotal: number
+  comment: string
+  createdAt: string
+  customer: string
+  delivery: any
+  deliveryDescription: string
+  deliveryItem: any
+  deliveryStatus: any
+  dishes: DishInCart[]
+  dishesCount: number
+  history: any
+  id: string
+  message: any
+  modifiers: any
+  nameOfModel: any
+  personsCount: number
+  problem: boolean
+  rmsId: string
+  selfDelivery: boolean
+  sendToIiko: boolean
+  state: string
+  totalWeight: string
+  uniqueDishes: string
+  updatedAt: string
+  user: any
+  FreeDeliveryFromMessage: string
+  date: null
+  deliveryTimeMessage: string
+  deliveryCost: number
+  discountTotal: number
+  isPaymentPromise: boolean
+  orderDate: string
+  orderDateLimit: string
+  orderTotal: number
+  paid: boolean
+  paymentMethod: string
+  paymentMethodTitle: string
+  recommends: DishListItem[];
+  rmsDelivered: boolean
+  rmsDeliveryDate: null
+  rmsErrorCode: null
+  rmsErrorMessage: null
+  rmsOrderData: null
+  rmsOrderNumber: null
+  rmsStatusCode: null
+  selfService: boolean
+  shortId: string
+  total: number
+  untilFreeDeliveryMessage: string
+}
+
+export declare interface DishListItem {
+  additionalInfo: any
+  balance: number
+  carbohydrateAmount: number
+  carbohydrateFullAmount: number
+  code: string
+  createdAt: string
+  description: string
+  differentPricesOn: any[]
+  doNotPrintInCheque: boolean
+  energyAmount: number
+  energyFullAmount: number
+  fatAmount: number
+  fatFullAmount: number
+  fiberAmount: number
+  fiberFullAmount: number
+  groupId: any
+  groupModifiers: []
+  hash: number
+  id: string
+  images: DishImageItem[]
+  imagesList: DishImageItem[]
+  isDeleted: boolean
+  isIncludedInMenu: boolean
+  measureUnit: string
+  modifiers: DishModifier[]
+  name: string
+  order: number
+  parentGroup: string
+  price: number
+  productCategoryId: string
+  prohibitedToSaleOn: any[]
+  rmsId: string
+  seoDescription: any
+  seoKeywords: any
+  seoText: any
+  seoTitle: any
+  slug: string
+  tags: any[]
+  tagsList: any[]
+  type: string
+  updatedAt: string
+  useBalanceForSell: boolean
+  weight: number
+}
+
+export declare interface DishImageUrls {
+  large: string
+  origin: string
+  small: string
+}
+
+export declare interface DishImageItem {
+  createdAt: string
+  group: any
+  id: string
+  images: DishImageUrls
+  updatedAt: string
+  uploadDate: string
+}
+
+export declare interface DishBaseModifier {
+  maxAmount: number
+  minAmount: number
+  modifierId: string
+  required: boolean
+}
+
+export declare interface DishModifier extends DishBaseModifier {
+  childModifiers: DishChildModifier[]
+  childModifiersHaveMinMaxRestrictions: boolean
+  group: DishListItem
+}
+
+export declare interface DishChildModifier extends DishBaseModifier {
+  defaultAmount: number
+  hideIfDefaultAmount: boolean
+  dish: DishListItem
+}
+
+export declare interface WorkTimeBase {
+  start: string;
+  stop: string;
+  break: string;
+}
+
+export declare interface WorkTime extends WorkTimeBase {
+  dayOfWeek: string
+  selfService: WorkTimeBase
+}
+
+export declare interface RestrictionsOrder {
+  minDeliveryTime: string
+  deliveryToTimeEnabled:boolean
+  periodPossibleForOrder: number
+  timezone: string
+  workTime: WorkTime[]
+}
+

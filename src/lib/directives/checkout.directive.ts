@@ -1,6 +1,5 @@
 import { Directive, Input, Output, HostListener, EventEmitter, SimpleChanges } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, debounceTime, tap } from 'rxjs/operators'
+import { filter, debounceTime, } from 'rxjs/operators'
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
@@ -8,7 +7,7 @@ import { NgRestoCartService } from '../services/ng-restocart.service';
 })
 export class CheckoutDirective {
 
-  @Input() cartTotal:any;
+  @Input() cartTotal: any;
 
   @Input() bonuses: any;
 
@@ -16,6 +15,7 @@ export class CheckoutDirective {
   @Input() email: string;
   @Input() phone: string;
   @Input() delivery: any;
+  @Input() selfService: any;
   @Input() locationId: string;
 
   @Input() streetId: string;
@@ -28,8 +28,12 @@ export class CheckoutDirective {
   @Input() floor: string;
 
   @Input() paymentMethod: string;
+  @Input() paymentMethodId: string;
   @Input() personsCount: number;
   @Input() comment: string;
+
+  @Input() date: string;
+  @Input() notifyMethodId: string;
 
   @Output() success = new EventEmitter<boolean>();
   @Output() error = new EventEmitter<string>();
@@ -39,37 +43,37 @@ export class CheckoutDirective {
   cart: any;
   lastFormChangeKey: string;
 
-  constructor(
-    private cartService: NgRestoCartService
-  ) {
+  constructor(private cartService: NgRestoCartService) {
+
     this.cartService
       .userCart()
       .subscribe(cart => this.cart = cart);
-
 
     this.cartService.OrderFormChange
       .pipe(
         filter(() => {
           //if((this.locationId || this.streetId) && this.home && this.phone && this.preparePhone(this.phone).length > 11) {
-          if(this.locationId || this.streetId && this.home || this.delivery) {
+          if (this.locationId || (this.streetId || this.street) && this.home || this.selfService) {
             return true;
           }
         }),
-        filter(() => {
+        /*filter(() => {
           const formChangeKey = JSON.stringify({
             1: this.locationId,
             2: this.streetId,
-            3: this.home,
-            4: this.cartTotal,
-            5: this.bonuses,
-            6: this.delivery
+            3: this.street,
+            4: this.home,
+            5: this.cartTotal,
+            6: this.bonuses,
+            7: this.delivery,
+            8: this.paymentMethodId
           });
 
           if(formChangeKey !== this.lastFormChangeKey) {
             this.lastFormChangeKey = formChangeKey;
             return true;
           }
-        }),
+        }),*/
         debounceTime(1000)
       )
       .subscribe(() => this.checkStreet());
@@ -77,31 +81,40 @@ export class CheckoutDirective {
 
   @HostListener('click')
   onClick() {
-    if(!this.locationId && !(this.streetId && this.home) && !this.delivery) {
+    if (!this.locationId && !((this.streetId || this.street) && this.home) && !this.selfService) {
       this.error.emit('Нужно указать адрес');
       return;
     }
 
     let comment = this.comment || "Не указан";
-    let paymentMethod = this.paymentMethod || "Не указано";
 
     let data = {
-      "cartId": this.cart.cartId,
-      "comment": `${comment}\r\nОплата: ${paymentMethod}`,
-      "customer": {
-        "phone": this.preparePhone(this.phone),
-        "mail": this.email,
-        "name": this.name
+      cartId: this.cart.cartId,
+      comment: comment,
+      customer: {
+        phone: this.preparePhone(this.phone),
+        mail: this.email,
+        name: this.name
       },
-      "personsCount": this.personsCount
+      personsCount: +this.personsCount
     };
 
-    // console.log('FFFFFFFFFFFFFFFF', this.delivery);
+    if (this.paymentMethodId) {
+      data["paymentMethodId"] = this.paymentMethodId;
+    }
 
-    data["selfDelivery"] = this.delivery;
+    if (this.date) {
+      data["date"] = this.date;
+    }
+
+    if (this.notifyMethodId) {
+      data["notifyMethodId"] = this.notifyMethodId;
+    }
+
+    data["selfService"] = this.selfService;
 
 
-    if(this.bonuses) {
+    if (this.bonuses) {
       data['bonuses'] = this.bonuses.map(b => {
         return {
           name: b.name,
@@ -111,25 +124,32 @@ export class CheckoutDirective {
     }
 
 
-    if(this.locationId) {
+    if (this.locationId) {
       data["locationId"] = this.locationId;
     } else {
       data["address"] = {
-        "streetId": this.streetId,
-        "street": this.street,
-        "home": this.home,
-        "housing": this.housing,
-        "doorphone": this.doorphone || '',
-        "entrance": this.entrance || '',
-        "floor": this.floor || '',
-        "apartment": this.apartment || ''
+        streetId: this.streetId,
+        street: this.street,
+        home: this.home,
+        housing: this.housing,
+        doorphone: this.doorphone || '',
+        entrance: this.entrance || '',
+        floor: this.floor || '',
+        apartment: this.apartment || ''
       }
     }
 
+    const cartId = this.cart.id;
     this.cartService
       .orderCart(data)
       .subscribe(
-        () => this.success.emit(true),
+        result => {
+          if (result.action && result.action.paymentRedirect) {
+            window.location.href = result.action.paymentRedirect;
+          } else {
+            this.success.emit(cartId)
+          }
+        },
         error => this.error.emit(error)
       );
   }
@@ -143,40 +163,44 @@ export class CheckoutDirective {
     //if(this.streetId == '0') return;
 
     let comment = this.comment || "Не указан";
-    let paymentMethod = this.paymentMethod || "Не указано";
 
     let data = {
-      "cartId": this.cart.cartId,
-      "comment": `${comment}\r\nОплата: ${paymentMethod}`,
-      "customer": {
-        //"phone": this.preparePhone(this.phone),
-        //"name": this.name
-        "phone": '+79999999999',
-        "mail": this.email,
-        "name": 'Васа'
+      cartId: this.cart.cartId,
+      comment: comment,
+      customer: {
+        phone: this.phone ? this.preparePhone(this.phone) : null,
+        mail: this.email,
+        name: this.name || null
       },
-      "personsCount": this.personsCount
+      personsCount: +this.personsCount
     };
 
+    data["selfService"] = this.selfService;
 
-    // console.log('EEEEEEEEEEEE', this.delivery);
+    if (this.paymentMethodId) {
+      data["paymentMethodId"] = this.paymentMethodId;
+    }
 
-    data["selfDelivery"] = this.delivery;
+    if (this.date) {
+      data["date"] = this.date;
+    }
 
+    if (this.notifyMethodId) {
+      data["notifyMethodId"] = this.notifyMethodId;
+    }
 
-
-    if(this.locationId) {
+    if (this.locationId) {
       data["locationId"] = this.locationId;
     } else {
       data["address"] = {
-        "streetId": this.streetId,
-        "street": this.street,
-        "home": this.home,
-        "housing": this.housing,
-        "doorphone": this.doorphone || '',
-        "entrance": this.entrance || '',
-        "floor": this.floor || '',
-        "apartment": this.apartment || ''
+        streetId: this.streetId,
+        street: this.street,
+        home: this.home,
+        housing: this.housing,
+        doorphone: this.doorphone || '',
+        entrance: this.entrance || '',
+        floor: this.floor || '',
+        apartment: this.apartment || ''
       }
     }
 
@@ -186,15 +210,15 @@ export class CheckoutDirective {
       .subscribe(
         //() => this.success.emit(true),
         //error => this.error.emit(error)
-        result => this.isChecking.emit(false),
-        error => this.isChecking.emit(false)
+        () => this.isChecking.emit(false),
+        () => this.isChecking.emit(false)
       );
   }
 
 
   preparePhone(phone) {
-    if(!phone) return '';
-    phone = '+' + phone.replace(/[^0-9]/gim,'');
+    if (!phone) return '';
+    phone = '+' + phone.replace(/[^0-9]/gim, '');
     return phone.replace('+8', '+7');
   }
 }

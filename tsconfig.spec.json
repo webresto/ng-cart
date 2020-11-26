@@ -1,6 +1,8 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
+    "fullTemplateTypeCheck": false,
+    "strictInjectionParameters": false,
     "outDir": "../../../out-tsc/spec",
     "types": [
       "jasmine",

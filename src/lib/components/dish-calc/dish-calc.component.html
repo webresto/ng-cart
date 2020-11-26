@@ -1,0 +1,258 @@
+<div *ngIf="dish" class="ng-cart-dish-calc" [ngClass]="{'ng-cart-dish-calc-two-parts-assembled': isTwoPartsAssembledTemplate}">
+    <div class="dish">
+        <div class="dish-image-box">
+            <ng-container *ngTemplateOutlet="dishImageTemplate; context: { dish: dish }"></ng-container>
+        </div>
+        <div class="dish-description-box">
+            <div class="dish-name">{{ dish.name }}</div>
+            <div class="dish-ingredients">{{ dish.description }}</div>
+            <div class="dish-price-box">
+                <ng-container *ngIf="!modifiers.custom.fixed; else modifierFixedTemplate">
+                    <div class="price" [ngClass]="{'zero-price': !dish.price}">
+                        <span>{{ dish.price }}</span> ₽
+                    </div>
+                </ng-container>
+                <ng-template #modifierFixedTemplate>
+                    <ng-container *ngIf="modifiers.custom.fixed as modifier">
+                        <div class="modifier-fixed">
+                            <ng-container *ngFor="let childModifier of modifier.childModifiers">
+                                <div class="item"
+                                     [ngClass]="{selected: !!modifiersValueTree[modifier.modifierId][childModifier.modifierId]}"
+                                     (click)="changeModifierAmount(childModifier, 1, 'checkbox')">
+                                    {{ childModifier.dish?.name }}
+                                </div>
+                            </ng-container>
+                        </div>
+                        <ng-container *ngFor="let childModifier of modifier.childModifiers">
+                            <ng-container *ngIf="!!modifiersValueTree[modifier.modifierId][childModifier.modifierId]">
+                                <div class="price" [ngClass]="{'zero-price': !childModifier.dish?.price}">
+                                    <span>{{ childModifier.dish?.price }}</span> ₽
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </ng-template>
+
+            </div>
+        </div>
+    </div>
+    <div class="modifiers" *ngIf="modifiers.baseList?.length">
+        <ng-container *ngFor="let modifier of modifiers.baseList">
+            <div class="modifier-group">
+                <ng-container *ngIf="modifier.dish">
+                    <div class="modifier-header" *ngIf="modifier.group as group">
+                        <div class="modifier-name" *ngIf="group.name">{{ group.name }}</div>
+                        <div class="modifier-description" *ngIf="group.description">{{ group.description }}</div>
+                    </div>
+
+                    <div class="modifier-box" [ngClass]="{'without-images': !modifier.childImagesIsset}">
+                        <!-- Single modifier -->
+                        <ng-container *ngTemplateOutlet="modifierTemplate; context: {
+                            modifier: modifier,
+                            groupId: 'single',
+                            amount: modifiersValueTree['single'][modifier.modifierId],
+                            groupAmount: modifiersValueTree['single'][modifier.modifierId],
+                            groupMinAmount: modifier.minAmount || 0,
+                            groupMaxAmount: modifier.maxAmount || 100
+                        }"></ng-container>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="modifier.childModifiers?.length">
+                    <ng-container *ngIf="modifier.minAmount == 2 && modifier.maxAmount == 2; then twoPartsAssembledTemplate else groupTemplate">
+                    </ng-container>
+
+                    <!-- Base group modifier view -->
+                    <ng-template #groupTemplate>
+                        <div class="modifier-header" *ngIf="modifier.group as group">
+                            <div class="modifier-name" *ngIf="group.name">{{ group.name }}</div>
+                            <div class="modifier-description" *ngIf="group.description">{{ group.description }}</div>
+                        </div>
+                        <div class="modifier-children" [ngClass]="{'without-images': !modifier.imagesIsset}">
+                            <ng-container *ngFor="let childModifier of modifier.childModifiers">
+                                <!-- Group modifier -->
+                                <ng-container *ngTemplateOutlet="modifierTemplate; context: {
+                            modifier: childModifier,
+                            groupId: modifier.modifierId,
+                            amount: modifiersValueTree[modifier.modifierId][childModifier.modifierId],
+                            groupAmount: modifiers.indexById[modifier.modifierId].totalAmount,
+                            groupMinAmount: modifier.minAmount || 0,
+                            groupMaxAmount: modifier.maxAmount || 100
+                        }"></ng-container>
+
+                            </ng-container>
+                        </div>
+                    </ng-template>
+
+                    <!-- Two parts assembled group modifier view (like pizza from two halves) -->
+                    <ng-template #twoPartsAssembledTemplate>
+                        <div class="two-parts-assembled">
+                            <div class="two-parts-assembled-header" [ngClass]="{empty: !twoPartsAssembledModifiersIdsByGroupId[modifier.modifierId]?.length}">
+                                <ng-container *ngFor="let childModifier of modifier.childModifiers">
+                                    <ng-container *ngIf="modifiersValueTree[modifier.modifierId][childModifier.modifierId]">
+                                        <ng-container *ngIf="childModifier.dish as dish">
+                                            <div class="selected-dish">
+                                                <div class="title">{{ dish.name }}</div>
+                                                <div class="image-box">
+                                                    <ng-container *ngTemplateOutlet="dishImageTemplate; context: { dish: dish }"></ng-container>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="modifiers.indexById[modifier.modifierId].totalAmount == 1">
+                                            <div class="selected-dish">
+                                                <div class="title">Выберите половину</div>
+                                                <div class="image-box">
+                                                    <ng-container *ngTemplateOutlet="dishImageTemplate; context: { dish: {} }"></ng-container>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+
+                            <div class="two-parts-assembled-body">
+                                <div class="two-parts-assembled-body-name">Выберите любые две половинки</div>
+                                <div class="two-parts-assembled-body-list">
+                                    <ng-container *ngFor="let childModifier of modifier.childModifiers">
+                                        <div class="two-parts-assembled-body-list-dish"
+                                             (click)="selectTwoPartsAssembledModifier(childModifier)"
+                                             [ngClass]="{selected: modifiersValueTree[modifier.modifierId][childModifier.modifierId]}"
+                                             *ngIf="childModifier.dish as dish">
+                                            <div class="image-box">
+                                                <ng-container *ngTemplateOutlet="dishImageTemplate; context: { dish: dish }"></ng-container>
+                                            </div>
+                                            <div class="dish-name">
+                                                {{ dish.name }}
+                                            </div>
+                                            <div class="dish-price">
+                                                <div [ngClass]="{'zero-price': !dish.price}">
+                                                    <span>{{ dish.price }}</span> ₽
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+
+                </ng-container>
+
+            </div>
+        </ng-container>
+    </div>
+    <div class="result">
+        <span class="text">ИТОГО:</span>
+        <span class="price">
+            <span>{{ totalPrice}}</span> ₽
+        </span>
+    </div>
+    <div class="comment" *ngIf="isTwoPartsAssembledTemplate">
+        <div class="title">Комментарий</div>
+        <div class="input-box">
+            <input #commentInput type="text" placeholder="" (keyup)="comment.emit(commentInput.value)">
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Template block #dishImageTemplate -->
+
+<ng-template #dishImageTemplate let-dish="dish">
+    <ng-container *ngIf="dish?.images && dish.images[0]?.images?.small; else imgPlaceholder">
+        <div class="dish-image" [style.backgroundImage]="'url(' + imageUrl + dish.images[0].images.small + ')'"></div>
+    </ng-container>
+    <ng-template #imgPlaceholder>
+        <div class="dish-image-placeholder"></div>
+    </ng-template>
+</ng-template>
+
+<!-- Template block #modifierTemplate -->
+
+<ng-template #modifierTemplate
+             let-modifier="modifier"
+             let-groupId="groupId"
+             let-amount="amount"
+             let-groupAmount="groupAmount"
+             let-groupMinAmount="groupMinAmount"
+             let-groupMaxAmount="groupMaxAmount">
+    <ng-container *ngIf="modifier.dish as dish">
+        <div class="modifier-dish">
+            <div class="modifier-dish-image-box">
+                <ng-container *ngTemplateOutlet="dishImageTemplate; context: { dish: dish }"></ng-container>
+            </div>
+            <div class="modifier-dish-description-box">
+                <div class="modifier-dish-name">{{ dish.name }}</div>
+                <div class="modifier-dish-weight" *ngIf="dish.weight">{{ dish.weight * 1000 }} гр</div>
+            </div>
+            <div class="modifier-dish-price-box">
+                <div [ngClass]="{'zero-price': !dish.price}">
+                    <span>{{ dish.price }}</span> ₽
+                </div>
+            </div>
+            <div class="modifier-dish-action-box">
+                <ng-container *ngIf="groupMinAmount <= 1 && groupMaxAmount == 1; else counterTemplate">
+                    <ng-container *ngTemplateOutlet="modifierCheckboxTemplate; context: {
+                        modifier: modifier,
+                        groupId: groupId,
+                        amount: amount
+                    }"></ng-container>
+                </ng-container>
+
+                <ng-template #counterTemplate>
+                    <ng-container *ngTemplateOutlet="modifierCounterTemplate; context: {
+                        modifier: modifier,
+                        groupId: groupId,
+                        amount: amount,
+                        groupAmount: groupAmount,
+                        groupMinAmount: groupMinAmount,
+                        groupMaxAmount: groupMaxAmount
+                    }"></ng-container>
+                </ng-template>
+
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+
+<!-- Template block #modifierCounterTemplate -->
+
+<ng-template #modifierCounterTemplate
+             let-modifier="modifier"
+             let-groupId="groupId"
+             let-amount="amount"
+             let-groupAmount="groupAmount"
+             let-groupMinAmount="groupMinAmount"
+             let-groupMaxAmount="groupMaxAmount">
+    <ng-container>
+        <div class="modifier-counter" [ngClass]="{disabled: !amount && groupAmount >= groupMaxAmount}">
+            <div
+                    class="minus"
+                    [ngClass]="{disabled: !amount || groupAmount <= groupMinAmount}"
+                    (click)="changeModifierAmount(modifier, amount - 1, 'minus')"
+                    onselectstart="return false;">-</div>
+            <input [value]="amount" readonly #input>
+            <div
+                    class="plus"
+                    [ngClass]="{disabled: groupAmount >= groupMaxAmount}"
+                    (click)="changeModifierAmount(modifier, amount + 1, 'plus')"
+                    onselectstart="return false;">+</div>
+        </div>
+    </ng-container>
+</ng-template>
+
+<!-- Template block #modifierCheckboxTemplate -->
+
+<ng-template #modifierCheckboxTemplate
+             let-modifier="modifier"
+             let-groupId="groupId"
+             let-amount="amount">
+    <ng-container>
+        <div
+                class="modifier-checkbox"
+                [ngClass]="{selected: amount}"
+                (click)="changeModifierAmount(modifier, amount ? 0 : 1, 'checkbox')"></div>
+    </ng-container>
+</ng-template>
