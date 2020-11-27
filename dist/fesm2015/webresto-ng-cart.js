@@ -1,7 +1,7 @@
 import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, EventEmitter, ɵɵdirectiveInject, ɵɵdefineDirective, ɵɵlistener, Directive, Input, Output, HostListener, Renderer2, ElementRef, ɵɵNgOnChangesFeature, ɵɵelementContainer, ɵɵelementContainerStart, ɵɵelementStart, ɵɵtext, ɵɵelementEnd, ɵɵelementContainerEnd, ɵɵnextContext, ɵɵadvance, ɵɵproperty, ɵɵpureFunction1, ɵɵtextInterpolate, ɵɵgetCurrentView, ɵɵrestoreView, ɵɵtextInterpolate1, ɵɵtemplate, ɵɵreference, ɵɵpureFunction5, ɵɵpureFunction6, ɵɵpureFunction0, ɵɵtemplateRefExtractor, ɵɵelement, ɵɵstyleProp, ɵɵpureFunction3, ɵɵdefineComponent, Component, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
 import { BehaviorSubject, from, throwError } from 'rxjs';
 import { switchMap, catchError, tap, filter, map, debounceTime } from 'rxjs/operators';
-import { NetService, EventerService, EventMessage } from '@webresto/ng-core';
+import { NetService, EventerService, EventMessage } from '@webresto/ng-core/dist';
 import { NgIf, NgClass, NgTemplateOutlet, NgForOf, CommonModule } from '@angular/common';
 
 class NgRestoCartService {

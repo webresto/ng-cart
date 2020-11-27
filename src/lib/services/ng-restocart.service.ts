@@ -5,7 +5,7 @@ import {
   NetService,
   EventerService,
   EventMessage
-} from '@webresto/ng-core';
+} from '@webresto/ng-core/dist';
 
 
 @Injectable({

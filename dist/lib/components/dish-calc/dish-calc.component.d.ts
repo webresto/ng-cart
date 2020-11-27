@@ -1,6 +1,6 @@
 import { OnInit, OnChanges, OnDestroy, EventEmitter } from '@angular/core';
 import { NgRestoCartService } from "../../services/ng-restocart.service";
-import { EventerService } from '@webresto/ng-core';
+import { EventerService } from '@webresto/ng-core/dist';
 import * as i0 from "@angular/core";
 export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     private cartService;
