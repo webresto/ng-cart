@@ -11,30 +11,32 @@ import { CheckoutDirective } from "./directives/checkout.directive";
 import { SetDishCommentDirective } from './directives/set-dish-comment.directive';
 import { DishCalcComponent } from './components/dish-calc/dish-calc.component';
 
-const DIRECTIVES = [
-  AddDishToCartDirective,
-  AmountCartDirective,
-  DeleteFromCartDirective,
-  OrderCartUserDirective,
-  //ModifiresDirective,
-  DishCalcDirective,
-  SetDishCommentDirective,
-  SetAmountDirective,
-  CheckoutDirective,
-];
-
-const COMPONENTS = [
-  DishCalcComponent
-];
-
-const MODULES = [
-  CommonModule
-];
-
 @NgModule({
-  imports: [...MODULES],
+  imports: [CommonModule],
   providers: [],
-  declarations: [...DIRECTIVES, ...COMPONENTS],
-  exports: [...DIRECTIVES, ...COMPONENTS]
+  declarations: [
+    AddDishToCartDirective,
+    AmountCartDirective,
+    DeleteFromCartDirective,
+    OrderCartUserDirective,
+    //ModifiresDirective,
+    DishCalcDirective,
+    SetDishCommentDirective,
+    SetAmountDirective,
+    CheckoutDirective,
+    DishCalcComponent
+  ],
+  exports: [
+    AddDishToCartDirective,
+    AmountCartDirective,
+    DeleteFromCartDirective,
+    OrderCartUserDirective,
+    //ModifiresDirective,
+    DishCalcDirective,
+    SetDishCommentDirective,
+    SetAmountDirective,
+    CheckoutDirective,
+    DishCalcComponent
+  ]
 })
 export class NgRestoCartModule { }

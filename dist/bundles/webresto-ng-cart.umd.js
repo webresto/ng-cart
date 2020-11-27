@@ -2963,30 +2963,13 @@
                 }] });
     })();
 
-    var DIRECTIVES = [
-        AddDishToCartDirective,
-        AmountCartDirective,
-        DeleteFromCartDirective,
-        OrderCartUserDirective,
-        //ModifiresDirective,
-        DishCalcDirective,
-        SetDishCommentDirective,
-        SetAmountDirective,
-        CheckoutDirective,
-    ];
-    var COMPONENTS = [
-        DishCalcComponent
-    ];
-    var MODULES = [
-        i3.CommonModule
-    ];
     var NgRestoCartModule = /** @class */ (function () {
         function NgRestoCartModule() {
         }
         return NgRestoCartModule;
     }());
     NgRestoCartModule.ɵmod = i0.ɵɵdefineNgModule({ type: NgRestoCartModule });
-    NgRestoCartModule.ɵinj = i0.ɵɵdefineInjector({ factory: function NgRestoCartModule_Factory(t) { return new (t || NgRestoCartModule)(); }, providers: [], imports: [__spread(MODULES)] });
+    NgRestoCartModule.ɵinj = i0.ɵɵdefineInjector({ factory: function NgRestoCartModule_Factory(t) { return new (t || NgRestoCartModule)(); }, providers: [], imports: [[i3.CommonModule]] });
     (function () {
         (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(NgRestoCartModule, { declarations: [AddDishToCartDirective,
                 AmountCartDirective,
@@ -2996,7 +2979,8 @@
                 DishCalcDirective,
                 SetDishCommentDirective,
                 SetAmountDirective,
-                CheckoutDirective, DishCalcComponent], imports: [i3.CommonModule], exports: [AddDishToCartDirective,
+                CheckoutDirective,
+                DishCalcComponent], imports: [i3.CommonModule], exports: [AddDishToCartDirective,
                 AmountCartDirective,
                 DeleteFromCartDirective,
                 OrderCartUserDirective,
@@ -3004,16 +2988,39 @@
                 DishCalcDirective,
                 SetDishCommentDirective,
                 SetAmountDirective,
-                CheckoutDirective, DishCalcComponent] });
+                CheckoutDirective,
+                DishCalcComponent] });
     })();
     /*@__PURE__*/ (function () {
         i0.ɵsetClassMetadata(NgRestoCartModule, [{
                 type: i0.NgModule,
                 args: [{
-                        imports: __spread(MODULES),
+                        imports: [i3.CommonModule],
                         providers: [],
-                        declarations: __spread(DIRECTIVES, COMPONENTS),
-                        exports: __spread(DIRECTIVES, COMPONENTS)
+                        declarations: [
+                            AddDishToCartDirective,
+                            AmountCartDirective,
+                            DeleteFromCartDirective,
+                            OrderCartUserDirective,
+                            //ModifiresDirective,
+                            DishCalcDirective,
+                            SetDishCommentDirective,
+                            SetAmountDirective,
+                            CheckoutDirective,
+                            DishCalcComponent
+                        ],
+                        exports: [
+                            AddDishToCartDirective,
+                            AmountCartDirective,
+                            DeleteFromCartDirective,
+                            OrderCartUserDirective,
+                            //ModifiresDirective,
+                            DishCalcDirective,
+                            SetDishCommentDirective,
+                            SetAmountDirective,
+                            CheckoutDirective,
+                            DishCalcComponent
+                        ]
                     }]
             }], null, null);
     })();

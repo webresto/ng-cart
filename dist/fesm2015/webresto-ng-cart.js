@@ -2430,27 +2430,10 @@ DishCalcComponent.ɵcmp = ɵɵdefineComponent({ type: DishCalcComponent, selecto
             type: Output
         }] }); })();
 
-const DIRECTIVES = [
-    AddDishToCartDirective,
-    AmountCartDirective,
-    DeleteFromCartDirective,
-    OrderCartUserDirective,
-    //ModifiresDirective,
-    DishCalcDirective,
-    SetDishCommentDirective,
-    SetAmountDirective,
-    CheckoutDirective,
-];
-const COMPONENTS = [
-    DishCalcComponent
-];
-const MODULES = [
-    CommonModule
-];
 class NgRestoCartModule {
 }
 NgRestoCartModule.ɵmod = ɵɵdefineNgModule({ type: NgRestoCartModule });
-NgRestoCartModule.ɵinj = ɵɵdefineInjector({ factory: function NgRestoCartModule_Factory(t) { return new (t || NgRestoCartModule)(); }, providers: [], imports: [[...MODULES]] });
+NgRestoCartModule.ɵinj = ɵɵdefineInjector({ factory: function NgRestoCartModule_Factory(t) { return new (t || NgRestoCartModule)(); }, providers: [], imports: [[CommonModule]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NgRestoCartModule, { declarations: [AddDishToCartDirective,
         AmountCartDirective,
         DeleteFromCartDirective,
@@ -2459,7 +2442,8 @@ NgRestoCartModule.ɵinj = ɵɵdefineInjector({ factory: function NgRestoCartModu
         DishCalcDirective,
         SetDishCommentDirective,
         SetAmountDirective,
-        CheckoutDirective, DishCalcComponent], imports: [CommonModule], exports: [AddDishToCartDirective,
+        CheckoutDirective,
+        DishCalcComponent], imports: [CommonModule], exports: [AddDishToCartDirective,
         AmountCartDirective,
         DeleteFromCartDirective,
         OrderCartUserDirective,
@@ -2467,14 +2451,37 @@ NgRestoCartModule.ɵinj = ɵɵdefineInjector({ factory: function NgRestoCartModu
         DishCalcDirective,
         SetDishCommentDirective,
         SetAmountDirective,
-        CheckoutDirective, DishCalcComponent] }); })();
+        CheckoutDirective,
+        DishCalcComponent] }); })();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(NgRestoCartModule, [{
         type: NgModule,
         args: [{
-                imports: [...MODULES],
+                imports: [CommonModule],
                 providers: [],
-                declarations: [...DIRECTIVES, ...COMPONENTS],
-                exports: [...DIRECTIVES, ...COMPONENTS]
+                declarations: [
+                    AddDishToCartDirective,
+                    AmountCartDirective,
+                    DeleteFromCartDirective,
+                    OrderCartUserDirective,
+                    //ModifiresDirective,
+                    DishCalcDirective,
+                    SetDishCommentDirective,
+                    SetAmountDirective,
+                    CheckoutDirective,
+                    DishCalcComponent
+                ],
+                exports: [
+                    AddDishToCartDirective,
+                    AmountCartDirective,
+                    DeleteFromCartDirective,
+                    OrderCartUserDirective,
+                    //ModifiresDirective,
+                    DishCalcDirective,
+                    SetDishCommentDirective,
+                    SetAmountDirective,
+                    CheckoutDirective,
+                    DishCalcComponent
+                ]
             }]
     }], null, null); })();
 
