@@ -32,9 +32,9 @@ const MODULES = [
 ];
 
 @NgModule({
-  imports: [MODULES],
+  imports: [...MODULES],
   providers: [],
-  declarations: [DIRECTIVES, COMPONENTS],
-  exports: [DIRECTIVES, COMPONENTS]
+  declarations: [...DIRECTIVES, ...COMPONENTS],
+  exports: [...DIRECTIVES, ...COMPONENTS]
 })
 export class NgRestoCartModule { }

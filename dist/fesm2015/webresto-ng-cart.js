@@ -2450,7 +2450,7 @@ const MODULES = [
 class NgRestoCartModule {
 }
 NgRestoCartModule.ɵmod = ɵɵdefineNgModule({ type: NgRestoCartModule });
-NgRestoCartModule.ɵinj = ɵɵdefineInjector({ factory: function NgRestoCartModule_Factory(t) { return new (t || NgRestoCartModule)(); }, providers: [], imports: [[MODULES]] });
+NgRestoCartModule.ɵinj = ɵɵdefineInjector({ factory: function NgRestoCartModule_Factory(t) { return new (t || NgRestoCartModule)(); }, providers: [], imports: [[...MODULES]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NgRestoCartModule, { declarations: [AddDishToCartDirective,
         AmountCartDirective,
         DeleteFromCartDirective,
@@ -2471,10 +2471,10 @@ NgRestoCartModule.ɵinj = ɵɵdefineInjector({ factory: function NgRestoCartModu
 /*@__PURE__*/ (function () { ɵsetClassMetadata(NgRestoCartModule, [{
         type: NgModule,
         args: [{
-                imports: [MODULES],
+                imports: [...MODULES],
                 providers: [],
-                declarations: [DIRECTIVES, COMPONENTS],
-                exports: [DIRECTIVES, COMPONENTS]
+                declarations: [...DIRECTIVES, ...COMPONENTS],
+                exports: [...DIRECTIVES, ...COMPONENTS]
             }]
     }], null, null); })();
 

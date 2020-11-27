@@ -2986,7 +2986,7 @@
         return NgRestoCartModule;
     }());
     NgRestoCartModule.ɵmod = i0.ɵɵdefineNgModule({ type: NgRestoCartModule });
-    NgRestoCartModule.ɵinj = i0.ɵɵdefineInjector({ factory: function NgRestoCartModule_Factory(t) { return new (t || NgRestoCartModule)(); }, providers: [], imports: [[MODULES]] });
+    NgRestoCartModule.ɵinj = i0.ɵɵdefineInjector({ factory: function NgRestoCartModule_Factory(t) { return new (t || NgRestoCartModule)(); }, providers: [], imports: [__spread(MODULES)] });
     (function () {
         (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(NgRestoCartModule, { declarations: [AddDishToCartDirective,
                 AmountCartDirective,
@@ -3010,10 +3010,10 @@
         i0.ɵsetClassMetadata(NgRestoCartModule, [{
                 type: i0.NgModule,
                 args: [{
-                        imports: [MODULES],
+                        imports: __spread(MODULES),
                         providers: [],
-                        declarations: [DIRECTIVES, COMPONENTS],
-                        exports: [DIRECTIVES, COMPONENTS]
+                        declarations: __spread(DIRECTIVES, COMPONENTS),
+                        exports: __spread(DIRECTIVES, COMPONENTS)
                     }]
             }], null, null);
     })();
