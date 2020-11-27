@@ -19,7 +19,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/ng-cart'),
+      dir: require('path').join(__dirname, '../../../coverage/webresto/ng-cart'),
       subdir: '.',
       reporters: [
         { type: 'html' },
