@@ -2,6 +2,7 @@
  * Generated bundle index. Do not edit.
  */
 export * from './public_api';
+export { DishCalcLnComponent as ɵj } from './lib/components/dish-calc-ln/dish-calc-ln.component';
 export { DishCalcComponent as ɵi } from './lib/components/dish-calc/dish-calc.component';
 export { AddDishToCartDirective as ɵa } from './lib/directives/add-dish-to-cart.directive';
 export { AmountCartDirective as ɵb } from './lib/directives/amount-cart.directive';

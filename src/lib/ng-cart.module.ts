@@ -10,6 +10,7 @@ import { DishCalcDirective } from './directives/dish-calc.directive';
 import { CheckoutDirective } from "./directives/checkout.directive";
 import { SetDishCommentDirective } from './directives/set-dish-comment.directive';
 import { DishCalcComponent } from './components/dish-calc/dish-calc.component';
+import { DishCalcLnComponent } from './components/dish-calc-ln/dish-calc-ln.component';
 
 const DIRECTIVES = [
   AddDishToCartDirective,
@@ -24,7 +25,8 @@ const DIRECTIVES = [
 ];
 
 const COMPONENTS = [
-  DishCalcComponent
+  DishCalcComponent,
+  DishCalcLnComponent
 ];
 
 const MODULES = [
