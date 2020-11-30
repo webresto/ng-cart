@@ -39,6 +39,6 @@ export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     setModifiers(): void;
     checkValid(): void;
     static ɵfac: i0.ɵɵFactoryDef<DishCalcComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<DishCalcComponent, "dish-calc", never, { "dish": "dish"; "amount": "amount"; "selectedModifiers": "selectedModifiers"; }, { "validate": "validate"; "amountDishToAdd": "amountDishToAdd"; "comment": "comment"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<DishCalcComponent, "rst-dish-calc", never, { "dish": "dish"; "amount": "amount"; "selectedModifiers": "selectedModifiers"; }, { "validate": "validate"; "amountDishToAdd": "amountDishToAdd"; "comment": "comment"; }, never, never>;
 }
 //# sourceMappingURL=dish-calc.component.d.ts.map

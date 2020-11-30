@@ -7,7 +7,7 @@ import {
 } from '@webresto/ng-core/dist';
 
 @Component({
-  selector: 'dish-calc',
+  selector: 'rst-dish-calc',
   templateUrl: './dish-calc.component.html',
   styleUrls: ['./dish-calc.component.scss']
 })

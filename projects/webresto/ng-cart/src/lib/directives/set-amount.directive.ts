@@ -2,7 +2,7 @@ import { Directive, Input, HostListener } from '@angular/core';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
-  selector: '[setDishAmount]'
+  selector: '[rstSetDishAmount]'
 })
 export class SetAmountDirective {
   @Input() action:any;

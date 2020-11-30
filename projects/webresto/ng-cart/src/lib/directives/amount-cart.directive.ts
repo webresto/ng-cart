@@ -2,7 +2,7 @@ import { Directive, Renderer2, ElementRef } from '@angular/core';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
-  selector: '[amountCart]'
+  selector: '[rstAmountCart]'
 })
 export class AmountCartDirective {
 
@@ -15,7 +15,7 @@ export class AmountCartDirective {
     private el: ElementRef
   ) {
 
-    this.amount = '0'; 
+    this.amount = '0';
     this.renderer.setProperty(this.el.nativeElement, 'innerHTML', this.amount);
 
     this.cartService

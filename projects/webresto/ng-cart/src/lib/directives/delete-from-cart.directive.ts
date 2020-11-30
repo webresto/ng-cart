@@ -2,7 +2,7 @@ import { Directive , HostListener, Input} from '@angular/core';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
-  selector: '[deleteFromCart]'
+  selector: '[rstDeleteFromCart]'
 })
 export class DeleteFromCartDirective {
 

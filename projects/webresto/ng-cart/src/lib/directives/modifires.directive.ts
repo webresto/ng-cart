@@ -2,7 +2,7 @@ import { Directive, Renderer2, ElementRef, Input } from '@angular/core';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
-  selector: '[modifires]'
+  selector: '[rstModifires]'
 })
 
 export class ModifiresDirective {
@@ -16,23 +16,23 @@ export class ModifiresDirective {
     private cartService:NgRestoCartService
   ) {
 
-   
+
     setTimeout(() => {
-  
+
       this.render(this.modifires)
-    
+
     }, 100);
 
 
   }
 
   render(modifires: any) {
-   
+
   if(modifires.length>0){  let h = this.renderer.createElement('h5');
     this.renderer.setProperty(h , 'innerHTML', 'К этому блюду можно добавить:');
     this.renderer.appendChild(this.el.nativeElement, h);}
 
-   
+
     modifires.forEach(elementGroup => {
 
       this.stateModifires[elementGroup.modifierId]={};
@@ -48,10 +48,10 @@ export class ModifiresDirective {
       }else{
         modArr = elementGroup.childModifiers;
       }
-    
-     
 
-      
+
+
+
       modArr.forEach(element => {
 
       let modifireDiv = this.modifireDiv(element,elementGroup.modifierId);
@@ -59,7 +59,7 @@ export class ModifiresDirective {
 
 
         this.stateModifires[elementGroup.modifierId][element.modifierId]=false;
-        
+
       });
 
 
@@ -93,7 +93,7 @@ export class ModifiresDirective {
     this.renderer.appendChild(itemNameDiv, input);
     this.renderer.listen(input,'change',e=>{
       this.stateModifires[groupId][e.target.id]= e.target.checked;
-      this.setModifires();  
+      this.setModifires();
     })
 
     let label  = this.renderer.createElement('label');
@@ -104,7 +104,7 @@ export class ModifiresDirective {
     this.renderer.appendChild(modifireDiv, itemNameDiv);
 // Рендер блока изминения количества модификатора
     let itemQuantity = this.renderer.createElement('div');
-   
+
     let aMinusDiv = this.renderer.createElement('a');
     this.renderer.addClass(aMinusDiv, 'item-quantity__button');
     this.renderer.setProperty(aMinusDiv, 'innerHTML', '&#8722;');
@@ -116,10 +116,10 @@ export class ModifiresDirective {
       this.amountModifires[groupId][element.modifierId]=element.minAmount;
       this.renderer.setProperty(span, 'innerHTML', this.amountModifires[groupId][element.modifierId]);
       this.setModifires();
-  
+
     })
 
- 
+
     let span = this.renderer.createElement('span');
     this.renderer.addClass(span, 'item-quantity__counter');
     this.amountModifires[groupId][element.modifierId] = element.minAmount;
@@ -152,9 +152,9 @@ export class ModifiresDirective {
 
   }
   setModifires(){
-    
+
     let modifires = [];
-  
+
     for (let groupId in this.stateModifires){
       for(let modifireId in this.stateModifires[groupId]){
         if(this.stateModifires[groupId][modifireId]){
@@ -175,7 +175,7 @@ export class ModifiresDirective {
     console.log("модифікатори після циклу",modifires)
 
     this.cartService.setModifires(modifires);
-    
+
   }
 
 

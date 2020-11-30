@@ -2,7 +2,7 @@ import { Directive, Input, Output, EventEmitter, HostListener } from '@angular/c
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
-  selector: '[setDishComment]'
+  selector: '[rstSetDishComment]'
 })
 export class SetDishCommentDirective {
   @Input() comment:any;
@@ -22,7 +22,7 @@ export class SetDishCommentDirective {
       res=>this.success.emit(true),
       err=>this.error.emit(err)
     )
-    
+
 
   }
 

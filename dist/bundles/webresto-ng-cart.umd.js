@@ -309,7 +309,7 @@
         return AddDishToCartDirective;
     }());
     AddDishToCartDirective.ɵfac = function AddDishToCartDirective_Factory(t) { return new (t || AddDishToCartDirective)(i0.ɵɵdirectiveInject(NgRestoCartService)); };
-    AddDishToCartDirective.ɵdir = i0.ɵɵdefineDirective({ type: AddDishToCartDirective, selectors: [["", "addToCart", ""]], hostBindings: function AddDishToCartDirective_HostBindings(rf, ctx) {
+    AddDishToCartDirective.ɵdir = i0.ɵɵdefineDirective({ type: AddDishToCartDirective, selectors: [["", "rstAddToCart", ""]], hostBindings: function AddDishToCartDirective_HostBindings(rf, ctx) {
             if (rf & 1) {
                 i0.ɵɵlistener("click", function AddDishToCartDirective_click_HostBindingHandler() { return ctx.onClick(); });
             }
@@ -318,7 +318,7 @@
         i0.ɵsetClassMetadata(AddDishToCartDirective, [{
                 type: i0.Directive,
                 args: [{
-                        selector: '[addToCart]'
+                        selector: '[rstAddToCart]'
                     }]
             }], function () { return [{ type: NgRestoCartService }]; }, { modifires: [{
                     type: i0.Input
@@ -359,12 +359,12 @@
         return AmountCartDirective;
     }());
     AmountCartDirective.ɵfac = function AmountCartDirective_Factory(t) { return new (t || AmountCartDirective)(i0.ɵɵdirectiveInject(NgRestoCartService), i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef)); };
-    AmountCartDirective.ɵdir = i0.ɵɵdefineDirective({ type: AmountCartDirective, selectors: [["", "amountCart", ""]] });
+    AmountCartDirective.ɵdir = i0.ɵɵdefineDirective({ type: AmountCartDirective, selectors: [["", "rstAmountCart", ""]] });
     /*@__PURE__*/ (function () {
         i0.ɵsetClassMetadata(AmountCartDirective, [{
                 type: i0.Directive,
                 args: [{
-                        selector: '[amountCart]'
+                        selector: '[rstAmountCart]'
                     }]
             }], function () { return [{ type: NgRestoCartService }, { type: i0.Renderer2 }, { type: i0.ElementRef }]; }, null);
     })();
@@ -527,7 +527,7 @@
         return CheckoutDirective;
     }());
     CheckoutDirective.ɵfac = function CheckoutDirective_Factory(t) { return new (t || CheckoutDirective)(i0.ɵɵdirectiveInject(NgRestoCartService)); };
-    CheckoutDirective.ɵdir = i0.ɵɵdefineDirective({ type: CheckoutDirective, selectors: [["", "checkout", ""]], hostBindings: function CheckoutDirective_HostBindings(rf, ctx) {
+    CheckoutDirective.ɵdir = i0.ɵɵdefineDirective({ type: CheckoutDirective, selectors: [["", "rstCheckout", ""]], hostBindings: function CheckoutDirective_HostBindings(rf, ctx) {
             if (rf & 1) {
                 i0.ɵɵlistener("click", function CheckoutDirective_click_HostBindingHandler() { return ctx.onClick(); });
             }
@@ -536,7 +536,7 @@
         i0.ɵsetClassMetadata(CheckoutDirective, [{
                 type: i0.Directive,
                 args: [{
-                        selector: '[checkout]'
+                        selector: '[rstCheckout]'
                     }]
             }], function () { return [{ type: NgRestoCartService }]; }, { cartTotal: [{
                     type: i0.Input
@@ -608,7 +608,7 @@
         return DeleteFromCartDirective;
     }());
     DeleteFromCartDirective.ɵfac = function DeleteFromCartDirective_Factory(t) { return new (t || DeleteFromCartDirective)(i0.ɵɵdirectiveInject(NgRestoCartService)); };
-    DeleteFromCartDirective.ɵdir = i0.ɵɵdefineDirective({ type: DeleteFromCartDirective, selectors: [["", "deleteFromCart", ""]], hostBindings: function DeleteFromCartDirective_HostBindings(rf, ctx) {
+    DeleteFromCartDirective.ɵdir = i0.ɵɵdefineDirective({ type: DeleteFromCartDirective, selectors: [["", "rstDeleteFromCart", ""]], hostBindings: function DeleteFromCartDirective_HostBindings(rf, ctx) {
             if (rf & 1) {
                 i0.ɵɵlistener("click", function DeleteFromCartDirective_click_HostBindingHandler() { return ctx.onClick(); });
             }
@@ -617,7 +617,7 @@
         i0.ɵsetClassMetadata(DeleteFromCartDirective, [{
                 type: i0.Directive,
                 args: [{
-                        selector: '[deleteFromCart]'
+                        selector: '[rstDeleteFromCart]'
                     }]
             }], function () { return [{ type: NgRestoCartService }]; }, { dish: [{
                     type: i0.Input
@@ -1159,12 +1159,12 @@
         return DishCalcDirective;
     }());
     DishCalcDirective.ɵfac = function DishCalcDirective_Factory(t) { return new (t || DishCalcDirective)(i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(NgRestoCartService)); };
-    DishCalcDirective.ɵdir = i0.ɵɵdefineDirective({ type: DishCalcDirective, selectors: [["", "dishCalc", ""]], inputs: { dish: "dish", amount: "amount", selectedModifiers: "selectedModifiers" }, outputs: { validate: "validate", amountDishToAdd: "amountDishToAdd" } });
+    DishCalcDirective.ɵdir = i0.ɵɵdefineDirective({ type: DishCalcDirective, selectors: [["", "rstDishCalc", ""]], inputs: { dish: "dish", amount: "amount", selectedModifiers: "selectedModifiers" }, outputs: { validate: "validate", amountDishToAdd: "amountDishToAdd" } });
     /*@__PURE__*/ (function () {
         i0.ɵsetClassMetadata(DishCalcDirective, [{
                 type: i0.Directive,
                 args: [{
-                        selector: '[dishCalc]'
+                        selector: '[rstDishCalc]'
                     }]
             }], function () { return [{ type: i0.Renderer2 }, { type: i0.ElementRef }, { type: NgRestoCartService }]; }, { dish: [{
                     type: i0.Input
@@ -1304,12 +1304,12 @@
         return ModifiresDirective;
     }());
     ModifiresDirective.ɵfac = function ModifiresDirective_Factory(t) { return new (t || ModifiresDirective)(i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(NgRestoCartService)); };
-    ModifiresDirective.ɵdir = i0.ɵɵdefineDirective({ type: ModifiresDirective, selectors: [["", "modifires", ""]], inputs: { modifires: "modifires" } });
+    ModifiresDirective.ɵdir = i0.ɵɵdefineDirective({ type: ModifiresDirective, selectors: [["", "rstModifires", ""]], inputs: { modifires: "modifires" } });
     /*@__PURE__*/ (function () {
         i0.ɵsetClassMetadata(ModifiresDirective, [{
                 type: i0.Directive,
                 args: [{
-                        selector: '[modifires]'
+                        selector: '[rstModifires]'
                     }]
             }], function () { return [{ type: i0.Renderer2 }, { type: i0.ElementRef }, { type: NgRestoCartService }]; }, { modifires: [{
                     type: i0.Input
@@ -1476,7 +1476,7 @@
         return OrderCartUserDirective;
     }());
     OrderCartUserDirective.ɵfac = function OrderCartUserDirective_Factory(t) { return new (t || OrderCartUserDirective)(i0.ɵɵdirectiveInject(NgRestoCartService)); };
-    OrderCartUserDirective.ɵdir = i0.ɵɵdefineDirective({ type: OrderCartUserDirective, selectors: [["", "orderCart", ""]], hostBindings: function OrderCartUserDirective_HostBindings(rf, ctx) {
+    OrderCartUserDirective.ɵdir = i0.ɵɵdefineDirective({ type: OrderCartUserDirective, selectors: [["", "rstOrderCart", ""]], hostBindings: function OrderCartUserDirective_HostBindings(rf, ctx) {
             if (rf & 1) {
                 i0.ɵɵlistener("click", function OrderCartUserDirective_click_HostBindingHandler() { return ctx.onClick(); });
             }
@@ -1485,7 +1485,7 @@
         i0.ɵsetClassMetadata(OrderCartUserDirective, [{
                 type: i0.Directive,
                 args: [{
-                        selector: '[orderCart]'
+                        selector: '[rstOrderCart]'
                     }]
             }], function () { return [{ type: NgRestoCartService }]; }, { orderCart: [{
                     type: i0.Input
@@ -1522,7 +1522,7 @@
         return SetAmountDirective;
     }());
     SetAmountDirective.ɵfac = function SetAmountDirective_Factory(t) { return new (t || SetAmountDirective)(i0.ɵɵdirectiveInject(NgRestoCartService)); };
-    SetAmountDirective.ɵdir = i0.ɵɵdefineDirective({ type: SetAmountDirective, selectors: [["", "setDishAmount", ""]], hostBindings: function SetAmountDirective_HostBindings(rf, ctx) {
+    SetAmountDirective.ɵdir = i0.ɵɵdefineDirective({ type: SetAmountDirective, selectors: [["", "rstSetDishAmount", ""]], hostBindings: function SetAmountDirective_HostBindings(rf, ctx) {
             if (rf & 1) {
                 i0.ɵɵlistener("click", function SetAmountDirective_click_HostBindingHandler() { return ctx.onClick(); });
             }
@@ -1531,7 +1531,7 @@
         i0.ɵsetClassMetadata(SetAmountDirective, [{
                 type: i0.Directive,
                 args: [{
-                        selector: '[setDishAmount]'
+                        selector: '[rstSetDishAmount]'
                     }]
             }], function () { return [{ type: NgRestoCartService }]; }, { action: [{
                     type: i0.Input
@@ -1559,7 +1559,7 @@
         return SetDishCommentDirective;
     }());
     SetDishCommentDirective.ɵfac = function SetDishCommentDirective_Factory(t) { return new (t || SetDishCommentDirective)(i0.ɵɵdirectiveInject(NgRestoCartService)); };
-    SetDishCommentDirective.ɵdir = i0.ɵɵdefineDirective({ type: SetDishCommentDirective, selectors: [["", "setDishComment", ""]], hostBindings: function SetDishCommentDirective_HostBindings(rf, ctx) {
+    SetDishCommentDirective.ɵdir = i0.ɵɵdefineDirective({ type: SetDishCommentDirective, selectors: [["", "rstSetDishComment", ""]], hostBindings: function SetDishCommentDirective_HostBindings(rf, ctx) {
             if (rf & 1) {
                 i0.ɵɵlistener("click", function SetDishCommentDirective_click_HostBindingHandler() { return ctx.onClick(); });
             }
@@ -1568,7 +1568,7 @@
         i0.ɵsetClassMetadata(SetDishCommentDirective, [{
                 type: i0.Directive,
                 args: [{
-                        selector: '[setDishComment]'
+                        selector: '[rstSetDishComment]'
                     }]
             }], function () { return [{ type: NgRestoCartService }]; }, { comment: [{
                     type: i0.Input
@@ -2923,7 +2923,7 @@
         return DishCalcComponent;
     }());
     DishCalcComponent.ɵfac = function DishCalcComponent_Factory(t) { return new (t || DishCalcComponent)(i0.ɵɵdirectiveInject(NgRestoCartService), i0.ɵɵdirectiveInject(i1.EventerService), i0.ɵɵdirectiveInject('ImageUrl')); };
-    DishCalcComponent.ɵcmp = i0.ɵɵdefineComponent({ type: DishCalcComponent, selectors: [["dish-calc"]], inputs: { dish: "dish", amount: "amount", selectedModifiers: "selectedModifiers" }, outputs: { validate: "validate", amountDishToAdd: "amountDishToAdd", comment: "comment" }, features: [i0.ɵɵNgOnChangesFeature], decls: 9, vars: 1, consts: [["class", "ng-cart-dish-calc", 3, "ngClass", 4, "ngIf"], ["dishImageTemplate", ""], ["modifierTemplate", ""], ["modifierCounterTemplate", ""], ["modifierCheckboxTemplate", ""], [1, "ng-cart-dish-calc", 3, "ngClass"], [1, "dish"], [1, "dish-image-box"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "dish-description-box"], [1, "dish-name"], [1, "dish-ingredients"], [1, "dish-price-box"], [4, "ngIf", "ngIfElse"], ["modifierFixedTemplate", ""], ["class", "modifiers", 4, "ngIf"], [1, "result"], [1, "text"], [1, "price"], ["class", "comment", 4, "ngIf"], [1, "price", 3, "ngClass"], [4, "ngIf"], [1, "modifier-fixed"], [4, "ngFor", "ngForOf"], [1, "item", 3, "ngClass", "click"], [1, "modifiers"], [1, "modifier-group"], ["class", "modifier-header", 4, "ngIf"], [1, "modifier-box", 3, "ngClass"], [1, "modifier-header"], ["class", "modifier-name", 4, "ngIf"], ["class", "modifier-description", 4, "ngIf"], [1, "modifier-name"], [1, "modifier-description"], [4, "ngIf", "ngIfThen", "ngIfElse"], ["groupTemplate", ""], ["twoPartsAssembledTemplate", ""], [1, "modifier-children", 3, "ngClass"], [1, "two-parts-assembled"], [1, "two-parts-assembled-header", 3, "ngClass"], [1, "two-parts-assembled-body"], [1, "two-parts-assembled-body-name"], [1, "two-parts-assembled-body-list"], [1, "selected-dish"], [1, "title"], [1, "image-box"], ["class", "two-parts-assembled-body-list-dish", 3, "ngClass", "click", 4, "ngIf"], [1, "two-parts-assembled-body-list-dish", 3, "ngClass", "click"], [1, "dish-price"], [3, "ngClass"], [1, "comment"], [1, "input-box"], ["type", "text", "placeholder", "", 3, "keyup"], ["commentInput", ""], ["imgPlaceholder", ""], [1, "dish-image"], [1, "dish-image-placeholder"], [1, "modifier-dish"], [1, "modifier-dish-image-box"], [1, "modifier-dish-description-box"], [1, "modifier-dish-name"], ["class", "modifier-dish-weight", 4, "ngIf"], [1, "modifier-dish-price-box"], [1, "modifier-dish-action-box"], ["counterTemplate", ""], [1, "modifier-dish-weight"], [1, "modifier-counter", 3, "ngClass"], ["onselectstart", "return false;", 1, "minus", 3, "ngClass", "click"], ["readonly", "", 3, "value"], ["input", ""], ["onselectstart", "return false;", 1, "plus", 3, "ngClass", "click"], [1, "modifier-checkbox", 3, "ngClass", "click"]], template: function DishCalcComponent_Template(rf, ctx) {
+    DishCalcComponent.ɵcmp = i0.ɵɵdefineComponent({ type: DishCalcComponent, selectors: [["rst-dish-calc"]], inputs: { dish: "dish", amount: "amount", selectedModifiers: "selectedModifiers" }, outputs: { validate: "validate", amountDishToAdd: "amountDishToAdd", comment: "comment" }, features: [i0.ɵɵNgOnChangesFeature], decls: 9, vars: 1, consts: [["class", "ng-cart-dish-calc", 3, "ngClass", 4, "ngIf"], ["dishImageTemplate", ""], ["modifierTemplate", ""], ["modifierCounterTemplate", ""], ["modifierCheckboxTemplate", ""], [1, "ng-cart-dish-calc", 3, "ngClass"], [1, "dish"], [1, "dish-image-box"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "dish-description-box"], [1, "dish-name"], [1, "dish-ingredients"], [1, "dish-price-box"], [4, "ngIf", "ngIfElse"], ["modifierFixedTemplate", ""], ["class", "modifiers", 4, "ngIf"], [1, "result"], [1, "text"], [1, "price"], ["class", "comment", 4, "ngIf"], [1, "price", 3, "ngClass"], [4, "ngIf"], [1, "modifier-fixed"], [4, "ngFor", "ngForOf"], [1, "item", 3, "ngClass", "click"], [1, "modifiers"], [1, "modifier-group"], ["class", "modifier-header", 4, "ngIf"], [1, "modifier-box", 3, "ngClass"], [1, "modifier-header"], ["class", "modifier-name", 4, "ngIf"], ["class", "modifier-description", 4, "ngIf"], [1, "modifier-name"], [1, "modifier-description"], [4, "ngIf", "ngIfThen", "ngIfElse"], ["groupTemplate", ""], ["twoPartsAssembledTemplate", ""], [1, "modifier-children", 3, "ngClass"], [1, "two-parts-assembled"], [1, "two-parts-assembled-header", 3, "ngClass"], [1, "two-parts-assembled-body"], [1, "two-parts-assembled-body-name"], [1, "two-parts-assembled-body-list"], [1, "selected-dish"], [1, "title"], [1, "image-box"], ["class", "two-parts-assembled-body-list-dish", 3, "ngClass", "click", 4, "ngIf"], [1, "two-parts-assembled-body-list-dish", 3, "ngClass", "click"], [1, "dish-price"], [3, "ngClass"], [1, "comment"], [1, "input-box"], ["type", "text", "placeholder", "", 3, "keyup"], ["commentInput", ""], ["imgPlaceholder", ""], [1, "dish-image"], [1, "dish-image-placeholder"], [1, "modifier-dish"], [1, "modifier-dish-image-box"], [1, "modifier-dish-description-box"], [1, "modifier-dish-name"], ["class", "modifier-dish-weight", 4, "ngIf"], [1, "modifier-dish-price-box"], [1, "modifier-dish-action-box"], ["counterTemplate", ""], [1, "modifier-dish-weight"], [1, "modifier-counter", 3, "ngClass"], ["onselectstart", "return false;", 1, "minus", 3, "ngClass", "click"], ["readonly", "", 3, "value"], ["input", ""], ["onselectstart", "return false;", 1, "plus", 3, "ngClass", "click"], [1, "modifier-checkbox", 3, "ngClass", "click"]], template: function DishCalcComponent_Template(rf, ctx) {
             if (rf & 1) {
                 i0.ɵɵtemplate(0, DishCalcComponent_div_0_Template, 22, 14, "div", 0);
                 i0.ɵɵtemplate(1, DishCalcComponent_ng_template_1_Template, 3, 2, "ng-template", null, 1, i0.ɵɵtemplateRefExtractor);
@@ -2939,7 +2939,7 @@
         i0.ɵsetClassMetadata(DishCalcComponent, [{
                 type: i0.Component,
                 args: [{
-                        selector: 'dish-calc',
+                        selector: 'rst-dish-calc',
                         templateUrl: './dish-calc.component.html',
                         styleUrls: ['./dish-calc.component.scss']
                     }]

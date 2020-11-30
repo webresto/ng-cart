@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
-  selector: '[orderCart]'
+  selector: '[rstOrderCart]'
 })
 export class OrderCartUserDirective {
 

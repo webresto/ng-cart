@@ -9,6 +9,6 @@ export declare class SetAmountDirective {
     constructor(cartService: NgRestoCartService);
     changeAmount(action: any): void;
     static ɵfac: i0.ɵɵFactoryDef<SetAmountDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<SetAmountDirective, "[setDishAmount]", never, { "action": "action"; "dish": "dish"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDefWithMeta<SetAmountDirective, "[rstSetDishAmount]", never, { "action": "action"; "dish": "dish"; }, {}, never>;
 }
 //# sourceMappingURL=set-amount.directive.d.ts.map

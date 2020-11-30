@@ -6,7 +6,7 @@ import {
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
-  selector: '[dishCalc]'
+  selector: '[rstDishCalc]'
 })
 export class DishCalcDirective implements OnDestroy {
 
@@ -315,7 +315,7 @@ export class DishCalcDirective implements OnDestroy {
     this.renderer.addClass(itemNameDiv, "item-name");
 
     let label = this.renderer.createElement("label");
-    
+
     this.renderer.setAttribute(label, "for", element.modifierId);
     this.renderer.appendChild(itemNameDiv, label);
     this.renderer.setProperty(label, "innerHTML", element.dish.name);
@@ -337,7 +337,7 @@ export class DishCalcDirective implements OnDestroy {
     // Рендер блока изминения количества модификатора
     let itemQuantity = this.renderer.createElement("div");
     /* TODO: нужно проверить:
-     да 0,0,[0] - только выключеный чекбокс 
+     да 0,0,[0] - только выключеный чекбокс
      да 0,1 [0]- только чекбокс
      да 0,1 [d===1]- только чекбокс, включеный
 

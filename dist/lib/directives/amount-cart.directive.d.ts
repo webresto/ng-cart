@@ -9,6 +9,6 @@ export declare class AmountCartDirective {
     amount: string;
     constructor(cartService: NgRestoCartService, renderer: Renderer2, el: ElementRef);
     static ɵfac: i0.ɵɵFactoryDef<AmountCartDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AmountCartDirective, "[amountCart]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AmountCartDirective, "[rstAmountCart]", never, {}, {}, never>;
 }
 //# sourceMappingURL=amount-cart.directive.d.ts.map

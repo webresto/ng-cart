@@ -3,7 +3,7 @@ import { filter, debounceTime, } from 'rxjs/operators'
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
-  selector: '[checkout]'
+  selector: '[rstCheckout]'
 })
 export class CheckoutDirective {
 

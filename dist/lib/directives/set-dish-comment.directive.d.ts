@@ -11,6 +11,6 @@ export declare class SetDishCommentDirective {
     constructor(cartService: NgRestoCartService);
     setComment(): void;
     static ɵfac: i0.ɵɵFactoryDef<SetDishCommentDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<SetDishCommentDirective, "[setDishComment]", never, { "comment": "comment"; "dish": "dish"; }, { "success": "success"; "error": "error"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDefWithMeta<SetDishCommentDirective, "[rstSetDishComment]", never, { "comment": "comment"; "dish": "dish"; }, { "success": "success"; "error": "error"; }, never>;
 }
 //# sourceMappingURL=set-dish-comment.directive.d.ts.map

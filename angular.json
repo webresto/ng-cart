@@ -127,7 +127,7 @@
       "projectType": "library",
       "root": "projects/webresto/ng-cart",
       "sourceRoot": "projects/webresto/ng-cart/src",
-      "prefix": "lib",
+      "prefix": "rst",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",

@@ -3,7 +3,7 @@ import { NgRestoCartService } from '../services/ng-restocart.service';
 
 
 @Directive({
-  selector: '[addToCart]'
+  selector: '[rstAddToCart]'
 })
 export class AddDishToCartDirective {
 
