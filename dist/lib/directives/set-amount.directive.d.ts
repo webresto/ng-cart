@@ -11,4 +11,3 @@ export declare class SetAmountDirective {
     static ɵfac: i0.ɵɵFactoryDef<SetAmountDirective, never>;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<SetAmountDirective, "[rstSetDishAmount]", never, { "action": "action"; "dish": "dish"; }, {}, never>;
 }
-//# sourceMappingURL=set-amount.directive.d.ts.map

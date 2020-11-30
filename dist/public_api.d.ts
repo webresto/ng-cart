@@ -10,4 +10,3 @@ export * from './lib/directives/set-amount.directive';
 export * from './lib/directives/set-dish-comment.directive';
 export * from './lib/components/dish-calc/dish-calc.component';
 export * from './lib/ng-cart.module';
-//# sourceMappingURL=public_api.d.ts.map

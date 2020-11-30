@@ -17,4 +17,3 @@ export declare class ModifiresDirective {
     static ɵfac: i0.ɵɵFactoryDef<ModifiresDirective, never>;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<ModifiresDirective, "[rstModifires]", never, { "modifires": "modifires"; }, {}, never>;
 }
-//# sourceMappingURL=modifires.directive.d.ts.map

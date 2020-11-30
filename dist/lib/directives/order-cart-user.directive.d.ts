@@ -16,4 +16,3 @@ export declare class OrderCartUserDirective {
     static ɵfac: i0.ɵɵFactoryDef<OrderCartUserDirective, never>;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<OrderCartUserDirective, "[rstOrderCart]", never, { "orderCart": "orderCart"; }, {}, never>;
 }
-//# sourceMappingURL=order-cart-user.directive.d.ts.map

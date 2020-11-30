@@ -17,4 +17,3 @@ export declare class AddDishToCartDirective {
     static ɵfac: i0.ɵɵFactoryDef<AddDishToCartDirective, never>;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AddDishToCartDirective, "[rstAddToCart]", never, { "modifires": "modifires"; "dish": "dish"; "amountDish": "amountDish"; "comment": "comment"; }, { "loading": "loading"; "success": "success"; "error": "error"; }, never>;
 }
-//# sourceMappingURL=add-dish-to-cart.directive.d.ts.map
