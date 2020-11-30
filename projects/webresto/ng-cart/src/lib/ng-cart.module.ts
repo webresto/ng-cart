@@ -4,7 +4,7 @@ import { AddDishToCartDirective } from './directives/add-dish-to-cart.directive'
 import { AmountCartDirective } from './directives/amount-cart.directive';
 import { DeleteFromCartDirective } from './directives/delete-from-cart.directive';
 import { OrderCartUserDirective } from './directives/order-cart-user.directive';
-//import { ModifiresDirective } from './directives/modifires.directive';
+import { ModifiresDirective } from './directives/modifires.directive';
 import { SetAmountDirective } from './directives/set-amount.directive';
 import { DishCalcDirective } from './directives/dish-calc.directive';
 import { CheckoutDirective } from "./directives/checkout.directive";
@@ -19,7 +19,7 @@ import { DishCalcComponent } from './components/dish-calc/dish-calc.component';
     AmountCartDirective,
     DeleteFromCartDirective,
     OrderCartUserDirective,
-    //ModifiresDirective,
+    ModifiresDirective,
     DishCalcDirective,
     SetDishCommentDirective,
     SetAmountDirective,
@@ -31,7 +31,7 @@ import { DishCalcComponent } from './components/dish-calc/dish-calc.component';
     AmountCartDirective,
     DeleteFromCartDirective,
     OrderCartUserDirective,
-    //ModifiresDirective,
+    ModifiresDirective,
     DishCalcDirective,
     SetDishCommentDirective,
     SetAmountDirective,
