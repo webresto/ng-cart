@@ -2,7 +2,7 @@ import { ɵɵdefineInjectable, ɵɵinject, Injectable, EventEmitter, Directive, 
 import { BehaviorSubject, from, throwError } from 'rxjs';
 import { switchMap, catchError, tap, filter, map, debounceTime } from 'rxjs/operators';
 import { NetService as NetService$1, EventerService as EventerService$1, EventMessage } from '@webresto/ng-core/dist';
-import { NetService, EventerService } from '@webresto/ng-core/dist/lib/services/index';
+import { NetService, EventerService } from '@webresto/ng-core';
 import { CommonModule } from '@angular/common';
 
 class NgRestoCartService {
