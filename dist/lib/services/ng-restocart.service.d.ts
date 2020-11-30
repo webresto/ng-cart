@@ -211,3 +211,4 @@ export declare interface RestrictionsOrder {
     timezone: string;
     workTime: WorkTime[];
 }
+//# sourceMappingURL=ng-restocart.service.d.ts.map

@@ -33,3 +33,4 @@ export declare class DishCalcDirective implements OnDestroy {
     checkMinAmountModifires(groupId: any, modifire: any): void;
     ngOnDestroy(): void;
 }
+//# sourceMappingURL=dish-calc.directive.d.ts.map

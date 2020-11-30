@@ -7,3 +7,4 @@ export declare class DeleteFromCartDirective {
     amountDish: any;
     onClick(): void;
 }
+//# sourceMappingURL=delete-from-cart.directive.d.ts.map

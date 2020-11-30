@@ -8,3 +8,4 @@ export declare class AmountCartDirective {
     amount: string;
     constructor(cartService: NgRestoCartService, renderer: Renderer2, el: ElementRef);
 }
+//# sourceMappingURL=amount-cart.directive.d.ts.map

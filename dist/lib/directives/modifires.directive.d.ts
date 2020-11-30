@@ -14,3 +14,4 @@ export declare class ModifiresDirective {
     renderOneModifire(element: any, modifireDiv: any, groupId: any): void;
     setModifires(): void;
 }
+//# sourceMappingURL=modifires.directive.d.ts.map

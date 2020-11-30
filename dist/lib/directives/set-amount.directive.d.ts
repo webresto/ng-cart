@@ -8,3 +8,4 @@ export declare class SetAmountDirective {
     constructor(cartService: NgRestoCartService);
     changeAmount(action: any): void;
 }
+//# sourceMappingURL=set-amount.directive.d.ts.map

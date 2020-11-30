@@ -38,3 +38,4 @@ export declare class DishCalcComponent implements OnInit, OnChanges, OnDestroy {
     setModifiers(): void;
     checkValid(): void;
 }
+//# sourceMappingURL=dish-calc.component.d.ts.map

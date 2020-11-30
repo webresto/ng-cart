@@ -35,3 +35,4 @@ export declare class CheckoutDirective {
     checkStreet(): void;
     preparePhone(phone: any): any;
 }
+//# sourceMappingURL=checkout.directive.d.ts.map

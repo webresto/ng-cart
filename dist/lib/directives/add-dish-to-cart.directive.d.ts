@@ -14,3 +14,4 @@ export declare class AddDishToCartDirective {
     onClick(): void;
     private addDishToCart;
 }
+//# sourceMappingURL=add-dish-to-cart.directive.d.ts.map

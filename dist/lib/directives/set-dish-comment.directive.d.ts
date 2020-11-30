@@ -10,3 +10,4 @@ export declare class SetDishCommentDirective {
     constructor(cartService: NgRestoCartService);
     setComment(): void;
 }
+//# sourceMappingURL=set-dish-comment.directive.d.ts.map
