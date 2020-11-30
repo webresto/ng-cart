@@ -1,5 +1,6 @@
 import { Observable, BehaviorSubject } from 'rxjs';
 import { NetService, EventerService, EventMessage } from '@webresto/ng-core/dist';
+import * as i0 from "@angular/core";
 export declare class NgRestoCartService {
     private net;
     private eventer;
@@ -30,6 +31,8 @@ export declare class NgRestoCartService {
     productInCart(product: DishListItem): Observable<boolean>;
     getPickupPoints(cartId: string): Observable<PickupPoint[]>;
     getPaymentMethods(cartId: string): Observable<PaymentMethod[]>;
+    static ɵfac: i0.ɵɵFactoryDef<NgRestoCartService, never>;
+    static ɵprov: i0.ɵɵInjectableDef<NgRestoCartService>;
 }
 export declare interface PickupPoint {
     id: string;

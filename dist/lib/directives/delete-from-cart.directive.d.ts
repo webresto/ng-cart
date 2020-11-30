@@ -1,4 +1,5 @@
 import { NgRestoCartService } from '../services/ng-restocart.service';
+import * as i0 from "@angular/core";
 export declare class DeleteFromCartDirective {
     private cartService;
     cart: any;
@@ -6,5 +7,7 @@ export declare class DeleteFromCartDirective {
     dish: any;
     amountDish: any;
     onClick(): void;
+    static ɵfac: i0.ɵɵFactoryDef<DeleteFromCartDirective, never>;
+    static ɵdir: i0.ɵɵDirectiveDefWithMeta<DeleteFromCartDirective, "[rstDeleteFromCart]", never, { "dish": "dish"; "amountDish": "amountDish"; }, {}, never>;
 }
 //# sourceMappingURL=delete-from-cart.directive.d.ts.map
