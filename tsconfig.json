@@ -19,6 +19,9 @@
       "@webresto/ng-cart": [
         "dist/webresto/ng-cart/webresto-ng-cart",
         "dist/webresto/ng-cart"
+      ],
+      "@webresto/ng-core":[
+        "@webresto/ng-core/dist"
       ]
     }
   }
