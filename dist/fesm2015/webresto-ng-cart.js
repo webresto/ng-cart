@@ -1,8 +1,8 @@
 import { ɵɵdefineInjectable, ɵɵinject, Injectable, EventEmitter, Directive, Input, Output, HostListener, Renderer2, ElementRef, Component, Inject, NgModule } from '@angular/core';
 import { BehaviorSubject, from, throwError } from 'rxjs';
 import { switchMap, catchError, tap, filter, map, debounceTime } from 'rxjs/operators';
-import { NetService as NetService$1, EventerService as EventerService$1, EventMessage } from '@webresto/ng-core';
-import { NetService, EventerService } from '@webresto/ng-core/index';
+import { NetService as NetService$1, EventerService as EventerService$1 } from '@webresto/ng-core/dist';
+import { NetService, EventerService, EventMessage } from '@webresto/ng-core';
 import { CommonModule } from '@angular/common';
 
 class NgRestoCartService {
@@ -1751,7 +1751,7 @@ DishCalcComponent.decorators = [
 ];
 DishCalcComponent.ctorParameters = () => [
     { type: NgRestoCartService },
-    { type: EventerService$1 },
+    { type: EventerService },
     { type: String, decorators: [{ type: Inject, args: ['ImageUrl',] }] }
 ];
 DishCalcComponent.propDecorators = {

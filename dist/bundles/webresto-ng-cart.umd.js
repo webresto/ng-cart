@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@webresto/ng-core'), require('@webresto/ng-core/index'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@webresto/ng-cart', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@webresto/ng-core', '@webresto/ng-core/index', '@angular/common'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.webresto = global.webresto || {}, global.webresto['ng-cart'] = {}), global.ng.core, global.rxjs, global.rxjs.operators, global.ngCore, global.i1, global.ng.common));
-}(this, (function (exports, i0, rxjs, operators, ngCore, i1, common) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@webresto/ng-core/dist'), require('@webresto/ng-core'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@webresto/ng-cart', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@webresto/ng-core/dist', '@webresto/ng-core', '@angular/common'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.webresto = global.webresto || {}, global.webresto['ng-cart'] = {}), global.ng.core, global.rxjs, global.rxjs.operators, global.dist, global.i1, global.ng.common));
+}(this, (function (exports, i0, rxjs, operators, dist, i1, common) { 'use strict';
 
     var NgRestoCartService = /** @class */ (function () {
         function NgRestoCartService(net, eventer) {
@@ -269,8 +269,8 @@
                 },] }
     ];
     NgRestoCartService.ctorParameters = function () { return [
-        { type: ngCore.NetService },
-        { type: ngCore.EventerService }
+        { type: dist.NetService },
+        { type: dist.EventerService }
     ]; };
 
     var AddDishToCartDirective = /** @class */ (function () {
@@ -1989,7 +1989,7 @@
                 }
                 else {
                     console.warn("Limit: max " + groupMaxAmount + ". Current " + groupAmount);
-                    this.eventer.emitMessageEvent(new ngCore.EventMessage('warning', 'Ограничение', "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043E\u043F\u0446\u0438\u0439 \u0434\u043B\u044F \u0433\u0440\u0443\u043F\u043F\u044B\n            \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u0432 \"" + this.modifiers.indexById[groupId].group.name + "\" - \u043D\u0435 \u0431\u043E\u043B\u0435\u0435 " + groupMaxAmount));
+                    this.eventer.emitMessageEvent(new i1.EventMessage('warning', 'Ограничение', "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043E\u043F\u0446\u0438\u0439 \u0434\u043B\u044F \u0433\u0440\u0443\u043F\u043F\u044B\n            \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u0432 \"" + this.modifiers.indexById[groupId].group.name + "\" - \u043D\u0435 \u0431\u043E\u043B\u0435\u0435 " + groupMaxAmount));
                     return;
                 }
             }
@@ -2035,12 +2035,12 @@
                 var groupAmount = this.modifiers.indexById[groupId].totalAmount - previousAmount + amount;
                 if (groupAmount < groupMinAmount) {
                     console.warn("Limit: min " + groupMinAmount + ". Current " + groupAmount);
-                    this.eventer.emitMessageEvent(new ngCore.EventMessage('warning', 'Ограничение', "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043E\u043F\u0446\u0438\u0439 \u0434\u043B\u044F \u0433\u0440\u0443\u043F\u043F\u044B\n            \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u0432 \"" + this.modifiers.indexById[groupId].group.name + "\" - \u043D\u0435 \u043C\u0435\u043D\u0435\u0435 " + groupMinAmount));
+                    this.eventer.emitMessageEvent(new i1.EventMessage('warning', 'Ограничение', "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043E\u043F\u0446\u0438\u0439 \u0434\u043B\u044F \u0433\u0440\u0443\u043F\u043F\u044B\n            \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u0432 \"" + this.modifiers.indexById[groupId].group.name + "\" - \u043D\u0435 \u043C\u0435\u043D\u0435\u0435 " + groupMinAmount));
                     return;
                 }
                 if (groupAmount > groupMaxAmount) {
                     console.warn("Limit: max " + groupMaxAmount + ". Current " + groupAmount);
-                    this.eventer.emitMessageEvent(new ngCore.EventMessage('warning', 'Ограничение', "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043E\u043F\u0446\u0438\u0439 \u0434\u043B\u044F \u0433\u0440\u0443\u043F\u043F\u044B\n            \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u0432 \"" + this.modifiers.indexById[groupId].group.name + "\" - \u043D\u0435 \u0431\u043E\u043B\u0435\u0435 " + groupMaxAmount));
+                    this.eventer.emitMessageEvent(new i1.EventMessage('warning', 'Ограничение', "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043E\u043F\u0446\u0438\u0439 \u0434\u043B\u044F \u0433\u0440\u0443\u043F\u043F\u044B\n            \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u0432 \"" + this.modifiers.indexById[groupId].group.name + "\" - \u043D\u0435 \u0431\u043E\u043B\u0435\u0435 " + groupMaxAmount));
                     return;
                 }
             }
@@ -2115,7 +2115,7 @@
     ];
     DishCalcComponent.ctorParameters = function () { return [
         { type: NgRestoCartService },
-        { type: ngCore.EventerService },
+        { type: i1.EventerService },
         { type: String, decorators: [{ type: i0.Inject, args: ['ImageUrl',] }] }
     ]; };
     DishCalcComponent.propDecorators = {
