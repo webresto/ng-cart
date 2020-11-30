@@ -3,7 +3,7 @@ import { BehaviorSubject, throwError, from } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import { NetService, EventerService } from '@webresto/ng-core/dist';
 import * as i0 from "@angular/core";
-import * as i1 from "@webresto/ng-core";
+import * as i1 from "@webresto/ng-core/dist/public_api";
 export class NgRestoCartService {
     constructor(net, eventer) {
         this.net = net;

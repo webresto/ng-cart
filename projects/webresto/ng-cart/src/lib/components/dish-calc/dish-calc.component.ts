@@ -4,7 +4,7 @@ import { NgRestoCartService } from "../../services/ng-restocart.service";
 import {
   EventerService,
   EventMessage
-} from '@webresto/ng-core';
+} from '@webresto/ng-core/dist';
 
 @Component({
   selector: 'rst-dish-calc',
