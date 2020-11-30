@@ -6,7 +6,8 @@
     "@angular/core": "^11.0.1"
   },
   "dependencies": {
-    "tslib": "^2.0.3"
+    "tslib": "^2.0.3",
+    "@webresto/ng-core": "git+https://github.com/webresto/ng-core.git#v10-axrl"
   },
   "main": "bundles/webresto-ng-cart.umd.js",
   "module": "fesm2015/webresto-ng-cart.js",

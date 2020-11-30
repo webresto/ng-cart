@@ -1,6 +1,6 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@webresto/ng-core/dist'), require('@webresto/ng-core/dist/public_api'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@webresto/ng-cart', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@webresto/ng-core/dist', '@webresto/ng-core/dist/public_api', '@angular/common'], factory) :
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@webresto/ng-core/dist'), require('@webresto/ng-core'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@webresto/ng-cart', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@webresto/ng-core/dist', '@webresto/ng-core', '@angular/common'], factory) :
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.webresto = global.webresto || {}, global.webresto['ng-cart'] = {}), global.ng.core, global.rxjs, global.rxjs.operators, global.dist, global.i1, global.ng.common));
 }(this, (function (exports, i0, rxjs, operators, dist, i1, common) { 'use strict';
 
