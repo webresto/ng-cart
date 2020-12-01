@@ -7,11 +7,11 @@
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^11.0.2",
-    "@angular/core": "^11.0.2",
-    "@webresto/ng-core": "^0.0.3"
+    "@angular/core": "^11.0.2"
   },
   "dependencies": {
-    "tslib": "^2.0.3"
+    "tslib": "^2.0.3",
+    "@webresto/ng-core": "^0.0.3"
   },
   "bugs": {
     "url": "https://github.com/webresto/ng-cart/issues"
