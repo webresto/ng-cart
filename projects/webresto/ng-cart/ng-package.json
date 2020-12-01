@@ -5,7 +5,7 @@
     "entryFile": "src/public_api.ts"
   },
   "whitelistedNonPeerDependencies": [
-    "tslib","@webresto/ng-core"
+    "tslib"
   ]
 
 }
