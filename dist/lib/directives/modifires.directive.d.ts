@@ -1,6 +1,5 @@
 import { Renderer2, ElementRef } from '@angular/core';
 import { NgRestoCartService } from '../services/ng-restocart.service';
-import * as i0 from "@angular/core";
 export declare class ModifiresDirective {
     private renderer;
     private el;
@@ -14,7 +13,4 @@ export declare class ModifiresDirective {
     modifireDiv(element: any, groupId: any): any;
     renderOneModifire(element: any, modifireDiv: any, groupId: any): void;
     setModifires(): void;
-    static ɵfac: i0.ɵɵFactoryDef<ModifiresDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<ModifiresDirective, "[rstModifires]", never, { "modifires": "modifires"; }, {}, never>;
 }
-//# sourceMappingURL=modifires.directive.d.ts.map

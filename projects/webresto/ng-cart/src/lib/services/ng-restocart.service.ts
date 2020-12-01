@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, throwError, from } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
-import {
-  NetService,
-  EventerService,
-  EventMessage
-} from '@webresto/ng-core/dist';
-
+import { NetService, EventerService } from '@webresto/ng-core';
+import { EventMessage } from '@webresto/ng-core';
 
 @Injectable({
   providedIn: 'root'
@@ -128,7 +124,7 @@ export class NgRestoCartService {
         this.cart.next(res.cart);
         this.cartID = res.cart.cartId;
 
-      }, () => {}
+      }, () => { }
     ))
 
   }
@@ -235,7 +231,7 @@ export class NgRestoCartService {
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
           },
-          () => {}
+          () => { }
         )
       );
   }
@@ -296,17 +292,17 @@ export class NgRestoCartService {
     );
   }
 
-  getPickupPoints(cartId:string) {
-    return this.net.get<PickupPoint[]>('/pickupaddreses',true, {
-      params:{
+  getPickupPoints(cartId: string) {
+    return this.net.get<PickupPoint[]>('/pickupaddreses', true, {
+      params: {
         cartId
       }
     });
   }
 
-  getPaymentMethods(cartId:string) {
-    return this.net.get<PaymentMethod[]>('/paymentmethods',true, {
-      params:{
+  getPaymentMethods(cartId: string) {
+    return this.net.get<PaymentMethod[]>('/paymentmethods', true, {
+      params: {
         cartId
       }
     });
@@ -501,7 +497,7 @@ export declare interface WorkTime extends WorkTimeBase {
 
 export declare interface RestrictionsOrder {
   minDeliveryTime: string
-  deliveryToTimeEnabled:boolean
+  deliveryToTimeEnabled: boolean
   periodPossibleForOrder: number
   timezone: string
   workTime: WorkTime[]

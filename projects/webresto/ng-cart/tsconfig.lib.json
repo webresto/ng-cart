@@ -5,18 +5,13 @@
     "outDir": "../../../out-tsc/lib",
     "target": "es2015",
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": false,
     "inlineSources": true,
     "types": [],
     "lib": [
       "dom",
       "es2018"
     ],
-    "paths": {
-      "@webresto/ng-core":[
-        "@webresto/ng-core/dist"
-      ]
-    },
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { AddDishToCartDirective } from './directives/add-dish-to-cart.directive';
 import { AmountCartDirective } from './directives/amount-cart.directive';
 import { DeleteFromCartDirective } from './directives/delete-from-cart.directive';
@@ -10,9 +11,10 @@ import { DishCalcDirective } from './directives/dish-calc.directive';
 import { CheckoutDirective } from "./directives/checkout.directive";
 import { SetDishCommentDirective } from './directives/set-dish-comment.directive';
 import { DishCalcComponent } from './components/dish-calc/dish-calc.component';
+import { NgCoreModule } from '@webresto/ng-core';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule,NgCoreModule],
   providers: [],
   declarations: [
     AddDishToCartDirective,

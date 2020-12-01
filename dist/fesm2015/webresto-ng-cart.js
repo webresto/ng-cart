@@ -1,8 +1,8 @@
-import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, EventEmitter, ɵɵdirectiveInject, ɵɵdefineDirective, ɵɵlistener, Directive, Input, Output, HostListener, Renderer2, ElementRef, ɵɵNgOnChangesFeature, ɵɵelementContainer, ɵɵelementContainerStart, ɵɵelementStart, ɵɵtext, ɵɵelementEnd, ɵɵelementContainerEnd, ɵɵnextContext, ɵɵadvance, ɵɵproperty, ɵɵpureFunction1, ɵɵtextInterpolate, ɵɵgetCurrentView, ɵɵrestoreView, ɵɵtextInterpolate1, ɵɵtemplate, ɵɵreference, ɵɵpureFunction5, ɵɵpureFunction6, ɵɵpureFunction0, ɵɵtemplateRefExtractor, ɵɵelement, ɵɵstyleProp, ɵɵpureFunction3, ɵɵdefineComponent, Component, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
+import { ɵɵdefineInjectable, ɵɵinject, Injectable, EventEmitter, Directive, Input, Output, HostListener, Renderer2, ElementRef, Component, Inject, NgModule } from '@angular/core';
 import { BehaviorSubject, from, throwError } from 'rxjs';
 import { switchMap, catchError, tap, filter, map, debounceTime } from 'rxjs/operators';
-import { NetService, EventerService, EventMessage } from '@webresto/ng-core/dist';
-import { NgIf, NgClass, NgTemplateOutlet, NgForOf, CommonModule } from '@angular/common';
+import { NetService, EventerService, EventMessage, NgCoreModule } from '@webresto/ng-core';
+import { CommonModule } from '@angular/common';
 
 class NgRestoCartService {
     constructor(net, eventer) {
@@ -251,14 +251,16 @@ class NgRestoCartService {
         });
     }
 }
-NgRestoCartService.ɵfac = function NgRestoCartService_Factory(t) { return new (t || NgRestoCartService)(ɵɵinject(NetService), ɵɵinject(EventerService)); };
-NgRestoCartService.ɵprov = ɵɵdefineInjectable({ token: NgRestoCartService, factory: NgRestoCartService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(NgRestoCartService, [{
-        type: Injectable,
-        args: [{
+NgRestoCartService.ɵprov = ɵɵdefineInjectable({ factory: function NgRestoCartService_Factory() { return new NgRestoCartService(ɵɵinject(NetService), ɵɵinject(EventerService)); }, token: NgRestoCartService, providedIn: "root" });
+NgRestoCartService.decorators = [
+    { type: Injectable, args: [{
                 providedIn: 'root'
-            }]
-    }], function () { return [{ type: NetService }, { type: EventerService }]; }, null); })();
+            },] }
+];
+NgRestoCartService.ctorParameters = () => [
+    { type: NetService },
+    { type: EventerService }
+];
 
 class AddDishToCartDirective {
     constructor(cartService) {
@@ -292,33 +294,24 @@ class AddDishToCartDirective {
             .subscribe(() => this.success.emit(true), e => this.error.emit(e), () => this.loading.emit(false));
     }
 }
-AddDishToCartDirective.ɵfac = function AddDishToCartDirective_Factory(t) { return new (t || AddDishToCartDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
-AddDishToCartDirective.ɵdir = ɵɵdefineDirective({ type: AddDishToCartDirective, selectors: [["", "rstAddToCart", ""]], hostBindings: function AddDishToCartDirective_HostBindings(rf, ctx) { if (rf & 1) {
-        ɵɵlistener("click", function AddDishToCartDirective_click_HostBindingHandler() { return ctx.onClick(); });
-    } }, inputs: { modifires: "modifires", dish: "dish", amountDish: "amountDish", comment: "comment" }, outputs: { loading: "loading", success: "success", error: "error" } });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(AddDishToCartDirective, [{
-        type: Directive,
-        args: [{
+AddDishToCartDirective.decorators = [
+    { type: Directive, args: [{
                 selector: '[rstAddToCart]'
-            }]
-    }], function () { return [{ type: NgRestoCartService }]; }, { modifires: [{
-            type: Input
-        }], dish: [{
-            type: Input
-        }], amountDish: [{
-            type: Input
-        }], comment: [{
-            type: Input
-        }], loading: [{
-            type: Output
-        }], success: [{
-            type: Output
-        }], error: [{
-            type: Output
-        }], onClick: [{
-            type: HostListener,
-            args: ['click']
-        }] }); })();
+            },] }
+];
+AddDishToCartDirective.ctorParameters = () => [
+    { type: NgRestoCartService }
+];
+AddDishToCartDirective.propDecorators = {
+    modifires: [{ type: Input }],
+    dish: [{ type: Input }],
+    amountDish: [{ type: Input }],
+    comment: [{ type: Input }],
+    loading: [{ type: Output }],
+    success: [{ type: Output }],
+    error: [{ type: Output }],
+    onClick: [{ type: HostListener, args: ['click',] }]
+};
 
 class AmountCartDirective {
     constructor(cartService, renderer, el) {
@@ -336,14 +329,16 @@ class AmountCartDirective {
         });
     }
 }
-AmountCartDirective.ɵfac = function AmountCartDirective_Factory(t) { return new (t || AmountCartDirective)(ɵɵdirectiveInject(NgRestoCartService), ɵɵdirectiveInject(Renderer2), ɵɵdirectiveInject(ElementRef)); };
-AmountCartDirective.ɵdir = ɵɵdefineDirective({ type: AmountCartDirective, selectors: [["", "rstAmountCart", ""]] });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(AmountCartDirective, [{
-        type: Directive,
-        args: [{
+AmountCartDirective.decorators = [
+    { type: Directive, args: [{
                 selector: '[rstAmountCart]'
-            }]
-    }], function () { return [{ type: NgRestoCartService }, { type: Renderer2 }, { type: ElementRef }]; }, null); })();
+            },] }
+];
+AmountCartDirective.ctorParameters = () => [
+    { type: NgRestoCartService },
+    { type: Renderer2 },
+    { type: ElementRef }
+];
 
 class CheckoutDirective {
     constructor(cartService) {
@@ -498,69 +493,42 @@ class CheckoutDirective {
         return phone.replace('+8', '+7');
     }
 }
-CheckoutDirective.ɵfac = function CheckoutDirective_Factory(t) { return new (t || CheckoutDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
-CheckoutDirective.ɵdir = ɵɵdefineDirective({ type: CheckoutDirective, selectors: [["", "rstCheckout", ""]], hostBindings: function CheckoutDirective_HostBindings(rf, ctx) { if (rf & 1) {
-        ɵɵlistener("click", function CheckoutDirective_click_HostBindingHandler() { return ctx.onClick(); });
-    } }, inputs: { cartTotal: "cartTotal", bonuses: "bonuses", name: "name", email: "email", phone: "phone", delivery: "delivery", selfService: "selfService", locationId: "locationId", street: "street", streetId: "streetId", home: "home", housing: "housing", apartment: "apartment", entrance: "entrance", doorphone: "doorphone", floor: "floor", paymentMethod: "paymentMethod", paymentMethodId: "paymentMethodId", personsCount: "personsCount", comment: "comment", date: "date", notifyMethodId: "notifyMethodId" }, outputs: { success: "success", error: "error", isChecking: "isChecking" }, features: [ɵɵNgOnChangesFeature] });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(CheckoutDirective, [{
-        type: Directive,
-        args: [{
+CheckoutDirective.decorators = [
+    { type: Directive, args: [{
                 selector: '[rstCheckout]'
-            }]
-    }], function () { return [{ type: NgRestoCartService }]; }, { cartTotal: [{
-            type: Input
-        }], bonuses: [{
-            type: Input
-        }], name: [{
-            type: Input
-        }], email: [{
-            type: Input
-        }], phone: [{
-            type: Input
-        }], delivery: [{
-            type: Input
-        }], selfService: [{
-            type: Input
-        }], locationId: [{
-            type: Input
-        }], street: [{
-            type: Input
-        }], streetId: [{
-            type: Input
-        }], home: [{
-            type: Input
-        }], housing: [{
-            type: Input
-        }], apartment: [{
-            type: Input
-        }], entrance: [{
-            type: Input
-        }], doorphone: [{
-            type: Input
-        }], floor: [{
-            type: Input
-        }], paymentMethod: [{
-            type: Input
-        }], paymentMethodId: [{
-            type: Input
-        }], personsCount: [{
-            type: Input
-        }], comment: [{
-            type: Input
-        }], date: [{
-            type: Input
-        }], notifyMethodId: [{
-            type: Input
-        }], success: [{
-            type: Output
-        }], error: [{
-            type: Output
-        }], isChecking: [{
-            type: Output
-        }], onClick: [{
-            type: HostListener,
-            args: ['click']
-        }] }); })();
+            },] }
+];
+CheckoutDirective.ctorParameters = () => [
+    { type: NgRestoCartService }
+];
+CheckoutDirective.propDecorators = {
+    cartTotal: [{ type: Input }],
+    bonuses: [{ type: Input }],
+    name: [{ type: Input }],
+    email: [{ type: Input }],
+    phone: [{ type: Input }],
+    delivery: [{ type: Input }],
+    selfService: [{ type: Input }],
+    locationId: [{ type: Input }],
+    street: [{ type: Input }],
+    streetId: [{ type: Input }],
+    home: [{ type: Input }],
+    housing: [{ type: Input }],
+    apartment: [{ type: Input }],
+    entrance: [{ type: Input }],
+    doorphone: [{ type: Input }],
+    floor: [{ type: Input }],
+    paymentMethod: [{ type: Input }],
+    paymentMethodId: [{ type: Input }],
+    personsCount: [{ type: Input }],
+    comment: [{ type: Input }],
+    date: [{ type: Input }],
+    notifyMethodId: [{ type: Input }],
+    success: [{ type: Output }],
+    error: [{ type: Output }],
+    isChecking: [{ type: Output }],
+    onClick: [{ type: HostListener, args: ['click',] }]
+};
 
 class DeleteFromCartDirective {
     constructor(cartService) {
@@ -573,23 +541,19 @@ class DeleteFromCartDirective {
         this.cartService.removeDishFromCart(this.dish.id, this.amountDish);
     }
 }
-DeleteFromCartDirective.ɵfac = function DeleteFromCartDirective_Factory(t) { return new (t || DeleteFromCartDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
-DeleteFromCartDirective.ɵdir = ɵɵdefineDirective({ type: DeleteFromCartDirective, selectors: [["", "rstDeleteFromCart", ""]], hostBindings: function DeleteFromCartDirective_HostBindings(rf, ctx) { if (rf & 1) {
-        ɵɵlistener("click", function DeleteFromCartDirective_click_HostBindingHandler() { return ctx.onClick(); });
-    } }, inputs: { dish: "dish", amountDish: "amountDish" } });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(DeleteFromCartDirective, [{
-        type: Directive,
-        args: [{
+DeleteFromCartDirective.decorators = [
+    { type: Directive, args: [{
                 selector: '[rstDeleteFromCart]'
-            }]
-    }], function () { return [{ type: NgRestoCartService }]; }, { dish: [{
-            type: Input
-        }], amountDish: [{
-            type: Input
-        }], onClick: [{
-            type: HostListener,
-            args: ['click']
-        }] }); })();
+            },] }
+];
+DeleteFromCartDirective.ctorParameters = () => [
+    { type: NgRestoCartService }
+];
+DeleteFromCartDirective.propDecorators = {
+    dish: [{ type: Input }],
+    amountDish: [{ type: Input }],
+    onClick: [{ type: HostListener, args: ['click',] }]
+};
 
 class DishCalcDirective {
     constructor(renderer, el, cartService) {
@@ -1107,24 +1071,23 @@ class DishCalcDirective {
         this.cartService.setModifires([], []);
     }
 }
-DishCalcDirective.ɵfac = function DishCalcDirective_Factory(t) { return new (t || DishCalcDirective)(ɵɵdirectiveInject(Renderer2), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(NgRestoCartService)); };
-DishCalcDirective.ɵdir = ɵɵdefineDirective({ type: DishCalcDirective, selectors: [["", "rstDishCalc", ""]], inputs: { dish: "dish", amount: "amount", selectedModifiers: "selectedModifiers" }, outputs: { validate: "validate", amountDishToAdd: "amountDishToAdd" } });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(DishCalcDirective, [{
-        type: Directive,
-        args: [{
+DishCalcDirective.decorators = [
+    { type: Directive, args: [{
                 selector: '[rstDishCalc]'
-            }]
-    }], function () { return [{ type: Renderer2 }, { type: ElementRef }, { type: NgRestoCartService }]; }, { dish: [{
-            type: Input
-        }], amount: [{
-            type: Input
-        }], selectedModifiers: [{
-            type: Input
-        }], validate: [{
-            type: Output
-        }], amountDishToAdd: [{
-            type: Output
-        }] }); })();
+            },] }
+];
+DishCalcDirective.ctorParameters = () => [
+    { type: Renderer2 },
+    { type: ElementRef },
+    { type: NgRestoCartService }
+];
+DishCalcDirective.propDecorators = {
+    dish: [{ type: Input }],
+    amount: [{ type: Input }],
+    selectedModifiers: [{ type: Input }],
+    validate: [{ type: Output }],
+    amountDishToAdd: [{ type: Output }]
+};
 
 class ModifiresDirective {
     constructor(renderer, el, cartService) {
@@ -1246,16 +1209,19 @@ class ModifiresDirective {
         this.cartService.setModifires(modifires);
     }
 }
-ModifiresDirective.ɵfac = function ModifiresDirective_Factory(t) { return new (t || ModifiresDirective)(ɵɵdirectiveInject(Renderer2), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(NgRestoCartService)); };
-ModifiresDirective.ɵdir = ɵɵdefineDirective({ type: ModifiresDirective, selectors: [["", "rstModifires", ""]], inputs: { modifires: "modifires" } });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(ModifiresDirective, [{
-        type: Directive,
-        args: [{
+ModifiresDirective.decorators = [
+    { type: Directive, args: [{
                 selector: '[rstModifires]'
-            }]
-    }], function () { return [{ type: Renderer2 }, { type: ElementRef }, { type: NgRestoCartService }]; }, { modifires: [{
-            type: Input
-        }] }); })();
+            },] }
+];
+ModifiresDirective.ctorParameters = () => [
+    { type: Renderer2 },
+    { type: ElementRef },
+    { type: NgRestoCartService }
+];
+ModifiresDirective.propDecorators = {
+    modifires: [{ type: Input }]
+};
 
 class OrderCartUserDirective {
     constructor(cartService) {
@@ -1414,21 +1380,18 @@ class OrderCartUserDirective {
         }
     }
 }
-OrderCartUserDirective.ɵfac = function OrderCartUserDirective_Factory(t) { return new (t || OrderCartUserDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
-OrderCartUserDirective.ɵdir = ɵɵdefineDirective({ type: OrderCartUserDirective, selectors: [["", "rstOrderCart", ""]], hostBindings: function OrderCartUserDirective_HostBindings(rf, ctx) { if (rf & 1) {
-        ɵɵlistener("click", function OrderCartUserDirective_click_HostBindingHandler() { return ctx.onClick(); });
-    } }, inputs: { orderCart: "orderCart" } });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(OrderCartUserDirective, [{
-        type: Directive,
-        args: [{
+OrderCartUserDirective.decorators = [
+    { type: Directive, args: [{
                 selector: '[rstOrderCart]'
-            }]
-    }], function () { return [{ type: NgRestoCartService }]; }, { orderCart: [{
-            type: Input
-        }], onClick: [{
-            type: HostListener,
-            args: ['click']
-        }] }); })();
+            },] }
+];
+OrderCartUserDirective.ctorParameters = () => [
+    { type: NgRestoCartService }
+];
+OrderCartUserDirective.propDecorators = {
+    orderCart: [{ type: Input }],
+    onClick: [{ type: HostListener, args: ['click',] }]
+};
 
 class SetAmountDirective {
     constructor(cartService) {
@@ -1454,23 +1417,19 @@ class SetAmountDirective {
         }
     }
 }
-SetAmountDirective.ɵfac = function SetAmountDirective_Factory(t) { return new (t || SetAmountDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
-SetAmountDirective.ɵdir = ɵɵdefineDirective({ type: SetAmountDirective, selectors: [["", "rstSetDishAmount", ""]], hostBindings: function SetAmountDirective_HostBindings(rf, ctx) { if (rf & 1) {
-        ɵɵlistener("click", function SetAmountDirective_click_HostBindingHandler() { return ctx.onClick(); });
-    } }, inputs: { action: "action", dish: "dish" } });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(SetAmountDirective, [{
-        type: Directive,
-        args: [{
+SetAmountDirective.decorators = [
+    { type: Directive, args: [{
                 selector: '[rstSetDishAmount]'
-            }]
-    }], function () { return [{ type: NgRestoCartService }]; }, { action: [{
-            type: Input
-        }], dish: [{
-            type: Input
-        }], onClick: [{
-            type: HostListener,
-            args: ['click']
-        }] }); })();
+            },] }
+];
+SetAmountDirective.ctorParameters = () => [
+    { type: NgRestoCartService }
+];
+SetAmountDirective.propDecorators = {
+    action: [{ type: Input }],
+    dish: [{ type: Input }],
+    onClick: [{ type: HostListener, args: ['click',] }]
+};
 
 class SetDishCommentDirective {
     constructor(cartService) {
@@ -1485,636 +1444,22 @@ class SetDishCommentDirective {
         this.cartService.setDishComment(this.dish.id, this.comment).subscribe(res => this.success.emit(true), err => this.error.emit(err));
     }
 }
-SetDishCommentDirective.ɵfac = function SetDishCommentDirective_Factory(t) { return new (t || SetDishCommentDirective)(ɵɵdirectiveInject(NgRestoCartService)); };
-SetDishCommentDirective.ɵdir = ɵɵdefineDirective({ type: SetDishCommentDirective, selectors: [["", "rstSetDishComment", ""]], hostBindings: function SetDishCommentDirective_HostBindings(rf, ctx) { if (rf & 1) {
-        ɵɵlistener("click", function SetDishCommentDirective_click_HostBindingHandler() { return ctx.onClick(); });
-    } }, inputs: { comment: "comment", dish: "dish" }, outputs: { success: "success", error: "error" } });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(SetDishCommentDirective, [{
-        type: Directive,
-        args: [{
+SetDishCommentDirective.decorators = [
+    { type: Directive, args: [{
                 selector: '[rstSetDishComment]'
-            }]
-    }], function () { return [{ type: NgRestoCartService }]; }, { comment: [{
-            type: Input
-        }], dish: [{
-            type: Input
-        }], success: [{
-            type: Output
-        }], error: [{
-            type: Output
-        }], onClick: [{
-            type: HostListener,
-            args: ['click']
-        }] }); })();
+            },] }
+];
+SetDishCommentDirective.ctorParameters = () => [
+    { type: NgRestoCartService }
+];
+SetDishCommentDirective.propDecorators = {
+    comment: [{ type: Input }],
+    dish: [{ type: Input }],
+    success: [{ type: Output }],
+    error: [{ type: Output }],
+    onClick: [{ type: HostListener, args: ['click',] }]
+};
 
-function DishCalcComponent_div_0_ng_container_3_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainer(0);
-} }
-const _c0 = function (a0) { return { "zero-price": a0 }; };
-function DishCalcComponent_div_0_ng_container_10_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵelementStart(1, "div", 20);
-    ɵɵelementStart(2, "span");
-    ɵɵtext(3);
-    ɵɵelementEnd();
-    ɵɵtext(4, " \u20BD ");
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const ctx_r10 = ɵɵnextContext(2);
-    ɵɵadvance(1);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(2, _c0, !ctx_r10.dish.price));
-    ɵɵadvance(2);
-    ɵɵtextInterpolate(ctx_r10.dish.price);
-} }
-const _c1 = function (a0) { return { selected: a0 }; };
-function DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_2_Template(rf, ctx) { if (rf & 1) {
-    const _r21 = ɵɵgetCurrentView();
-    ɵɵelementContainerStart(0);
-    ɵɵelementStart(1, "div", 24);
-    ɵɵlistener("click", function DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_2_Template_div_click_1_listener() { ɵɵrestoreView(_r21); const childModifier_r19 = ctx.$implicit; const ctx_r20 = ɵɵnextContext(4); return ctx_r20.changeModifierAmount(childModifier_r19, 1, "checkbox"); });
-    ɵɵtext(2);
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const childModifier_r19 = ctx.$implicit;
-    const modifier_r16 = ɵɵnextContext().ngIf;
-    const ctx_r17 = ɵɵnextContext(3);
-    ɵɵadvance(1);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(2, _c1, !!ctx_r17.modifiersValueTree[modifier_r16.modifierId][childModifier_r19.modifierId]));
-    ɵɵadvance(1);
-    ɵɵtextInterpolate1(" ", childModifier_r19.dish == null ? null : childModifier_r19.dish.name, " ");
-} }
-function DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_3_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵelementStart(1, "div", 20);
-    ɵɵelementStart(2, "span");
-    ɵɵtext(3);
-    ɵɵelementEnd();
-    ɵɵtext(4, " \u20BD ");
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const childModifier_r23 = ɵɵnextContext().$implicit;
-    ɵɵadvance(1);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(2, _c0, !(childModifier_r23.dish == null ? null : childModifier_r23.dish.price)));
-    ɵɵadvance(2);
-    ɵɵtextInterpolate(childModifier_r23.dish == null ? null : childModifier_r23.dish.price);
-} }
-function DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_3_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_3_ng_container_1_Template, 5, 4, "ng-container", 21);
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const childModifier_r23 = ctx.$implicit;
-    const modifier_r16 = ɵɵnextContext().ngIf;
-    const ctx_r18 = ɵɵnextContext(3);
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", !!ctx_r18.modifiersValueTree[modifier_r16.modifierId][childModifier_r23.modifierId]);
-} }
-function DishCalcComponent_div_0_ng_template_11_ng_container_0_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵelementStart(1, "div", 22);
-    ɵɵtemplate(2, DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_2_Template, 3, 4, "ng-container", 23);
-    ɵɵelementEnd();
-    ɵɵtemplate(3, DishCalcComponent_div_0_ng_template_11_ng_container_0_ng_container_3_Template, 2, 1, "ng-container", 23);
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const modifier_r16 = ctx.ngIf;
-    ɵɵadvance(2);
-    ɵɵproperty("ngForOf", modifier_r16.childModifiers);
-    ɵɵadvance(1);
-    ɵɵproperty("ngForOf", modifier_r16.childModifiers);
-} }
-function DishCalcComponent_div_0_ng_template_11_Template(rf, ctx) { if (rf & 1) {
-    ɵɵtemplate(0, DishCalcComponent_div_0_ng_template_11_ng_container_0_Template, 4, 2, "ng-container", 21);
-} if (rf & 2) {
-    const ctx_r12 = ɵɵnextContext(2);
-    ɵɵproperty("ngIf", ctx_r12.modifiers.custom.fixed);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_div_1_div_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "div", 32);
-    ɵɵtext(1);
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const group_r33 = ɵɵnextContext().ngIf;
-    ɵɵadvance(1);
-    ɵɵtextInterpolate(group_r33.name);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_div_1_div_2_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "div", 33);
-    ɵɵtext(1);
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const group_r33 = ɵɵnextContext().ngIf;
-    ɵɵadvance(1);
-    ɵɵtextInterpolate(group_r33.description);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_div_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "div", 29);
-    ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_div_1_div_1_Template, 2, 1, "div", 30);
-    ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_div_1_div_2_Template, 2, 1, "div", 31);
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const group_r33 = ctx.ngIf;
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", group_r33.name);
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", group_r33.description);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_ng_container_3_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainer(0);
-} }
-const _c2 = function (a0) { return { "without-images": a0 }; };
-const _c3 = function (a0, a2, a3, a4, a5) { return { modifier: a0, groupId: "single", amount: a2, groupAmount: a3, groupMinAmount: a4, groupMaxAmount: a5 }; };
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_div_1_Template, 3, 2, "div", 27);
-    ɵɵelementStart(2, "div", 28);
-    ɵɵtemplate(3, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_ng_container_3_Template, 1, 0, "ng-container", 8);
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const modifier_r28 = ɵɵnextContext().$implicit;
-    const ctx_r29 = ɵɵnextContext(3);
-    const _r3 = ɵɵreference(4);
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", modifier_r28.group);
-    ɵɵadvance(1);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(4, _c2, !modifier_r28.childImagesIsset));
-    ɵɵadvance(1);
-    ɵɵproperty("ngTemplateOutlet", _r3)("ngTemplateOutletContext", ɵɵpureFunction5(6, _c3, modifier_r28, ctx_r29.modifiersValueTree["single"][modifier_r28.modifierId], ctx_r29.modifiersValueTree["single"][modifier_r28.modifierId], modifier_r28.minAmount || 0, modifier_r28.maxAmount || 100));
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainer(0);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_div_0_div_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "div", 32);
-    ɵɵtext(1);
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const group_r46 = ɵɵnextContext().ngIf;
-    ɵɵadvance(1);
-    ɵɵtextInterpolate(group_r46.name);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_div_0_div_2_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "div", 33);
-    ɵɵtext(1);
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const group_r46 = ɵɵnextContext().ngIf;
-    ɵɵadvance(1);
-    ɵɵtextInterpolate(group_r46.description);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_div_0_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "div", 29);
-    ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_div_0_div_1_Template, 2, 1, "div", 30);
-    ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_div_0_div_2_Template, 2, 1, "div", 31);
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const group_r46 = ctx.ngIf;
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", group_r46.name);
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", group_r46.description);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_ng_container_2_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainer(0);
-} }
-const _c4 = function (a0, a1, a2, a3, a4, a5) { return { modifier: a0, groupId: a1, amount: a2, groupAmount: a3, groupMinAmount: a4, groupMaxAmount: a5 }; };
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_ng_container_2_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_ng_container_2_ng_container_1_Template, 1, 0, "ng-container", 8);
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const childModifier_r51 = ctx.$implicit;
-    const modifier_r28 = ɵɵnextContext(3).$implicit;
-    const ctx_r45 = ɵɵnextContext(3);
-    const _r3 = ɵɵreference(4);
-    ɵɵadvance(1);
-    ɵɵproperty("ngTemplateOutlet", _r3)("ngTemplateOutletContext", ɵɵpureFunction6(2, _c4, childModifier_r51, modifier_r28.modifierId, ctx_r45.modifiersValueTree[modifier_r28.modifierId][childModifier_r51.modifierId], ctx_r45.modifiers.indexById[modifier_r28.modifierId].totalAmount, modifier_r28.minAmount || 0, modifier_r28.maxAmount || 100));
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_Template(rf, ctx) { if (rf & 1) {
-    ɵɵtemplate(0, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_div_0_Template, 3, 2, "div", 27);
-    ɵɵelementStart(1, "div", 37);
-    ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_ng_container_2_Template, 2, 9, "ng-container", 23);
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const modifier_r28 = ɵɵnextContext(2).$implicit;
-    ɵɵproperty("ngIf", modifier_r28.group);
-    ɵɵadvance(1);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(3, _c2, !modifier_r28.imagesIsset));
-    ɵɵadvance(1);
-    ɵɵproperty("ngForOf", modifier_r28.childModifiers);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_1_ng_container_5_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainer(0);
-} }
-const _c5 = function (a0) { return { dish: a0 }; };
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵelementStart(1, "div", 43);
-    ɵɵelementStart(2, "div", 44);
-    ɵɵtext(3);
-    ɵɵelementEnd();
-    ɵɵelementStart(4, "div", 45);
-    ɵɵtemplate(5, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_1_ng_container_5_Template, 1, 0, "ng-container", 8);
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const dish_r61 = ctx.ngIf;
-    ɵɵnextContext(8);
-    const _r1 = ɵɵreference(2);
-    ɵɵadvance(3);
-    ɵɵtextInterpolate(dish_r61.name);
-    ɵɵadvance(2);
-    ɵɵproperty("ngTemplateOutlet", _r1)("ngTemplateOutletContext", ɵɵpureFunction1(3, _c5, dish_r61));
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_2_ng_container_5_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainer(0);
-} }
-const _c6 = function () { return {}; };
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_2_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵelementStart(1, "div", 43);
-    ɵɵelementStart(2, "div", 44);
-    ɵɵtext(3, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u043B\u043E\u0432\u0438\u043D\u0443");
-    ɵɵelementEnd();
-    ɵɵelementStart(4, "div", 45);
-    ɵɵtemplate(5, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_2_ng_container_5_Template, 1, 0, "ng-container", 8);
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    ɵɵnextContext(8);
-    const _r1 = ɵɵreference(2);
-    ɵɵadvance(5);
-    ɵɵproperty("ngTemplateOutlet", _r1)("ngTemplateOutletContext", ɵɵpureFunction1(3, _c5, ɵɵpureFunction0(2, _c6)));
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_1_Template, 6, 5, "ng-container", 21);
-    ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_ng_container_2_Template, 6, 5, "ng-container", 21);
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const childModifier_r57 = ɵɵnextContext().$implicit;
-    const modifier_r28 = ɵɵnextContext(3).$implicit;
-    const ctx_r58 = ɵɵnextContext(3);
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", childModifier_r57.dish);
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", ctx_r58.modifiers.indexById[modifier_r28.modifierId].totalAmount == 1);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_ng_container_1_Template, 3, 2, "ng-container", 21);
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const childModifier_r57 = ctx.$implicit;
-    const modifier_r28 = ɵɵnextContext(3).$implicit;
-    const ctx_r55 = ɵɵnextContext(3);
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", ctx_r55.modifiersValueTree[modifier_r28.modifierId][childModifier_r57.modifierId]);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_div_1_ng_container_2_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainer(0);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_div_1_Template(rf, ctx) { if (rf & 1) {
-    const _r73 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "div", 47);
-    ɵɵlistener("click", function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_div_1_Template_div_click_0_listener() { ɵɵrestoreView(_r73); const childModifier_r67 = ɵɵnextContext().$implicit; const ctx_r71 = ɵɵnextContext(6); return ctx_r71.selectTwoPartsAssembledModifier(childModifier_r67); });
-    ɵɵelementStart(1, "div", 45);
-    ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_div_1_ng_container_2_Template, 1, 0, "ng-container", 8);
-    ɵɵelementEnd();
-    ɵɵelementStart(3, "div", 10);
-    ɵɵtext(4);
-    ɵɵelementEnd();
-    ɵɵelementStart(5, "div", 48);
-    ɵɵelementStart(6, "div", 49);
-    ɵɵelementStart(7, "span");
-    ɵɵtext(8);
-    ɵɵelementEnd();
-    ɵɵtext(9, " \u20BD ");
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const dish_r69 = ctx.ngIf;
-    const childModifier_r67 = ɵɵnextContext().$implicit;
-    const modifier_r28 = ɵɵnextContext(3).$implicit;
-    const ctx_r68 = ɵɵnextContext(3);
-    const _r1 = ɵɵreference(2);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(6, _c1, ctx_r68.modifiersValueTree[modifier_r28.modifierId][childModifier_r67.modifierId]));
-    ɵɵadvance(2);
-    ɵɵproperty("ngTemplateOutlet", _r1)("ngTemplateOutletContext", ɵɵpureFunction1(8, _c5, dish_r69));
-    ɵɵadvance(2);
-    ɵɵtextInterpolate1(" ", dish_r69.name, " ");
-    ɵɵadvance(2);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(10, _c0, !dish_r69.price));
-    ɵɵadvance(2);
-    ɵɵtextInterpolate(dish_r69.price);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_div_1_Template, 10, 12, "div", 46);
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const childModifier_r67 = ctx.$implicit;
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", childModifier_r67.dish);
-} }
-const _c7 = function (a0) { return { empty: a0 }; };
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "div", 38);
-    ɵɵelementStart(1, "div", 39);
-    ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_2_Template, 2, 1, "ng-container", 23);
-    ɵɵelementEnd();
-    ɵɵelementStart(3, "div", 40);
-    ɵɵelementStart(4, "div", 41);
-    ɵɵtext(5, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043B\u044E\u0431\u044B\u0435 \u0434\u0432\u0435 \u043F\u043E\u043B\u043E\u0432\u0438\u043D\u043A\u0438");
-    ɵɵelementEnd();
-    ɵɵelementStart(6, "div", 42);
-    ɵɵtemplate(7, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_ng_container_7_Template, 2, 1, "ng-container", 23);
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const modifier_r28 = ɵɵnextContext(2).$implicit;
-    const ctx_r43 = ɵɵnextContext(3);
-    ɵɵadvance(1);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(3, _c7, !(ctx_r43.twoPartsAssembledModifiersIdsByGroupId[modifier_r28.modifierId] == null ? null : ctx_r43.twoPartsAssembledModifiersIdsByGroupId[modifier_r28.modifierId].length)));
-    ɵɵadvance(1);
-    ɵɵproperty("ngForOf", modifier_r28.childModifiers);
-    ɵɵadvance(5);
-    ɵɵproperty("ngForOf", modifier_r28.childModifiers);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_container_1_Template, 1, 0, "ng-container", 34);
-    ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_2_Template, 3, 5, "ng-template", null, 35, ɵɵtemplateRefExtractor);
-    ɵɵtemplate(4, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_ng_template_4_Template, 8, 5, "ng-template", null, 36, ɵɵtemplateRefExtractor);
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const _r40 = ɵɵreference(3);
-    const _r42 = ɵɵreference(5);
-    const modifier_r28 = ɵɵnextContext().$implicit;
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", modifier_r28.minAmount == 2 && modifier_r28.maxAmount == 2)("ngIfThen", _r42)("ngIfElse", _r40);
-} }
-function DishCalcComponent_div_0_div_13_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵelementStart(1, "div", 26);
-    ɵɵtemplate(2, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_2_Template, 4, 12, "ng-container", 21);
-    ɵɵtemplate(3, DishCalcComponent_div_0_div_13_ng_container_1_ng_container_3_Template, 6, 3, "ng-container", 21);
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const modifier_r28 = ctx.$implicit;
-    ɵɵadvance(2);
-    ɵɵproperty("ngIf", modifier_r28.dish);
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", modifier_r28.childModifiers == null ? null : modifier_r28.childModifiers.length);
-} }
-function DishCalcComponent_div_0_div_13_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "div", 25);
-    ɵɵtemplate(1, DishCalcComponent_div_0_div_13_ng_container_1_Template, 4, 2, "ng-container", 23);
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const ctx_r13 = ɵɵnextContext(2);
-    ɵɵadvance(1);
-    ɵɵproperty("ngForOf", ctx_r13.modifiers.baseList);
-} }
-function DishCalcComponent_div_0_div_21_Template(rf, ctx) { if (rf & 1) {
-    const _r80 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "div", 50);
-    ɵɵelementStart(1, "div", 44);
-    ɵɵtext(2, "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439");
-    ɵɵelementEnd();
-    ɵɵelementStart(3, "div", 51);
-    ɵɵelementStart(4, "input", 52, 53);
-    ɵɵlistener("keyup", function DishCalcComponent_div_0_div_21_Template_input_keyup_4_listener() { ɵɵrestoreView(_r80); const _r78 = ɵɵreference(5); const ctx_r79 = ɵɵnextContext(2); return ctx_r79.comment.emit(_r78.value); });
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-} }
-const _c8 = function (a0) { return { "ng-cart-dish-calc-two-parts-assembled": a0 }; };
-function DishCalcComponent_div_0_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "div", 5);
-    ɵɵelementStart(1, "div", 6);
-    ɵɵelementStart(2, "div", 7);
-    ɵɵtemplate(3, DishCalcComponent_div_0_ng_container_3_Template, 1, 0, "ng-container", 8);
-    ɵɵelementEnd();
-    ɵɵelementStart(4, "div", 9);
-    ɵɵelementStart(5, "div", 10);
-    ɵɵtext(6);
-    ɵɵelementEnd();
-    ɵɵelementStart(7, "div", 11);
-    ɵɵtext(8);
-    ɵɵelementEnd();
-    ɵɵelementStart(9, "div", 12);
-    ɵɵtemplate(10, DishCalcComponent_div_0_ng_container_10_Template, 5, 4, "ng-container", 13);
-    ɵɵtemplate(11, DishCalcComponent_div_0_ng_template_11_Template, 1, 1, "ng-template", null, 14, ɵɵtemplateRefExtractor);
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵtemplate(13, DishCalcComponent_div_0_div_13_Template, 2, 1, "div", 15);
-    ɵɵelementStart(14, "div", 16);
-    ɵɵelementStart(15, "span", 17);
-    ɵɵtext(16, "\u0418\u0422\u041E\u0413\u041E:");
-    ɵɵelementEnd();
-    ɵɵelementStart(17, "span", 18);
-    ɵɵelementStart(18, "span");
-    ɵɵtext(19);
-    ɵɵelementEnd();
-    ɵɵtext(20, " \u20BD ");
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵtemplate(21, DishCalcComponent_div_0_div_21_Template, 6, 0, "div", 19);
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const _r11 = ɵɵreference(12);
-    const ctx_r0 = ɵɵnextContext();
-    const _r1 = ɵɵreference(2);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(10, _c8, ctx_r0.isTwoPartsAssembledTemplate));
-    ɵɵadvance(3);
-    ɵɵproperty("ngTemplateOutlet", _r1)("ngTemplateOutletContext", ɵɵpureFunction1(12, _c5, ctx_r0.dish));
-    ɵɵadvance(3);
-    ɵɵtextInterpolate(ctx_r0.dish.name);
-    ɵɵadvance(2);
-    ɵɵtextInterpolate(ctx_r0.dish.description);
-    ɵɵadvance(2);
-    ɵɵproperty("ngIf", !ctx_r0.modifiers.custom.fixed)("ngIfElse", _r11);
-    ɵɵadvance(3);
-    ɵɵproperty("ngIf", ctx_r0.modifiers.baseList == null ? null : ctx_r0.modifiers.baseList.length);
-    ɵɵadvance(6);
-    ɵɵtextInterpolate(ctx_r0.totalPrice);
-    ɵɵadvance(2);
-    ɵɵproperty("ngIf", ctx_r0.isTwoPartsAssembledTemplate);
-} }
-function DishCalcComponent_ng_template_1_ng_container_0_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵelement(1, "div", 55);
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const dish_r81 = ɵɵnextContext().dish;
-    const ctx_r82 = ɵɵnextContext();
-    ɵɵadvance(1);
-    ɵɵstyleProp("background-image", "url(" + ctx_r82.imageUrl + dish_r81.images[0].images.small + ")");
-} }
-function DishCalcComponent_ng_template_1_ng_template_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelement(0, "div", 56);
-} }
-function DishCalcComponent_ng_template_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵtemplate(0, DishCalcComponent_ng_template_1_ng_container_0_Template, 2, 2, "ng-container", 13);
-    ɵɵtemplate(1, DishCalcComponent_ng_template_1_ng_template_1_Template, 1, 0, "ng-template", null, 54, ɵɵtemplateRefExtractor);
-} if (rf & 2) {
-    const dish_r81 = ctx.dish;
-    const _r83 = ɵɵreference(2);
-    ɵɵproperty("ngIf", (dish_r81 == null ? null : dish_r81.images) && (dish_r81.images[0] == null ? null : dish_r81.images[0].images == null ? null : dish_r81.images[0].images.small))("ngIfElse", _r83);
-} }
-function DishCalcComponent_ng_template_3_ng_container_0_ng_container_3_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainer(0);
-} }
-function DishCalcComponent_ng_template_3_ng_container_0_div_7_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "div", 65);
-    ɵɵtext(1);
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const dish_r93 = ɵɵnextContext().ngIf;
-    ɵɵadvance(1);
-    ɵɵtextInterpolate1("", dish_r93.weight * 1000, " \u0433\u0440");
-} }
-function DishCalcComponent_ng_template_3_ng_container_0_ng_container_14_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainer(0);
-} }
-const _c9 = function (a0, a1, a2) { return { modifier: a0, groupId: a1, amount: a2 }; };
-function DishCalcComponent_ng_template_3_ng_container_0_ng_container_14_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, DishCalcComponent_ng_template_3_ng_container_0_ng_container_14_ng_container_1_Template, 1, 0, "ng-container", 8);
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const ctx_r101 = ɵɵnextContext(2);
-    const modifier_r86 = ctx_r101.modifier;
-    const groupId_r87 = ctx_r101.groupId;
-    const amount_r88 = ctx_r101.amount;
-    ɵɵnextContext();
-    const _r7 = ɵɵreference(8);
-    ɵɵadvance(1);
-    ɵɵproperty("ngTemplateOutlet", _r7)("ngTemplateOutletContext", ɵɵpureFunction3(2, _c9, modifier_r86, groupId_r87, amount_r88));
-} }
-function DishCalcComponent_ng_template_3_ng_container_0_ng_template_15_ng_container_0_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainer(0);
-} }
-function DishCalcComponent_ng_template_3_ng_container_0_ng_template_15_Template(rf, ctx) { if (rf & 1) {
-    ɵɵtemplate(0, DishCalcComponent_ng_template_3_ng_container_0_ng_template_15_ng_container_0_Template, 1, 0, "ng-container", 8);
-} if (rf & 2) {
-    const ctx_r103 = ɵɵnextContext(2);
-    const modifier_r86 = ctx_r103.modifier;
-    const groupId_r87 = ctx_r103.groupId;
-    const amount_r88 = ctx_r103.amount;
-    const groupAmount_r89 = ctx_r103.groupAmount;
-    const groupMinAmount_r90 = ctx_r103.groupMinAmount;
-    const groupMaxAmount_r91 = ctx_r103.groupMaxAmount;
-    ɵɵnextContext();
-    const _r5 = ɵɵreference(6);
-    ɵɵproperty("ngTemplateOutlet", _r5)("ngTemplateOutletContext", ɵɵpureFunction6(2, _c4, modifier_r86, groupId_r87, amount_r88, groupAmount_r89, groupMinAmount_r90, groupMaxAmount_r91));
-} }
-function DishCalcComponent_ng_template_3_ng_container_0_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵelementStart(1, "div", 57);
-    ɵɵelementStart(2, "div", 58);
-    ɵɵtemplate(3, DishCalcComponent_ng_template_3_ng_container_0_ng_container_3_Template, 1, 0, "ng-container", 8);
-    ɵɵelementEnd();
-    ɵɵelementStart(4, "div", 59);
-    ɵɵelementStart(5, "div", 60);
-    ɵɵtext(6);
-    ɵɵelementEnd();
-    ɵɵtemplate(7, DishCalcComponent_ng_template_3_ng_container_0_div_7_Template, 2, 1, "div", 61);
-    ɵɵelementEnd();
-    ɵɵelementStart(8, "div", 62);
-    ɵɵelementStart(9, "div", 49);
-    ɵɵelementStart(10, "span");
-    ɵɵtext(11);
-    ɵɵelementEnd();
-    ɵɵtext(12, " \u20BD ");
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵelementStart(13, "div", 63);
-    ɵɵtemplate(14, DishCalcComponent_ng_template_3_ng_container_0_ng_container_14_Template, 2, 6, "ng-container", 13);
-    ɵɵtemplate(15, DishCalcComponent_ng_template_3_ng_container_0_ng_template_15_Template, 1, 9, "ng-template", null, 64, ɵɵtemplateRefExtractor);
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const dish_r93 = ctx.ngIf;
-    const _r97 = ɵɵreference(16);
-    const ctx_r104 = ɵɵnextContext();
-    const groupMinAmount_r90 = ctx_r104.groupMinAmount;
-    const groupMaxAmount_r91 = ctx_r104.groupMaxAmount;
-    ɵɵnextContext();
-    const _r1 = ɵɵreference(2);
-    ɵɵadvance(3);
-    ɵɵproperty("ngTemplateOutlet", _r1)("ngTemplateOutletContext", ɵɵpureFunction1(8, _c5, dish_r93));
-    ɵɵadvance(3);
-    ɵɵtextInterpolate(dish_r93.name);
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", dish_r93.weight);
-    ɵɵadvance(2);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(10, _c0, !dish_r93.price));
-    ɵɵadvance(2);
-    ɵɵtextInterpolate(dish_r93.price);
-    ɵɵadvance(3);
-    ɵɵproperty("ngIf", groupMinAmount_r90 <= 1 && groupMaxAmount_r91 == 1)("ngIfElse", _r97);
-} }
-function DishCalcComponent_ng_template_3_Template(rf, ctx) { if (rf & 1) {
-    ɵɵtemplate(0, DishCalcComponent_ng_template_3_ng_container_0_Template, 17, 12, "ng-container", 21);
-} if (rf & 2) {
-    const modifier_r86 = ctx.modifier;
-    ɵɵproperty("ngIf", modifier_r86.dish);
-} }
-const _c10 = function (a0) { return { disabled: a0 }; };
-function DishCalcComponent_ng_template_5_Template(rf, ctx) { if (rf & 1) {
-    const _r113 = ɵɵgetCurrentView();
-    ɵɵelementContainerStart(0);
-    ɵɵelementStart(1, "div", 66);
-    ɵɵelementStart(2, "div", 67);
-    ɵɵlistener("click", function DishCalcComponent_ng_template_5_Template_div_click_2_listener() { ɵɵrestoreView(_r113); const modifier_r105 = ctx.modifier; const amount_r107 = ctx.amount; const ctx_r112 = ɵɵnextContext(); return ctx_r112.changeModifierAmount(modifier_r105, amount_r107 - 1, "minus"); });
-    ɵɵtext(3, "-");
-    ɵɵelementEnd();
-    ɵɵelement(4, "input", 68, 69);
-    ɵɵelementStart(6, "div", 70);
-    ɵɵlistener("click", function DishCalcComponent_ng_template_5_Template_div_click_6_listener() { ɵɵrestoreView(_r113); const modifier_r105 = ctx.modifier; const amount_r107 = ctx.amount; const ctx_r114 = ɵɵnextContext(); return ctx_r114.changeModifierAmount(modifier_r105, amount_r107 + 1, "plus"); });
-    ɵɵtext(7, "+");
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const amount_r107 = ctx.amount;
-    const groupAmount_r108 = ctx.groupAmount;
-    const groupMinAmount_r109 = ctx.groupMinAmount;
-    const groupMaxAmount_r110 = ctx.groupMaxAmount;
-    ɵɵadvance(1);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(4, _c10, !amount_r107 && groupAmount_r108 >= groupMaxAmount_r110));
-    ɵɵadvance(1);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(6, _c10, !amount_r107 || groupAmount_r108 <= groupMinAmount_r109));
-    ɵɵadvance(2);
-    ɵɵproperty("value", amount_r107);
-    ɵɵadvance(2);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(8, _c10, groupAmount_r108 >= groupMaxAmount_r110));
-} }
-function DishCalcComponent_ng_template_7_Template(rf, ctx) { if (rf & 1) {
-    const _r119 = ɵɵgetCurrentView();
-    ɵɵelementContainerStart(0);
-    ɵɵelementStart(1, "div", 71);
-    ɵɵlistener("click", function DishCalcComponent_ng_template_7_Template_div_click_1_listener() { ɵɵrestoreView(_r119); const modifier_r115 = ctx.modifier; const amount_r117 = ctx.amount; const ctx_r118 = ɵɵnextContext(); return ctx_r118.changeModifierAmount(modifier_r115, amount_r117 ? 0 : 1, "checkbox"); });
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} if (rf & 2) {
-    const amount_r117 = ctx.amount;
-    ɵɵadvance(1);
-    ɵɵproperty("ngClass", ɵɵpureFunction1(1, _c1, amount_r117));
-} }
 class DishCalcComponent {
     constructor(cartService, eventer, imageUrl) {
         this.cartService = cartService;
@@ -2396,67 +1741,32 @@ class DishCalcComponent {
         this.validate.emit(isValid);
     }
 }
-DishCalcComponent.ɵfac = function DishCalcComponent_Factory(t) { return new (t || DishCalcComponent)(ɵɵdirectiveInject(NgRestoCartService), ɵɵdirectiveInject(EventerService), ɵɵdirectiveInject('ImageUrl')); };
-DishCalcComponent.ɵcmp = ɵɵdefineComponent({ type: DishCalcComponent, selectors: [["rst-dish-calc"]], inputs: { dish: "dish", amount: "amount", selectedModifiers: "selectedModifiers" }, outputs: { validate: "validate", amountDishToAdd: "amountDishToAdd", comment: "comment" }, features: [ɵɵNgOnChangesFeature], decls: 9, vars: 1, consts: [["class", "ng-cart-dish-calc", 3, "ngClass", 4, "ngIf"], ["dishImageTemplate", ""], ["modifierTemplate", ""], ["modifierCounterTemplate", ""], ["modifierCheckboxTemplate", ""], [1, "ng-cart-dish-calc", 3, "ngClass"], [1, "dish"], [1, "dish-image-box"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "dish-description-box"], [1, "dish-name"], [1, "dish-ingredients"], [1, "dish-price-box"], [4, "ngIf", "ngIfElse"], ["modifierFixedTemplate", ""], ["class", "modifiers", 4, "ngIf"], [1, "result"], [1, "text"], [1, "price"], ["class", "comment", 4, "ngIf"], [1, "price", 3, "ngClass"], [4, "ngIf"], [1, "modifier-fixed"], [4, "ngFor", "ngForOf"], [1, "item", 3, "ngClass", "click"], [1, "modifiers"], [1, "modifier-group"], ["class", "modifier-header", 4, "ngIf"], [1, "modifier-box", 3, "ngClass"], [1, "modifier-header"], ["class", "modifier-name", 4, "ngIf"], ["class", "modifier-description", 4, "ngIf"], [1, "modifier-name"], [1, "modifier-description"], [4, "ngIf", "ngIfThen", "ngIfElse"], ["groupTemplate", ""], ["twoPartsAssembledTemplate", ""], [1, "modifier-children", 3, "ngClass"], [1, "two-parts-assembled"], [1, "two-parts-assembled-header", 3, "ngClass"], [1, "two-parts-assembled-body"], [1, "two-parts-assembled-body-name"], [1, "two-parts-assembled-body-list"], [1, "selected-dish"], [1, "title"], [1, "image-box"], ["class", "two-parts-assembled-body-list-dish", 3, "ngClass", "click", 4, "ngIf"], [1, "two-parts-assembled-body-list-dish", 3, "ngClass", "click"], [1, "dish-price"], [3, "ngClass"], [1, "comment"], [1, "input-box"], ["type", "text", "placeholder", "", 3, "keyup"], ["commentInput", ""], ["imgPlaceholder", ""], [1, "dish-image"], [1, "dish-image-placeholder"], [1, "modifier-dish"], [1, "modifier-dish-image-box"], [1, "modifier-dish-description-box"], [1, "modifier-dish-name"], ["class", "modifier-dish-weight", 4, "ngIf"], [1, "modifier-dish-price-box"], [1, "modifier-dish-action-box"], ["counterTemplate", ""], [1, "modifier-dish-weight"], [1, "modifier-counter", 3, "ngClass"], ["onselectstart", "return false;", 1, "minus", 3, "ngClass", "click"], ["readonly", "", 3, "value"], ["input", ""], ["onselectstart", "return false;", 1, "plus", 3, "ngClass", "click"], [1, "modifier-checkbox", 3, "ngClass", "click"]], template: function DishCalcComponent_Template(rf, ctx) { if (rf & 1) {
-        ɵɵtemplate(0, DishCalcComponent_div_0_Template, 22, 14, "div", 0);
-        ɵɵtemplate(1, DishCalcComponent_ng_template_1_Template, 3, 2, "ng-template", null, 1, ɵɵtemplateRefExtractor);
-        ɵɵtemplate(3, DishCalcComponent_ng_template_3_Template, 1, 1, "ng-template", null, 2, ɵɵtemplateRefExtractor);
-        ɵɵtemplate(5, DishCalcComponent_ng_template_5_Template, 8, 10, "ng-template", null, 3, ɵɵtemplateRefExtractor);
-        ɵɵtemplate(7, DishCalcComponent_ng_template_7_Template, 2, 3, "ng-template", null, 4, ɵɵtemplateRefExtractor);
-    } if (rf & 2) {
-        ɵɵproperty("ngIf", ctx.dish);
-    } }, directives: [NgIf, NgClass, NgTemplateOutlet, NgForOf], styles: [".dish[_ngcontent-%COMP%]{align-items:flex-start;border-bottom:2px solid #969696;display:flex;padding-bottom:34px}.dish[_ngcontent-%COMP%]   .dish-image-box[_ngcontent-%COMP%]{background-color:#eee;background-size:50%;box-sizing:border-box;height:170px;position:relative;text-align:center;width:250px}.dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]{align-items:stretch;box-sizing:border-box;display:flex;flex-direction:column;height:170px;margin-left:34px;padding:5px 0 0}.dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-name[_ngcontent-%COMP%]{color:#0a0909;font-size:28px;font-weight:700;letter-spacing:2.4px;line-height:32px}.dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-ingredients[_ngcontent-%COMP%]{color:#000;flex-grow:1;font-size:15px;line-height:17px;margin-top:15px;overflow:hidden}.dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-price-box[_ngcontent-%COMP%]{align-items:center;display:flex;font-size:20px;font-weight:700;height:45px;justify-content:space-between;line-height:23px;margin-right:49px}.ng-cart-dish-calc-two-parts-assembled[_ngcontent-%COMP%]   .dish[_ngcontent-%COMP%]{border:none;margin-left:0;padding-bottom:0}.ng-cart-dish-calc-two-parts-assembled[_ngcontent-%COMP%]   .dish[_ngcontent-%COMP%]   .dish-image-box[_ngcontent-%COMP%]{display:none}.ng-cart-dish-calc-two-parts-assembled[_ngcontent-%COMP%]   .dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]{height:auto;width:100%}.ng-cart-dish-calc-two-parts-assembled[_ngcontent-%COMP%]   .dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-name[_ngcontent-%COMP%]{color:#0a0909;font-size:28px;font-weight:700;letter-spacing:2.4px;line-height:32px;text-align:center;text-transform:uppercase}.ng-cart-dish-calc-two-parts-assembled[_ngcontent-%COMP%]   .dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-ingredients[_ngcontent-%COMP%], .ng-cart-dish-calc-two-parts-assembled[_ngcontent-%COMP%]   .dish[_ngcontent-%COMP%]   .dish-description-box[_ngcontent-%COMP%]   .dish-price-box[_ngcontent-%COMP%]{display:none}.dish-image[_ngcontent-%COMP%]{background-position:top;background-repeat:no-repeat;background-size:cover;border-radius:0;height:100%;width:250px}.result[_ngcontent-%COMP%]{color:#0a0909;font-size:24px;font-weight:700;line-height:28px;margin-top:49px;text-align:right}.result[_ngcontent-%COMP%]   .price[_ngcontent-%COMP%]{margin-left:76px}.comment[_ngcontent-%COMP%]{padding-bottom:15px}.comment[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:500;line-height:23px;margin:30px 0 20px}.comment[_ngcontent-%COMP%]   .input-box[_ngcontent-%COMP%]{margin-top:10px}.comment[_ngcontent-%COMP%]   .input-box[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]{border:2px solid #969696;border-radius:15px;box-sizing:border-box;color:#969696;font-size:20px;font-style:italic;font-weight:400;height:45px;line-height:45px;padding:0 20px}.modifiers[_ngcontent-%COMP%]   .modifier-group[_ngcontent-%COMP%]{border-bottom:2px solid #969696;margin-top:25px;padding-bottom:25px}.modifiers[_ngcontent-%COMP%]   .modifier-header[_ngcontent-%COMP%]{margin-bottom:25px}.modifiers[_ngcontent-%COMP%]   .modifier-header[_ngcontent-%COMP%]   .modifier-name[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:500;line-height:23px}.modifiers[_ngcontent-%COMP%]   .modifier-header[_ngcontent-%COMP%]   .modifier-description[_ngcontent-%COMP%]{color:#0a0909;font-size:15px;line-height:17px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]{align-items:center;box-sizing:border-box;display:flex;height:100px;justify-content:center;margin-bottom:2px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-image-box[_ngcontent-%COMP%]{background-color:#fff;background-size:50%;box-sizing:border-box;height:100px;margin-right:28px;position:relative;text-align:center;width:100px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-image-box[_ngcontent-%COMP%]   .dish-image[_ngcontent-%COMP%]{background-position:50%;background-size:contain;height:100%;width:100%}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-description-box[_ngcontent-%COMP%]{display:flex;flex-direction:column;flex-grow:1;justify-content:center}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-description-box[_ngcontent-%COMP%]   .modifier-dish-name[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:500;line-height:23px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-description-box[_ngcontent-%COMP%]   .modifier-dish-weight[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;line-height:23px;margin-top:10px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-price-box[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:700;line-height:23px;margin-right:105px}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-price-box[_ngcontent-%COMP%]   .zero-price[_ngcontent-%COMP%]{display:none}.modifiers[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]   .modifier-dish-action-box[_ngcontent-%COMP%]{display:flex;justify-content:center;width:151px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]{align-items:center;border-bottom:2px solid #969696;display:flex;height:230px;justify-content:center;opacity:1;overflow:hidden;padding-bottom:28px;transition:all .5s ease 0s}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header.empty[_ngcontent-%COMP%]{border-bottom:none;height:0;opacity:0}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]{align-items:center;display:flex;justify-content:flex-end;width:50%}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{color:#0a0909;font-size:21px;line-height:25px;margin-right:24px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]   .image-box[_ngcontent-%COMP%]{height:200px;overflow:hidden;width:100px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]   .image-box[_ngcontent-%COMP%]   .dish-image[_ngcontent-%COMP%]{height:100%;width:200%}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]:nth-child(2){flex-direction:row-reverse}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]:nth-child(2)   .title[_ngcontent-%COMP%]{margin-left:24px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-header[_ngcontent-%COMP%]   .selected-dish[_ngcontent-%COMP%]:nth-child(2)   .image-box[_ngcontent-%COMP%]{direction:rtl}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-name[_ngcontent-%COMP%]{color:#0a0909;font-size:20px;font-weight:500;line-height:23px;padding:20px 0}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]{display:grid;grid-column-gap:30px;grid-row-gap:24px;grid-template-columns:1fr 1fr 1fr;margin-top:30px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]   .two-parts-assembled-body-list-dish[_ngcontent-%COMP%]{align-items:center;border:1.5px solid hsla(0,0%,100%,0);box-sizing:border-box;color:#0a0909;cursor:pointer;display:flex;flex-direction:column}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]   .two-parts-assembled-body-list-dish.selected[_ngcontent-%COMP%]{border:1.5px solid #0a0909;border-radius:15px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]   .two-parts-assembled-body-list-dish[_ngcontent-%COMP%]   .dish-name[_ngcontent-%COMP%]{font-size:17px;font-weight:500;letter-spacing:2.4px;line-height:20px;padding:0 5px;text-align:center;text-transform:uppercase}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]   .two-parts-assembled-body-list-dish[_ngcontent-%COMP%]   .dish-price[_ngcontent-%COMP%]{font-size:20px;font-weight:700;line-height:23px;padding:5px 0 10px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]   .two-parts-assembled-body-list-dish[_ngcontent-%COMP%]   .image-box[_ngcontent-%COMP%]{border-radius:15px 15px 0 0;height:228px;width:228px}.two-parts-assembled[_ngcontent-%COMP%]   .two-parts-assembled-body[_ngcontent-%COMP%]   .two-parts-assembled-body-list[_ngcontent-%COMP%]   .two-parts-assembled-body-list-dish[_ngcontent-%COMP%]   .image-box[_ngcontent-%COMP%]   .dish-image[_ngcontent-%COMP%]{border-radius:15px 15px 0 0;height:100%;width:100%}.modifier-fixed[_ngcontent-%COMP%]{align-items:stretch;border:2px solid #767676;border-radius:15px;box-sizing:border-box;display:flex;height:45px}.modifier-fixed[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%]{align-items:center;color:#767676;display:flex;font-size:20px;font-weight:500;height:45px;justify-content:center;line-height:23px;margin-top:-2px;width:142px}.modifier-fixed[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%]:first-child{margin-left:-2px}.modifier-fixed[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%]:last-child{margin-right:-2px}.modifier-fixed[_ngcontent-%COMP%]   .item.selected[_ngcontent-%COMP%]{background:#0a0909;border-radius:15px;color:#fff}.modifier-fixed[_ngcontent-%COMP%]   .item[_ngcontent-%COMP%]:not(.selected){cursor:pointer}.modifier-checkbox[_ngcontent-%COMP%]{align-items:center;background:#e0e0e0;border-radius:15px;cursor:pointer;display:flex;height:50px;justify-content:center;width:50px}.modifier-checkbox.selected[_ngcontent-%COMP%]:after{content:url(\"data:image/svg+xml; base64, PHN2ZyB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHZpZXdCb3g9IjAgMCAyOCAyOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIgMTMuNUwxMS4zMjMxIDI2TDI2IDIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==\")}.modifier-counter[_ngcontent-%COMP%]{align-items:center;background:#e0e0e0;border:none;border-radius:15px;display:flex;height:50px;position:relative;width:151px}.modifier-counter.disabled[_ngcontent-%COMP%]{opacity:.3}.modifier-counter[_ngcontent-%COMP%]:not(.disabled)   .minus.disabled[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]:not(.disabled)   .plus.disabled[_ngcontent-%COMP%]{cursor:default;opacity:.15}.modifier-counter[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]{background:transparent;border:none;font-weight:500;padding:0;width:100%}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]{color:#0a0909;font-size:18px;height:50px;line-height:50px;text-align:center}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%]{cursor:pointer;display:block;font-style:normal;font-weight:700;padding:0 30px;position:absolute;top:0}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%]:hover, .modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%]:hover{color:#000}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%]:active, .modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%]:active{color:#cc0009}.modifier-counter[_ngcontent-%COMP%]   .minus.loading[_ngcontent-%COMP%], .modifier-counter[_ngcontent-%COMP%]   .plus.loading[_ngcontent-%COMP%]{opacity:.2}.modifier-counter[_ngcontent-%COMP%]   .minus[_ngcontent-%COMP%]{left:0}.modifier-counter[_ngcontent-%COMP%]   .plus[_ngcontent-%COMP%]{right:0}.without-images[_ngcontent-%COMP%]   .modifier-dish-image-box[_ngcontent-%COMP%]{height:70px!important}.without-images[_ngcontent-%COMP%]   .modifier-dish[_ngcontent-%COMP%]{height:70px}"] });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(DishCalcComponent, [{
-        type: Component,
-        args: [{
+DishCalcComponent.decorators = [
+    { type: Component, args: [{
                 selector: 'rst-dish-calc',
-                templateUrl: './dish-calc.component.html',
-                styleUrls: ['./dish-calc.component.scss']
-            }]
-    }], function () { return [{ type: NgRestoCartService }, { type: EventerService }, { type: undefined, decorators: [{
-                type: Inject,
-                args: ['ImageUrl']
-            }] }]; }, { dish: [{
-            type: Input
-        }], amount: [{
-            type: Input
-        }], selectedModifiers: [{
-            type: Input
-        }], validate: [{
-            type: Output
-        }], amountDishToAdd: [{
-            type: Output
-        }], comment: [{
-            type: Output
-        }] }); })();
+                template: "<div *ngIf=\"dish\" class=\"ng-cart-dish-calc\" [ngClass]=\"{'ng-cart-dish-calc-two-parts-assembled': isTwoPartsAssembledTemplate}\">\r\n    <div class=\"dish\">\r\n        <div class=\"dish-image-box\">\r\n            <ng-container *ngTemplateOutlet=\"dishImageTemplate; context: { dish: dish }\"></ng-container>\r\n        </div>\r\n        <div class=\"dish-description-box\">\r\n            <div class=\"dish-name\">{{ dish.name }}</div>\r\n            <div class=\"dish-ingredients\">{{ dish.description }}</div>\r\n            <div class=\"dish-price-box\">\r\n                <ng-container *ngIf=\"!modifiers.custom.fixed; else modifierFixedTemplate\">\r\n                    <div class=\"price\" [ngClass]=\"{'zero-price': !dish.price}\">\r\n                        <span>{{ dish.price }}</span> \u20BD\r\n                    </div>\r\n                </ng-container>\r\n                <ng-template #modifierFixedTemplate>\r\n                    <ng-container *ngIf=\"modifiers.custom.fixed as modifier\">\r\n                        <div class=\"modifier-fixed\">\r\n                            <ng-container *ngFor=\"let childModifier of modifier.childModifiers\">\r\n                                <div class=\"item\"\r\n                                     [ngClass]=\"{selected: !!modifiersValueTree[modifier.modifierId][childModifier.modifierId]}\"\r\n                                     (click)=\"changeModifierAmount(childModifier, 1, 'checkbox')\">\r\n                                    {{ childModifier.dish?.name }}\r\n                                </div>\r\n                            </ng-container>\r\n                        </div>\r\n                        <ng-container *ngFor=\"let childModifier of modifier.childModifiers\">\r\n                            <ng-container *ngIf=\"!!modifiersValueTree[modifier.modifierId][childModifier.modifierId]\">\r\n                                <div class=\"price\" [ngClass]=\"{'zero-price': !childModifier.dish?.price}\">\r\n                                    <span>{{ childModifier.dish?.price }}</span> \u20BD\r\n                                </div>\r\n                            </ng-container>\r\n                        </ng-container>\r\n                    </ng-container>\r\n                </ng-template>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"modifiers\" *ngIf=\"modifiers.baseList?.length\">\r\n        <ng-container *ngFor=\"let modifier of modifiers.baseList\">\r\n            <div class=\"modifier-group\">\r\n                <ng-container *ngIf=\"modifier.dish\">\r\n                    <div class=\"modifier-header\" *ngIf=\"modifier.group as group\">\r\n                        <div class=\"modifier-name\" *ngIf=\"group.name\">{{ group.name }}</div>\r\n                        <div class=\"modifier-description\" *ngIf=\"group.description\">{{ group.description }}</div>\r\n                    </div>\r\n\r\n                    <div class=\"modifier-box\" [ngClass]=\"{'without-images': !modifier.childImagesIsset}\">\r\n                        <!-- Single modifier -->\r\n                        <ng-container *ngTemplateOutlet=\"modifierTemplate; context: {\r\n                            modifier: modifier,\r\n                            groupId: 'single',\r\n                            amount: modifiersValueTree['single'][modifier.modifierId],\r\n                            groupAmount: modifiersValueTree['single'][modifier.modifierId],\r\n                            groupMinAmount: modifier.minAmount || 0,\r\n                            groupMaxAmount: modifier.maxAmount || 100\r\n                        }\"></ng-container>\r\n                    </div>\r\n                </ng-container>\r\n\r\n                <ng-container *ngIf=\"modifier.childModifiers?.length\">\r\n                    <ng-container *ngIf=\"modifier.minAmount == 2 && modifier.maxAmount == 2; then twoPartsAssembledTemplate else groupTemplate\">\r\n                    </ng-container>\r\n\r\n                    <!-- Base group modifier view -->\r\n                    <ng-template #groupTemplate>\r\n                        <div class=\"modifier-header\" *ngIf=\"modifier.group as group\">\r\n                            <div class=\"modifier-name\" *ngIf=\"group.name\">{{ group.name }}</div>\r\n                            <div class=\"modifier-description\" *ngIf=\"group.description\">{{ group.description }}</div>\r\n                        </div>\r\n                        <div class=\"modifier-children\" [ngClass]=\"{'without-images': !modifier.imagesIsset}\">\r\n                            <ng-container *ngFor=\"let childModifier of modifier.childModifiers\">\r\n                                <!-- Group modifier -->\r\n                                <ng-container *ngTemplateOutlet=\"modifierTemplate; context: {\r\n                            modifier: childModifier,\r\n                            groupId: modifier.modifierId,\r\n                            amount: modifiersValueTree[modifier.modifierId][childModifier.modifierId],\r\n                            groupAmount: modifiers.indexById[modifier.modifierId].totalAmount,\r\n                            groupMinAmount: modifier.minAmount || 0,\r\n                            groupMaxAmount: modifier.maxAmount || 100\r\n                        }\"></ng-container>\r\n\r\n                            </ng-container>\r\n                        </div>\r\n                    </ng-template>\r\n\r\n                    <!-- Two parts assembled group modifier view (like pizza from two halves) -->\r\n                    <ng-template #twoPartsAssembledTemplate>\r\n                        <div class=\"two-parts-assembled\">\r\n                            <div class=\"two-parts-assembled-header\" [ngClass]=\"{empty: !twoPartsAssembledModifiersIdsByGroupId[modifier.modifierId]?.length}\">\r\n                                <ng-container *ngFor=\"let childModifier of modifier.childModifiers\">\r\n                                    <ng-container *ngIf=\"modifiersValueTree[modifier.modifierId][childModifier.modifierId]\">\r\n                                        <ng-container *ngIf=\"childModifier.dish as dish\">\r\n                                            <div class=\"selected-dish\">\r\n                                                <div class=\"title\">{{ dish.name }}</div>\r\n                                                <div class=\"image-box\">\r\n                                                    <ng-container *ngTemplateOutlet=\"dishImageTemplate; context: { dish: dish }\"></ng-container>\r\n                                                </div>\r\n                                            </div>\r\n                                        </ng-container>\r\n                                        <ng-container *ngIf=\"modifiers.indexById[modifier.modifierId].totalAmount == 1\">\r\n                                            <div class=\"selected-dish\">\r\n                                                <div class=\"title\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u043E\u043B\u043E\u0432\u0438\u043D\u0443</div>\r\n                                                <div class=\"image-box\">\r\n                                                    <ng-container *ngTemplateOutlet=\"dishImageTemplate; context: { dish: {} }\"></ng-container>\r\n                                                </div>\r\n                                            </div>\r\n                                        </ng-container>\r\n                                    </ng-container>\r\n                                </ng-container>\r\n                            </div>\r\n\r\n                            <div class=\"two-parts-assembled-body\">\r\n                                <div class=\"two-parts-assembled-body-name\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043B\u044E\u0431\u044B\u0435 \u0434\u0432\u0435 \u043F\u043E\u043B\u043E\u0432\u0438\u043D\u043A\u0438</div>\r\n                                <div class=\"two-parts-assembled-body-list\">\r\n                                    <ng-container *ngFor=\"let childModifier of modifier.childModifiers\">\r\n                                        <div class=\"two-parts-assembled-body-list-dish\"\r\n                                             (click)=\"selectTwoPartsAssembledModifier(childModifier)\"\r\n                                             [ngClass]=\"{selected: modifiersValueTree[modifier.modifierId][childModifier.modifierId]}\"\r\n                                             *ngIf=\"childModifier.dish as dish\">\r\n                                            <div class=\"image-box\">\r\n                                                <ng-container *ngTemplateOutlet=\"dishImageTemplate; context: { dish: dish }\"></ng-container>\r\n                                            </div>\r\n                                            <div class=\"dish-name\">\r\n                                                {{ dish.name }}\r\n                                            </div>\r\n                                            <div class=\"dish-price\">\r\n                                                <div [ngClass]=\"{'zero-price': !dish.price}\">\r\n                                                    <span>{{ dish.price }}</span> \u20BD\r\n                                                </div>\r\n                                            </div>\r\n                                        </div>\r\n                                    </ng-container>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </ng-template>\r\n\r\n\r\n                </ng-container>\r\n\r\n            </div>\r\n        </ng-container>\r\n    </div>\r\n    <div class=\"result\">\r\n        <span class=\"text\">\u0418\u0422\u041E\u0413\u041E:</span>\r\n        <span class=\"price\">\r\n            <span>{{ totalPrice}}</span> \u20BD\r\n        </span>\r\n    </div>\r\n    <div class=\"comment\" *ngIf=\"isTwoPartsAssembledTemplate\">\r\n        <div class=\"title\">\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439</div>\r\n        <div class=\"input-box\">\r\n            <input #commentInput type=\"text\" placeholder=\"\" (keyup)=\"comment.emit(commentInput.value)\">\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n\r\n<!-- Template block #dishImageTemplate -->\r\n\r\n<ng-template #dishImageTemplate let-dish=\"dish\">\r\n    <ng-container *ngIf=\"dish?.images && dish.images[0]?.images?.small; else imgPlaceholder\">\r\n        <div class=\"dish-image\" [style.backgroundImage]=\"'url(' + imageUrl + dish.images[0].images.small + ')'\"></div>\r\n    </ng-container>\r\n    <ng-template #imgPlaceholder>\r\n        <div class=\"dish-image-placeholder\"></div>\r\n    </ng-template>\r\n</ng-template>\r\n\r\n<!-- Template block #modifierTemplate -->\r\n\r\n<ng-template #modifierTemplate\r\n             let-modifier=\"modifier\"\r\n             let-groupId=\"groupId\"\r\n             let-amount=\"amount\"\r\n             let-groupAmount=\"groupAmount\"\r\n             let-groupMinAmount=\"groupMinAmount\"\r\n             let-groupMaxAmount=\"groupMaxAmount\">\r\n    <ng-container *ngIf=\"modifier.dish as dish\">\r\n        <div class=\"modifier-dish\">\r\n            <div class=\"modifier-dish-image-box\">\r\n                <ng-container *ngTemplateOutlet=\"dishImageTemplate; context: { dish: dish }\"></ng-container>\r\n            </div>\r\n            <div class=\"modifier-dish-description-box\">\r\n                <div class=\"modifier-dish-name\">{{ dish.name }}</div>\r\n                <div class=\"modifier-dish-weight\" *ngIf=\"dish.weight\">{{ dish.weight * 1000 }} \u0433\u0440</div>\r\n            </div>\r\n            <div class=\"modifier-dish-price-box\">\r\n                <div [ngClass]=\"{'zero-price': !dish.price}\">\r\n                    <span>{{ dish.price }}</span> \u20BD\r\n                </div>\r\n            </div>\r\n            <div class=\"modifier-dish-action-box\">\r\n                <ng-container *ngIf=\"groupMinAmount <= 1 && groupMaxAmount == 1; else counterTemplate\">\r\n                    <ng-container *ngTemplateOutlet=\"modifierCheckboxTemplate; context: {\r\n                        modifier: modifier,\r\n                        groupId: groupId,\r\n                        amount: amount\r\n                    }\"></ng-container>\r\n                </ng-container>\r\n\r\n                <ng-template #counterTemplate>\r\n                    <ng-container *ngTemplateOutlet=\"modifierCounterTemplate; context: {\r\n                        modifier: modifier,\r\n                        groupId: groupId,\r\n                        amount: amount,\r\n                        groupAmount: groupAmount,\r\n                        groupMinAmount: groupMinAmount,\r\n                        groupMaxAmount: groupMaxAmount\r\n                    }\"></ng-container>\r\n                </ng-template>\r\n\r\n            </div>\r\n        </div>\r\n    </ng-container>\r\n</ng-template>\r\n\r\n<!-- Template block #modifierCounterTemplate -->\r\n\r\n<ng-template #modifierCounterTemplate\r\n             let-modifier=\"modifier\"\r\n             let-groupId=\"groupId\"\r\n             let-amount=\"amount\"\r\n             let-groupAmount=\"groupAmount\"\r\n             let-groupMinAmount=\"groupMinAmount\"\r\n             let-groupMaxAmount=\"groupMaxAmount\">\r\n    <ng-container>\r\n        <div class=\"modifier-counter\" [ngClass]=\"{disabled: !amount && groupAmount >= groupMaxAmount}\">\r\n            <div\r\n                    class=\"minus\"\r\n                    [ngClass]=\"{disabled: !amount || groupAmount <= groupMinAmount}\"\r\n                    (click)=\"changeModifierAmount(modifier, amount - 1, 'minus')\"\r\n                    onselectstart=\"return false;\">-</div>\r\n            <input [value]=\"amount\" readonly #input>\r\n            <div\r\n                    class=\"plus\"\r\n                    [ngClass]=\"{disabled: groupAmount >= groupMaxAmount}\"\r\n                    (click)=\"changeModifierAmount(modifier, amount + 1, 'plus')\"\r\n                    onselectstart=\"return false;\">+</div>\r\n        </div>\r\n    </ng-container>\r\n</ng-template>\r\n\r\n<!-- Template block #modifierCheckboxTemplate -->\r\n\r\n<ng-template #modifierCheckboxTemplate\r\n             let-modifier=\"modifier\"\r\n             let-groupId=\"groupId\"\r\n             let-amount=\"amount\">\r\n    <ng-container>\r\n        <div\r\n                class=\"modifier-checkbox\"\r\n                [ngClass]=\"{selected: amount}\"\r\n                (click)=\"changeModifierAmount(modifier, amount ? 0 : 1, 'checkbox')\"></div>\r\n    </ng-container>\r\n</ng-template>\r\n",
+                styles: [".dish{align-items:flex-start;border-bottom:2px solid #969696;display:flex;padding-bottom:34px}.dish .dish-image-box{background-color:#eee;background-size:50%;box-sizing:border-box;height:170px;position:relative;text-align:center;width:250px}.dish .dish-description-box{align-items:stretch;box-sizing:border-box;display:flex;flex-direction:column;height:170px;margin-left:34px;padding:5px 0 0}.dish .dish-description-box .dish-name{color:#0a0909;font-size:28px;font-weight:700;letter-spacing:2.4px;line-height:32px}.dish .dish-description-box .dish-ingredients{color:#000;flex-grow:1;font-size:15px;line-height:17px;margin-top:15px;overflow:hidden}.dish .dish-description-box .dish-price-box{align-items:center;display:flex;font-size:20px;font-weight:700;height:45px;justify-content:space-between;line-height:23px;margin-right:49px}.ng-cart-dish-calc-two-parts-assembled .dish{border:none;margin-left:0;padding-bottom:0}.ng-cart-dish-calc-two-parts-assembled .dish .dish-image-box{display:none}.ng-cart-dish-calc-two-parts-assembled .dish .dish-description-box{height:auto;width:100%}.ng-cart-dish-calc-two-parts-assembled .dish .dish-description-box .dish-name{color:#0a0909;font-size:28px;font-weight:700;letter-spacing:2.4px;line-height:32px;text-align:center;text-transform:uppercase}.ng-cart-dish-calc-two-parts-assembled .dish .dish-description-box .dish-ingredients,.ng-cart-dish-calc-two-parts-assembled .dish .dish-description-box .dish-price-box{display:none}.dish-image{background-position:top;background-repeat:no-repeat;background-size:cover;border-radius:0;height:100%;width:250px}.result{color:#0a0909;font-size:24px;font-weight:700;line-height:28px;margin-top:49px;text-align:right}.result .price{margin-left:76px}.comment{padding-bottom:15px}.comment .title{color:#0a0909;font-size:20px;font-weight:500;line-height:23px;margin:30px 0 20px}.comment .input-box{margin-top:10px}.comment .input-box input{border:2px solid #969696;border-radius:15px;box-sizing:border-box;color:#969696;font-size:20px;font-style:italic;font-weight:400;height:45px;line-height:45px;padding:0 20px}.modifiers .modifier-group{border-bottom:2px solid #969696;margin-top:25px;padding-bottom:25px}.modifiers .modifier-header{margin-bottom:25px}.modifiers .modifier-header .modifier-name{color:#0a0909;font-size:20px;font-weight:500;line-height:23px}.modifiers .modifier-header .modifier-description{color:#0a0909;font-size:15px;line-height:17px}.modifiers .modifier-dish{align-items:center;box-sizing:border-box;display:flex;height:100px;justify-content:center;margin-bottom:2px}.modifiers .modifier-dish .modifier-dish-image-box{background-color:#fff;background-size:50%;box-sizing:border-box;height:100px;margin-right:28px;position:relative;text-align:center;width:100px}.modifiers .modifier-dish .modifier-dish-image-box .dish-image{background-position:50%;background-size:contain;height:100%;width:100%}.modifiers .modifier-dish .modifier-dish-description-box{display:flex;flex-direction:column;flex-grow:1;justify-content:center}.modifiers .modifier-dish .modifier-dish-description-box .modifier-dish-name{color:#0a0909;font-size:20px;font-weight:500;line-height:23px}.modifiers .modifier-dish .modifier-dish-description-box .modifier-dish-weight{color:#0a0909;font-size:20px;line-height:23px;margin-top:10px}.modifiers .modifier-dish .modifier-dish-price-box{color:#0a0909;font-size:20px;font-weight:700;line-height:23px;margin-right:105px}.modifiers .modifier-dish .modifier-dish-price-box .zero-price{display:none}.modifiers .modifier-dish .modifier-dish-action-box{display:flex;justify-content:center;width:151px}.two-parts-assembled .two-parts-assembled-header{align-items:center;border-bottom:2px solid #969696;display:flex;height:230px;justify-content:center;opacity:1;overflow:hidden;padding-bottom:28px;transition:all .5s ease 0s}.two-parts-assembled .two-parts-assembled-header.empty{border-bottom:none;height:0;opacity:0}.two-parts-assembled .two-parts-assembled-header .selected-dish{align-items:center;display:flex;justify-content:flex-end;width:50%}.two-parts-assembled .two-parts-assembled-header .selected-dish .title{color:#0a0909;font-size:21px;line-height:25px;margin-right:24px}.two-parts-assembled .two-parts-assembled-header .selected-dish .image-box{height:200px;overflow:hidden;width:100px}.two-parts-assembled .two-parts-assembled-header .selected-dish .image-box .dish-image{height:100%;width:200%}.two-parts-assembled .two-parts-assembled-header .selected-dish:nth-child(2){flex-direction:row-reverse}.two-parts-assembled .two-parts-assembled-header .selected-dish:nth-child(2) .title{margin-left:24px}.two-parts-assembled .two-parts-assembled-header .selected-dish:nth-child(2) .image-box{direction:rtl}.two-parts-assembled .two-parts-assembled-body .two-parts-assembled-body-name{color:#0a0909;font-size:20px;font-weight:500;line-height:23px;padding:20px 0}.two-parts-assembled .two-parts-assembled-body .two-parts-assembled-body-list{display:grid;grid-column-gap:30px;grid-row-gap:24px;grid-template-columns:1fr 1fr 1fr;margin-top:30px}.two-parts-assembled .two-parts-assembled-body .two-parts-assembled-body-list .two-parts-assembled-body-list-dish{align-items:center;border:1.5px solid hsla(0,0%,100%,0);box-sizing:border-box;color:#0a0909;cursor:pointer;display:flex;flex-direction:column}.two-parts-assembled .two-parts-assembled-body .two-parts-assembled-body-list .two-parts-assembled-body-list-dish.selected{border:1.5px solid #0a0909;border-radius:15px}.two-parts-assembled .two-parts-assembled-body .two-parts-assembled-body-list .two-parts-assembled-body-list-dish .dish-name{font-size:17px;font-weight:500;letter-spacing:2.4px;line-height:20px;padding:0 5px;text-align:center;text-transform:uppercase}.two-parts-assembled .two-parts-assembled-body .two-parts-assembled-body-list .two-parts-assembled-body-list-dish .dish-price{font-size:20px;font-weight:700;line-height:23px;padding:5px 0 10px}.two-parts-assembled .two-parts-assembled-body .two-parts-assembled-body-list .two-parts-assembled-body-list-dish .image-box{border-radius:15px 15px 0 0;height:228px;width:228px}.two-parts-assembled .two-parts-assembled-body .two-parts-assembled-body-list .two-parts-assembled-body-list-dish .image-box .dish-image{border-radius:15px 15px 0 0;height:100%;width:100%}.modifier-fixed{align-items:stretch;border:2px solid #767676;border-radius:15px;box-sizing:border-box;display:flex;height:45px}.modifier-fixed .item{align-items:center;color:#767676;display:flex;font-size:20px;font-weight:500;height:45px;justify-content:center;line-height:23px;margin-top:-2px;width:142px}.modifier-fixed .item:first-child{margin-left:-2px}.modifier-fixed .item:last-child{margin-right:-2px}.modifier-fixed .item.selected{background:#0a0909;border-radius:15px;color:#fff}.modifier-fixed .item:not(.selected){cursor:pointer}.modifier-checkbox{align-items:center;background:#e0e0e0;border-radius:15px;cursor:pointer;display:flex;height:50px;justify-content:center;width:50px}.modifier-checkbox.selected:after{content:url(\"data:image/svg+xml; base64, PHN2ZyB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHZpZXdCb3g9IjAgMCAyOCAyOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIgMTMuNUwxMS4zMjMxIDI2TDI2IDIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==\")}.modifier-counter{align-items:center;background:#e0e0e0;border:none;border-radius:15px;display:flex;height:50px;position:relative;width:151px}.modifier-counter.disabled{opacity:.3}.modifier-counter:not(.disabled) .minus.disabled,.modifier-counter:not(.disabled) .plus.disabled{cursor:default;opacity:.15}.modifier-counter input{background:transparent;border:none;font-weight:500;padding:0;width:100%}.modifier-counter .minus,.modifier-counter .plus,.modifier-counter input{color:#0a0909;font-size:18px;height:50px;line-height:50px;text-align:center}.modifier-counter .minus,.modifier-counter .plus{cursor:pointer;display:block;font-style:normal;font-weight:700;padding:0 30px;position:absolute;top:0}.modifier-counter .minus:hover,.modifier-counter .plus:hover{color:#000}.modifier-counter .minus:active,.modifier-counter .plus:active{color:#cc0009}.modifier-counter .minus.loading,.modifier-counter .plus.loading{opacity:.2}.modifier-counter .minus{left:0}.modifier-counter .plus{right:0}.without-images .modifier-dish-image-box{height:70px!important}.without-images .modifier-dish{height:70px}"]
+            },] }
+];
+DishCalcComponent.ctorParameters = () => [
+    { type: NgRestoCartService },
+    { type: EventerService },
+    { type: String, decorators: [{ type: Inject, args: ['ImageUrl',] }] }
+];
+DishCalcComponent.propDecorators = {
+    dish: [{ type: Input }],
+    amount: [{ type: Input }],
+    selectedModifiers: [{ type: Input }],
+    validate: [{ type: Output }],
+    amountDishToAdd: [{ type: Output }],
+    comment: [{ type: Output }]
+};
 
 class NgRestoCartModule {
 }
-NgRestoCartModule.ɵmod = ɵɵdefineNgModule({ type: NgRestoCartModule });
-NgRestoCartModule.ɵinj = ɵɵdefineInjector({ factory: function NgRestoCartModule_Factory(t) { return new (t || NgRestoCartModule)(); }, providers: [], imports: [[CommonModule]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NgRestoCartModule, { declarations: [AddDishToCartDirective,
-        AmountCartDirective,
-        DeleteFromCartDirective,
-        OrderCartUserDirective,
-        ModifiresDirective,
-        DishCalcDirective,
-        SetDishCommentDirective,
-        SetAmountDirective,
-        CheckoutDirective,
-        DishCalcComponent], imports: [CommonModule], exports: [AddDishToCartDirective,
-        AmountCartDirective,
-        DeleteFromCartDirective,
-        OrderCartUserDirective,
-        ModifiresDirective,
-        DishCalcDirective,
-        SetDishCommentDirective,
-        SetAmountDirective,
-        CheckoutDirective,
-        DishCalcComponent] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(NgRestoCartModule, [{
-        type: NgModule,
-        args: [{
-                imports: [CommonModule],
+NgRestoCartModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CommonModule, NgCoreModule],
                 providers: [],
                 declarations: [
                     AddDishToCartDirective,
@@ -2482,8 +1792,8 @@ NgRestoCartModule.ɵinj = ɵɵdefineInjector({ factory: function NgRestoCartModu
                     CheckoutDirective,
                     DishCalcComponent
                 ]
-            }]
-    }], null, null); })();
+            },] }
+];
 
 /*
  * Public API Surface of ng-cart

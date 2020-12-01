@@ -1,22 +1,33 @@
 {
   "name": "@webresto/ng-cart",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webresto/ng-cart.git"
+  },
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^11.0.1",
-    "@angular/core": "^11.0.1"
+    "@angular/common": "^11.0.2",
+    "@angular/core": "^11.0.2",
+    "@webresto/ng-core": "^0.0.3"
   },
   "dependencies": {
-    "tslib": "^2.0.3",
-    "@webresto/ng-core": "git+https://github.com/webresto/ng-core.git#v10-axrl"
+    "tslib": "^2.0.3"
   },
+  "bugs": {
+    "url": "https://github.com/webresto/ng-cart/issues"
+  },
+  "homepage": "https://github.com/webresto/ng-cart#readme",
+  "directories": {
+    "lib": "lib"
+  },
+  "license": "ISC",
+  "description": "",
   "main": "bundles/webresto-ng-cart.umd.js",
   "module": "fesm2015/webresto-ng-cart.js",
   "es2015": "fesm2015/webresto-ng-cart.js",
   "esm2015": "esm2015/webresto-ng-cart.js",
   "fesm2015": "fesm2015/webresto-ng-cart.js",
   "typings": "webresto-ng-cart.d.ts",
-  "sideEffects": false,
-  "scripts": {
-    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by Ivy. This is not allowed.\\nPlease delete and rebuild the package, without compiling with Ivy, before attempting to publish.\\n')\" && exit 1"
-  }
+  "metadata": "webresto-ng-cart.metadata.json",
+  "sideEffects": false
 }
