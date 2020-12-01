@@ -20,6 +20,9 @@ export class DishCalcLnComponent implements OnInit, OnChanges, OnDestroy {
   @Output() amountDishToAdd:EventEmitter<any> = new EventEmitter();
   @Output() comment:EventEmitter<string> = new EventEmitter();
 
+  @Output() totalPriceChange: EventEmitter<number> = new EventEmitter();
+  @Output() worningMessageChange: EventEmitter<string> = new EventEmitter();
+
   modifiers = {
     indexById: {},
     custom: {
@@ -191,6 +194,7 @@ export class DishCalcLnComponent implements OnInit, OnChanges, OnDestroy {
       }
     }
     this.totalPrice = totalPrice;
+    this.totalPriceChange.emit(totalPrice);
     this.setModifiers();
   }
 

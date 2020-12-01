@@ -10,6 +10,8 @@ export declare class DishCalcLnComponent implements OnInit, OnChanges, OnDestroy
     validate: EventEmitter<any>;
     amountDishToAdd: EventEmitter<any>;
     comment: EventEmitter<string>;
+    totalPriceChange: EventEmitter<number>;
+    worningMessageChange: EventEmitter<string>;
     modifiers: {
         indexById: {};
         custom: {

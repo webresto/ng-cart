@@ -36,6 +36,9 @@
 
 
 .dish {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   .dish-image-box {
     position: relative;
     width: 250px;
@@ -122,6 +125,7 @@
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
+  border-radius: 5px;
 }
 
 .result {
