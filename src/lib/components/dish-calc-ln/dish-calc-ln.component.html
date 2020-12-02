@@ -1,5 +1,5 @@
 <div *ngIf="dish" class="ng-cart-dish-calc" [ngClass]="{'ng-cart-dish-calc-two-parts-assembled': isTwoPartsAssembledTemplate}">
-    <div class="title-box">{{ dish.name }}</div>
+    <!--<div class="title-box">{{ dish.name }}</div>-->
     <div class="view-box">
 
         <ng-container *ngIf="isTwoPartsAssembledTemplate; then twoPartsAssembledHeaderTemplate else baseHeaderTemplate"></ng-container>
