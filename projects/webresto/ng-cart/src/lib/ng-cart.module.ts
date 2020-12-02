@@ -11,10 +11,9 @@ import { DishCalcDirective } from './directives/dish-calc.directive';
 import { CheckoutDirective } from "./directives/checkout.directive";
 import { SetDishCommentDirective } from './directives/set-dish-comment.directive';
 import { DishCalcComponent } from './components/dish-calc/dish-calc.component';
-import { NgCoreModule } from '@webresto/ng-core';
 
 @NgModule({
-  imports: [CommonModule,NgCoreModule],
+  imports: [CommonModule],
   providers: [],
   declarations: [
     AddDishToCartDirective,

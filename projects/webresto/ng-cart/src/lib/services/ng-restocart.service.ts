@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, throwError, from } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
-import { NetService, EventerService } from '@webresto/ng-core';
-import { EventMessage } from '@webresto/ng-core';
+import { NetService, EventerService,EventMessage } from '@webresto/ng-core';
 
 @Injectable({
   providedIn: 'root'

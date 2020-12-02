@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@webresto/ng-core'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@webresto/ng-cart', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@webresto/ng-core', '@angular/common'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.webresto = global.webresto || {}, global.webresto['ng-cart'] = {}), global.ng.core, global.rxjs, global.rxjs.operators, global.i1, global.ng.common));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.webresto = global.webresto || {}, global.webresto['ng-cart'] = {}), global.ng.core, global.rxjs, global.rxjs.operators, global['@webresto/ng-core'], global.ng.common));
 }(this, (function (exports, i0, rxjs, operators, i1, common) { 'use strict';
 
     var NgRestoCartService = /** @class */ (function () {
@@ -2134,7 +2134,7 @@
     }());
     NgRestoCartModule.decorators = [
         { type: i0.NgModule, args: [{
-                    imports: [common.CommonModule, i1.NgCoreModule],
+                    imports: [common.CommonModule],
                     providers: [],
                     declarations: [
                         AddDishToCartDirective,

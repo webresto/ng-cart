@@ -1,7 +1,7 @@
 import { ɵɵdefineInjectable, ɵɵinject, Injectable, EventEmitter, Directive, Input, Output, HostListener, Renderer2, ElementRef, Component, Inject, NgModule } from '@angular/core';
 import { BehaviorSubject, from, throwError } from 'rxjs';
 import { switchMap, catchError, tap, filter, map, debounceTime } from 'rxjs/operators';
-import { NetService, EventerService, EventMessage, NgCoreModule } from '@webresto/ng-core';
+import { NetService, EventerService, EventMessage } from '@webresto/ng-core';
 import { CommonModule } from '@angular/common';
 
 class NgRestoCartService {
@@ -1766,7 +1766,7 @@ class NgRestoCartModule {
 }
 NgRestoCartModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, NgCoreModule],
+                imports: [CommonModule],
                 providers: [],
                 declarations: [
                     AddDishToCartDirective,
