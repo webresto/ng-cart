@@ -1,23 +1,23 @@
 import { Directive, Input, HostListener } from '@angular/core';
-import { NgRestoCartService } from '../services/ng-restocart.service';
+import { Cart, NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
   selector: '[rstSetDishAmount]'
 })
 export class SetAmountDirective {
-  @Input() action:any;
-  @Input() dish:any;
+  @Input() action: any;
+  @Input() dish: any;
 
   @HostListener('click') onClick() {
     this.changeAmount(this.action);
   }
 
-  private cart;
+  cart:Cart;
 
-  constructor(private cartService:NgRestoCartService) {
-    this.cartService
-      .userCart()
-      .subscribe(res => this.cart = res);
+  constructor(private cartService: NgRestoCartService) {
+    const sub = this.cartService.userCart().subscribe(
+      res => this.cart = res, () => { }, () => sub.unsubscribe()
+    );
   }
 
   changeAmount(action) {

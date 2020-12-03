@@ -1,8 +1,8 @@
 import { EventEmitter } from '@angular/core';
-import { NgRestoCartService } from '../services/ng-restocart.service';
+import { Cart, NgRestoCartService } from '../services/ng-restocart.service';
 export declare class AddDishToCartDirective {
     private cartService;
-    cart: any;
+    cart: Cart;
     modifires: any;
     constructor(cartService: NgRestoCartService);
     dish: any;

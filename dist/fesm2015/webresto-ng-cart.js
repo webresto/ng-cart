@@ -26,11 +26,12 @@ class NgRestoCartService {
             ;
             return data ? from([data]) : this.net.get(`/cart}`);
         }), switchMap(data => {
+            var _a;
             if (data.cart.state == 'ORDER') {
                 return throwError(new Error('Cart in order state'));
             }
             else {
-                if (!this.cartID) {
+                if (!this.cartID || this.cartID !== ((_a = data === null || data === void 0 ? void 0 : data.cart) === null || _a === void 0 ? void 0 : _a.cartId)) {
                     this.setCartId(data.cart.cartId);
                 }
                 ;
@@ -78,7 +79,7 @@ class NgRestoCartService {
         }));
     }
     setDishCountToCart(dishId, amount) {
-        this.net.post('/cart/set', {
+        const sub = this.net.post('/cart/set', {
             dishId: dishId,
             cartId: this.cartID,
             amount: amount
@@ -93,7 +94,7 @@ class NgRestoCartService {
             /*this.eventer.emitMessageEvent(
              new EventMessage('error', 'Ошибка', 'Не удалось изменить количество')
              )*/
-        });
+        }, () => sub.unsubscribe());
     }
     setDishComment(dishId, comment) {
         return this.net.post('/cart/setcomment', {
@@ -119,7 +120,7 @@ class NgRestoCartService {
         }));
     }
     removeDishFromCart(dishId, amount) {
-        this.net.put('/cart/remove', {
+        const sub = this.net.put('/cart/remove', {
             dishId: dishId,
             cartId: this.cartID,
             amount: amount
@@ -134,7 +135,7 @@ class NgRestoCartService {
             /*this.eventer.emitMessageEvent(
              new EventMessage('error', 'Ошибка', 'Не удалось удалить блюдо')
              )*/
-        });
+        }, () => sub.unsubscribe());
     }
     checkoutCart(data) {
         let order = {
@@ -162,9 +163,6 @@ class NgRestoCartService {
             this.setCartId(result.cart.cartId);
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
-            /*this.eventer.emitMessageEvent(
-             new EventMessage('success', 'Успех', 'Заказ упешно оформлен')
-             );*/
         }, error => {
             console.log("Ошибка оформления!", error);
             if (error.error && error.error.cart) {
@@ -192,7 +190,7 @@ class NgRestoCartService {
         }, () => { }));
     }
     checkStreet(data) {
-        this.net.post('/check', data).subscribe(res => {
+        const sub = this.net.post('/check', data).subscribe(res => {
             this.setCartId(res.cart.cartId);
             this.cart.next(res.cart);
             this.cartID = res.cart.cartId;
@@ -207,7 +205,7 @@ class NgRestoCartService {
                  new EventMessage(error.error.message.type, error.error.message.title, error.error.message.body)
                  );*/
             }
-        });
+        }, () => sub.unsubscribe());
     }
     setCartId(cartID) {
         localStorage.setItem('cartID', cartID);
@@ -268,12 +266,10 @@ class AddDishToCartDirective {
         this.loading = new EventEmitter();
         this.success = new EventEmitter();
         this.error = new EventEmitter();
-        this.cartService
-            .userCart()
-            .subscribe(res => this.cart = res);
-        this.cartService
-            .getModifires()
-            .subscribe(res => this.modifires = res);
+        const sub = this.cartService.userCart().pipe(switchMap(res => {
+            this.cart = res;
+            return this.cartService.getModifires();
+        })).subscribe(res => this.modifires = res, () => { }, () => sub.unsubscribe());
     }
     onClick() {
         this.addDishToCart(this.dish.id, this.amountDish);
@@ -289,9 +285,12 @@ class AddDishToCartDirective {
         if (this.cart.cartId)
             data.cartId = this.cart.cartId;
         this.loading.emit(true);
-        this.cartService
+        const sub = this.cartService
             .addDishToCart$(data)
-            .subscribe(() => this.success.emit(true), e => this.error.emit(e), () => this.loading.emit(false));
+            .subscribe(() => this.success.emit(true), e => this.error.emit(e), () => {
+            this.loading.emit(false);
+            sub.unsubscribe();
+        });
     }
 }
 AddDishToCartDirective.decorators = [
@@ -320,13 +319,11 @@ class AmountCartDirective {
         this.el = el;
         this.amount = '0';
         this.renderer.setProperty(this.el.nativeElement, 'innerHTML', this.amount);
-        this.cartService
-            .userCart()
-            .subscribe(res => {
+        const sub = this.cartService.userCart().subscribe(res => {
             this.cart = res;
-            this.amount = res.dishesCount || 0;
+            this.amount = String(res.dishesCount || 0);
             this.renderer.setProperty(this.el.nativeElement, 'innerHTML', this.amount);
-        });
+        }, () => { }, () => sub.unsubscribe());
     }
 }
 AmountCartDirective.decorators = [
@@ -533,9 +530,7 @@ CheckoutDirective.propDecorators = {
 class DeleteFromCartDirective {
     constructor(cartService) {
         this.cartService = cartService;
-        this.cartService
-            .userCart()
-            .subscribe(res => this.cart = res);
+        const sub = this.cartService.userCart().subscribe(res => this.cart = res, () => { }, () => sub.unsubscribe());
     }
     onClick() {
         this.cartService.removeDishFromCart(this.dish.id, this.amountDish);
@@ -1235,14 +1230,12 @@ class OrderCartUserDirective {
     }
     ngAfterViewInit() {
         setTimeout(() => {
-            this.cartService
-                .userCart()
-                .subscribe(cart => {
+            const sub = this.cartService.userCart().subscribe(cart => {
                 if (this.cart && this.orderCart.valid && this.cart.cartTotal != cart.cartTotal && cart.cartTotal > 0) {
                     this.checkStreet(this.orderCart.value);
                 }
                 this.cart = cart;
-            });
+            }, () => { }, () => sub.unsubscribe());
         }, 100);
         setTimeout(() => {
             this.checkerFields.next(this.checkForFields(this.orderCart._directives, this.requiredFields));
@@ -1396,9 +1389,7 @@ OrderCartUserDirective.propDecorators = {
 class SetAmountDirective {
     constructor(cartService) {
         this.cartService = cartService;
-        this.cartService
-            .userCart()
-            .subscribe(res => this.cart = res);
+        const sub = this.cartService.userCart().subscribe(res => this.cart = res, () => { }, () => sub.unsubscribe());
     }
     onClick() {
         this.changeAmount(this.action);

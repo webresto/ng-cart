@@ -27,11 +27,12 @@
                 ;
                 return data ? rxjs.from([data]) : _this.net.get("/cart}");
             }), operators.switchMap(function (data) {
+                var _a;
                 if (data.cart.state == 'ORDER') {
                     return rxjs.throwError(new Error('Cart in order state'));
                 }
                 else {
-                    if (!_this.cartID) {
+                    if (!_this.cartID || _this.cartID !== ((_a = data === null || data === void 0 ? void 0 : data.cart) === null || _a === void 0 ? void 0 : _a.cartId)) {
                         _this.setCartId(data.cart.cartId);
                     }
                     ;
@@ -82,7 +83,7 @@
         };
         NgRestoCartService.prototype.setDishCountToCart = function (dishId, amount) {
             var _this = this;
-            this.net.post('/cart/set', {
+            var sub = this.net.post('/cart/set', {
                 dishId: dishId,
                 cartId: this.cartID,
                 amount: amount
@@ -97,7 +98,7 @@
                 /*this.eventer.emitMessageEvent(
                  new EventMessage('error', 'Ошибка', 'Не удалось изменить количество')
                  )*/
-            });
+            }, function () { return sub.unsubscribe(); });
         };
         NgRestoCartService.prototype.setDishComment = function (dishId, comment) {
             var _this = this;
@@ -126,7 +127,7 @@
         };
         NgRestoCartService.prototype.removeDishFromCart = function (dishId, amount) {
             var _this = this;
-            this.net.put('/cart/remove', {
+            var sub = this.net.put('/cart/remove', {
                 dishId: dishId,
                 cartId: this.cartID,
                 amount: amount
@@ -141,7 +142,7 @@
                 /*this.eventer.emitMessageEvent(
                  new EventMessage('error', 'Ошибка', 'Не удалось удалить блюдо')
                  )*/
-            });
+            }, function () { return sub.unsubscribe(); });
         };
         NgRestoCartService.prototype.checkoutCart = function (data) {
             var order = {
@@ -170,9 +171,6 @@
                 _this.setCartId(result.cart.cartId);
                 _this.cart.next(result.cart);
                 _this.cartID = result.cart.cartId;
-                /*this.eventer.emitMessageEvent(
-                 new EventMessage('success', 'Успех', 'Заказ упешно оформлен')
-                 );*/
             }, function (error) {
                 console.log("Ошибка оформления!", error);
                 if (error.error && error.error.cart) {
@@ -202,7 +200,7 @@
         };
         NgRestoCartService.prototype.checkStreet = function (data) {
             var _this = this;
-            this.net.post('/check', data).subscribe(function (res) {
+            var sub = this.net.post('/check', data).subscribe(function (res) {
                 _this.setCartId(res.cart.cartId);
                 _this.cart.next(res.cart);
                 _this.cartID = res.cart.cartId;
@@ -217,7 +215,7 @@
                      new EventMessage(error.error.message.type, error.error.message.title, error.error.message.body)
                      );*/
                 }
-            });
+            }, function () { return sub.unsubscribe(); });
         };
         NgRestoCartService.prototype.setCartId = function (cartID) {
             localStorage.setItem('cartID', cartID);
@@ -280,12 +278,10 @@
             this.loading = new i0.EventEmitter();
             this.success = new i0.EventEmitter();
             this.error = new i0.EventEmitter();
-            this.cartService
-                .userCart()
-                .subscribe(function (res) { return _this.cart = res; });
-            this.cartService
-                .getModifires()
-                .subscribe(function (res) { return _this.modifires = res; });
+            var sub = this.cartService.userCart().pipe(operators.switchMap(function (res) {
+                _this.cart = res;
+                return _this.cartService.getModifires();
+            })).subscribe(function (res) { return _this.modifires = res; }, function () { }, function () { return sub.unsubscribe(); });
         }
         AddDishToCartDirective.prototype.onClick = function () {
             this.addDishToCart(this.dish.id, this.amountDish);
@@ -302,9 +298,12 @@
             if (this.cart.cartId)
                 data.cartId = this.cart.cartId;
             this.loading.emit(true);
-            this.cartService
+            var sub = this.cartService
                 .addDishToCart$(data)
-                .subscribe(function () { return _this.success.emit(true); }, function (e) { return _this.error.emit(e); }, function () { return _this.loading.emit(false); });
+                .subscribe(function () { return _this.success.emit(true); }, function (e) { return _this.error.emit(e); }, function () {
+                _this.loading.emit(false);
+                sub.unsubscribe();
+            });
         };
         return AddDishToCartDirective;
     }());
@@ -335,13 +334,11 @@
             this.el = el;
             this.amount = '0';
             this.renderer.setProperty(this.el.nativeElement, 'innerHTML', this.amount);
-            this.cartService
-                .userCart()
-                .subscribe(function (res) {
+            var sub = this.cartService.userCart().subscribe(function (res) {
                 _this.cart = res;
-                _this.amount = res.dishesCount || 0;
+                _this.amount = String(res.dishesCount || 0);
                 _this.renderer.setProperty(_this.el.nativeElement, 'innerHTML', _this.amount);
-            });
+            }, function () { }, function () { return sub.unsubscribe(); });
         }
         return AmountCartDirective;
     }());
@@ -554,9 +551,7 @@
         function DeleteFromCartDirective(cartService) {
             var _this = this;
             this.cartService = cartService;
-            this.cartService
-                .userCart()
-                .subscribe(function (res) { return _this.cart = res; });
+            var sub = this.cartService.userCart().subscribe(function (res) { return _this.cart = res; }, function () { }, function () { return sub.unsubscribe(); });
         }
         DeleteFromCartDirective.prototype.onClick = function () {
             this.cartService.removeDishFromCart(this.dish.id, this.amountDish);
@@ -1275,14 +1270,12 @@
         OrderCartUserDirective.prototype.ngAfterViewInit = function () {
             var _this = this;
             setTimeout(function () {
-                _this.cartService
-                    .userCart()
-                    .subscribe(function (cart) {
+                var sub = _this.cartService.userCart().subscribe(function (cart) {
                     if (_this.cart && _this.orderCart.valid && _this.cart.cartTotal != cart.cartTotal && cart.cartTotal > 0) {
                         _this.checkStreet(_this.orderCart.value);
                     }
                     _this.cart = cart;
-                });
+                }, function () { }, function () { return sub.unsubscribe(); });
             }, 100);
             setTimeout(function () {
                 _this.checkerFields.next(_this.checkForFields(_this.orderCart._directives, _this.requiredFields));
@@ -1438,9 +1431,7 @@
         function SetAmountDirective(cartService) {
             var _this = this;
             this.cartService = cartService;
-            this.cartService
-                .userCart()
-                .subscribe(function (res) { return _this.cart = res; });
+            var sub = this.cartService.userCart().subscribe(function (res) { return _this.cart = res; }, function () { }, function () { return sub.unsubscribe(); });
         }
         SetAmountDirective.prototype.onClick = function () {
             this.changeAmount(this.action);

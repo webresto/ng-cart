@@ -1,25 +1,26 @@
 import { Directive, HostListener, Input, Output, EventEmitter } from '@angular/core';
-import { NgRestoCartService } from '../services/ng-restocart.service';
-
+import { switchMap } from 'rxjs/operators';
+import { Cart, NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
   selector: '[rstAddToCart]'
 })
 export class AddDishToCartDirective {
 
-  cart;
+  cart:Cart;
   @Input() modifires: any;
 
   constructor(private cartService: NgRestoCartService) {
 
-    this.cartService
-      .userCart()
-      .subscribe(res => this.cart = res);
-
-    this.cartService
-      .getModifires()
-      .subscribe(res => this.modifires = res);
-
+    const sub = this.cartService.userCart().pipe(
+      switchMap(
+        res => {
+          this.cart = res;
+          return this.cartService.getModifires();
+        })
+    ).subscribe(
+      res => this.modifires = res, () => { }, () => sub.unsubscribe()
+    );
   }
 
 
@@ -50,12 +51,15 @@ export class AddDishToCartDirective {
 
     this.loading.emit(true);
 
-    this.cartService
+    const sub = this.cartService
       .addDishToCart$(data)
       .subscribe(
         () => this.success.emit(true),
         e => this.error.emit(e),
-        () => this.loading.emit(false)
+        () => {
+          this.loading.emit(false);
+          sub.unsubscribe();
+        }
       );
   }
 

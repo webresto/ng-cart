@@ -7,8 +7,8 @@ import { NgRestoCartService } from '../services/ng-restocart.service';
 })
 export class OrderCartUserDirective {
 
-  @Input() orderCart:any;
-  cart:any;
+  @Input() orderCart: any;
+  cart: any;
 
   @HostListener('click')
   onClick() {
@@ -16,24 +16,24 @@ export class OrderCartUserDirective {
     console.log(this.orderCart.value)
   }
 
-  private requiredFields:Array<string> = ["name", "phone", "street", "house"];
-  private checkerFields:BehaviorSubject<boolean>;
+  private requiredFields: Array<string> = ["name", "phone", "street", "house"];
+  private checkerFields: BehaviorSubject<boolean>;
 
-  constructor(private cartService:NgRestoCartService) {
+  constructor(private cartService: NgRestoCartService) {
     this.checkerFields = new BehaviorSubject(undefined);
   }
 
-  ngAfterViewInit():void {
+  ngAfterViewInit(): void {
 
     setTimeout(() => {
-      this.cartService
-        .userCart()
-        .subscribe(cart=> {
+      const sub = this.cartService.userCart().subscribe(
+        cart => {
           if (this.cart && this.orderCart.valid && this.cart.cartTotal != cart.cartTotal && cart.cartTotal > 0) {
             this.checkStreet(this.orderCart.value)
           }
           this.cart = cart;
-        });
+        }, () => { }, () => sub.unsubscribe()
+        );
     }, 100);
 
     setTimeout(() => {
@@ -70,10 +70,10 @@ export class OrderCartUserDirective {
   }
 
 
-  checkForFields(formDirectives:Array<any>, requiredFields:Array<string>):boolean {
+  checkForFields(formDirectives: Array<any>, requiredFields: Array<string>): boolean {
 
-    let fieldsAreAvailable:object = {};
-    let noFields:Array<string> = [];
+    let fieldsAreAvailable: object = {};
+    let noFields: Array<string> = [];
 
 
     formDirectives.forEach(element => {
@@ -141,7 +141,7 @@ export class OrderCartUserDirective {
   }
 
   checkStreet(dataToSend) {
-    console.log(">>>>",dataToSend);
+    console.log(">>>>", dataToSend);
     if (this.checkForFields(this.orderCart._directives, this.requiredFields)) {
       let data = {
         "cartId": this.cart.cartId,
@@ -174,7 +174,7 @@ export class OrderCartUserDirective {
     }
   }
 
-  stringToNumber(str:number | any):number {
+  stringToNumber(str: number | any): number {
     console.log(typeof str);
     if (typeof str === 'string') {
       return +str;

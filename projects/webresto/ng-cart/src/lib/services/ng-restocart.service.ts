@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, throwError, from } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
-import { NetService, EventerService,EventMessage } from '@webresto/ng-core';
+import { NetService, EventerService, EventMessage } from '@webresto/ng-core';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,7 @@ export class NgRestoCartService {
           if (data.cart.state == 'ORDER') {
             return throwError(new Error('Cart in order state'));
           } else {
-            if (!this.cartID) {
+            if (!this.cartID || this.cartID !== data?.cart?.cartId) {
               this.setCartId(data.cart.cartId);
             };
             this.cart.next(data.cart);
@@ -93,7 +93,7 @@ export class NgRestoCartService {
   }
 
   setDishCountToCart(dishId, amount) {
-    this.net.post('/cart/set', {
+    const sub = this.net.post<any,{cart:Cart,message:any}>('/cart/set', {
       dishId: dishId,
       cartId: this.cartID,
       amount: amount
@@ -109,7 +109,8 @@ export class NgRestoCartService {
         /*this.eventer.emitMessageEvent(
          new EventMessage('error', 'Ошибка', 'Не удалось изменить количество')
          )*/
-      });
+      }, () => sub.unsubscribe()
+    );
   }
 
   setDishComment(dishId, comment) {
@@ -143,7 +144,7 @@ export class NgRestoCartService {
   }
 
   removeDishFromCart(dishId, amount) {
-    this.net.put('/cart/remove', {
+    const sub = this.net.put('/cart/remove', {
       dishId: dishId,
       cartId: this.cartID,
       amount: amount
@@ -160,7 +161,8 @@ export class NgRestoCartService {
         /*this.eventer.emitMessageEvent(
          new EventMessage('error', 'Ошибка', 'Не удалось удалить блюдо')
          )*/
-      });
+      }, () => sub.unsubscribe()
+    );
 
   }
 
@@ -188,17 +190,13 @@ export class NgRestoCartService {
   }
 
   orderCart(data) {
-    return this.net.post('/order', data)
+    return this.net.post<any,{cart:Cart,message:any}>('/order', data)
       .pipe(
         tap(
           result => {
             this.setCartId(result.cart.cartId);
             this.cart.next(result.cart);
             this.cartID = result.cart.cartId;
-
-            /*this.eventer.emitMessageEvent(
-             new EventMessage('success', 'Успех', 'Заказ упешно оформлен')
-             );*/
           },
           error => {
             console.log("Ошибка оформления!", error);
@@ -221,8 +219,8 @@ export class NgRestoCartService {
       );
   }
 
-  checkStreetV2(data): Observable<any> {
-    return this.net.post('/check', data)
+  checkStreetV2(data): Observable<{cart:Cart,message:any}> {
+    return this.net.post<any,{cart:Cart,message:any}>('/check', data)
       .pipe(
         tap(
           result => {
@@ -236,8 +234,7 @@ export class NgRestoCartService {
   }
 
   checkStreet(data): void {
-
-    this.net.post('/check', data).subscribe(
+    const sub = this.net.post<any,{cart:Cart, message:any}>('/check', data).subscribe(
       res => {
         this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
@@ -253,7 +250,7 @@ export class NgRestoCartService {
            new EventMessage(error.error.message.type, error.error.message.title, error.error.message.body)
            );*/
         }
-      });
+      }, () => sub.unsubscribe());
 
   }
 
@@ -267,7 +264,7 @@ export class NgRestoCartService {
     this.cartID = null;
   }
 
-  userCart(): Observable<any> {
+  userCart(): Observable<Cart> {
     return this.cart;
   }
 

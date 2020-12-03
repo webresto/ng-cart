@@ -20,11 +20,14 @@ export declare class NgRestoCartService {
     removeDishFromCart(dishId: any, amount: any): void;
     checkoutCart(data: any): Observable<any>;
     orderCart(data: any): Observable<any>;
-    checkStreetV2(data: any): Observable<any>;
+    checkStreetV2(data: any): Observable<{
+        cart: Cart;
+        message: any;
+    }>;
     checkStreet(data: any): void;
     setCartId(cartID: any): void;
     removeCartId(): void;
-    userCart(): Observable<any>;
+    userCart(): Observable<Cart>;
     setModifires(modifires: any, messages?: EventMessage[]): void;
     getModifires(): Observable<any>;
     productInCart(product: DishListItem): Observable<boolean>;
