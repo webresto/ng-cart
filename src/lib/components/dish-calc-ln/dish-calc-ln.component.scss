@@ -24,9 +24,9 @@
   position: fixed;
   width: 300px;
   min-height: calc(100% - 280px);
-  border-right: 1px solid #E9E7E7;
+  /*border-right: 1px solid #E9E7E7;*/
   box-sizing: border-box;
-  padding-right: 20px;
+  padding-right: 0px;
 }
 .settings-box {
   padding-left: 320px;
@@ -170,10 +170,14 @@
   }
 }
 
+
+
 .modifiers {
   .modifier-group {
     margin-top: 25px;
     padding-bottom: 25px;
+    padding-left: 20px;
+    border-left: 1px solid #e9e7e7;
   }
   .modifier-header {
     margin-bottom: 25px;
