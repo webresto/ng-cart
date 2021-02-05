@@ -93,7 +93,7 @@ export class NgRestoCartService {
   }
 
   setDishCountToCart(dishId, amount) {
-    const sub = this.net.post<any,{cart:Cart,message:any}>('/cart/set', {
+    const sub = this.net.post<any, { cart: Cart, message: any }>('/cart/set', {
       dishId: dishId,
       cartId: this.cartID,
       amount: amount
@@ -190,7 +190,7 @@ export class NgRestoCartService {
   }
 
   orderCart(data) {
-    return this.net.post<any,{cart:Cart,message:any}>('/order', data)
+    return this.net.post<any, { cart: Cart, message: any, action?: { paymentRedirect: string, [key: string]: string } }>('/order', data)
       .pipe(
         tap(
           result => {
@@ -219,8 +219,8 @@ export class NgRestoCartService {
       );
   }
 
-  checkStreetV2(data): Observable<{cart:Cart,message:any}> {
-    return this.net.post<any,{cart:Cart,message:any}>('/check', data)
+  checkStreetV2(data): Observable<{ cart: Cart, message: any }> {
+    return this.net.post<any, { cart: Cart, message: any }>('/check', data)
       .pipe(
         tap(
           result => {
@@ -234,7 +234,7 @@ export class NgRestoCartService {
   }
 
   checkStreet(data): void {
-    const sub = this.net.post<any,{cart:Cart, message:any}>('/check', data).subscribe(
+    const sub = this.net.post<any, { cart: Cart, message: any }>('/check', data).subscribe(
       res => {
         this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);

@@ -18,8 +18,22 @@ export declare class NgRestoCartService {
     setDishComment(dishId: any, comment: any): Observable<any>;
     removeDishFromCart$(dishId: any, amount: any): Observable<any>;
     removeDishFromCart(dishId: any, amount: any): void;
-    checkoutCart(data: any): Observable<any>;
-    orderCart(data: any): Observable<any>;
+    checkoutCart(data: any): Observable<{
+        cart: Cart;
+        message: any;
+        action?: {
+            [key: string]: string;
+            paymentRedirect: string;
+        };
+    }>;
+    orderCart(data: any): Observable<{
+        cart: Cart;
+        message: any;
+        action?: {
+            [key: string]: string;
+            paymentRedirect: string;
+        };
+    }>;
     checkStreetV2(data: any): Observable<{
         cart: Cart;
         message: any;
