@@ -223,7 +223,8 @@ export declare interface WorkTime extends WorkTimeBase {
 }
 export declare interface RestrictionsOrder {
     minDeliveryTime: string;
-    deliveryToTimeEnabled: boolean;
+    deliveryDescription: string;
+    deliveryToTimeEnabled?: boolean;
     periodPossibleForOrder: number;
     timezone: string;
     workTime: WorkTime[];
